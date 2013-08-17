@@ -24,9 +24,9 @@ ziptainer zip(container&& a, container&& b) {
         x.pop_front();
         return h;
     };
-    auto ha = pop(forward<container>(a));
-    auto hb = pop(forward<container>(b));
-    auto result = zip(forward<container>(a), forward<container>(b));
+    auto ha = pop(move(a));
+    auto hb = pop(move(b));
+    auto result = zip(move(a), move(b));
     result.push_front(make_pair(ha, hb));
     return result;
 };
