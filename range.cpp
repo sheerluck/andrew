@@ -5,7 +5,6 @@ struct range
     struct itertr
     {
         itertr(range* range, int index) : r{range}, i{index} {}
-        itertr() : itertr{nullptr, 0} {}
         bool operator==(itertr& rhs)  { return i == rhs.i;      }
         bool operator!=(itertr& rhs)  { return !(*this == rhs); }
         int  operator*()              { return r->start + i;    }
