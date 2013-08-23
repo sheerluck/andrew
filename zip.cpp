@@ -17,17 +17,10 @@ auto split = [](string&& a) -> container {
 };
 
 using ziptainer = deque<pair<string,string>>;
-ziptainer zip(container&& a, container&& b) {
-    if (a.empty() || b.empty()) return ziptainer{};
-    auto pop = [](container&& x) {
-        auto h = x.front();
-        x.pop_front();
-        return h;
-    };
-    auto ha = pop(move(a));
-    auto hb = pop(move(b));
-    auto result = zip(move(a), move(b));
-    result.push_front(make_pair(ha, hb));
+auto zip = [](container&& a, container&& b) -> ziptainer {
+    auto result = ziptainer{};
+    auto pop = [](container& x) { auto h = x.front(); x.pop_front(); return h; };
+    while (!a.empty() && !b.empty()) result.push_back( make_pair(pop(a), pop(b)) );
     return result;
 };
 
