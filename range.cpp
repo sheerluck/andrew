@@ -5,10 +5,9 @@ struct range
     struct itertr
     {
         itertr(range* range, int index) : r{range}, i{index} {}
-        bool operator==(itertr& rhs)  { return i == rhs.i;      }
-        bool operator!=(itertr& rhs)  { return !(*this == rhs); }
-        int  operator*()              { return r->start + i;    }
-        auto operator++()->itertr&    { ++i; return *this;      }
+        bool operator!=(itertr& rhs)  { return i != rhs.i;   }
+        int  operator*()              { return r->start + i; }
+        auto operator++()->itertr&    { ++i; return *this;   }
     private:
         range const * r;
         int i;
