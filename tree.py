@@ -8,7 +8,7 @@ visit= lambda t: t.f(visit(t.L),visit(t.R)) if t else None
 tree = Tree(f= _ * _, L = leaf(3), R = leaf(5))
 print tree, "\n", visit(tree), "\n"
 
-tree = Tree(f = _*_,
+tree = Tree(f = _ * _,
             L = Tree(f = _ + _,
                      L = leaf(11.1),
                      R = leaf(7)
