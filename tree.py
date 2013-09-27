@@ -6,10 +6,10 @@ Tree = namedtuple("Tree", ['f', 'L', 'R'])
 bold = lambda t: "\033[1;%sm%s\033[1;m" % (37, t)
 leaf = lambda x: Tree(f=lambda a, b: x, L=None, R=None)
 tour = lambda t: t.f(tour(t.L), tour(t.R)) if t else None
-whch = lambda t, x: t.L if "L"==x else t.R
+whch = lambda t, x: t.L if "L" == x else t.R
 subt = lambda t, s: subt(whch(t, s[:1]), s[1:]) if s else t
-newT = lambda x, t, a, b, c: plac(x, t, a) if b==c else t
-plac = lambda x, t, s: Tree(f=t.f, L=newT(x, t.L, s[1:], s[:1], "L"), R=newT(x, t.R, s[1:], s[:1], "R")) if s else x
+newt = lambda x, t, s, c: plac(x, t, s[1:]) if c == s[:1] else t
+plac = lambda x, t, s: Tree(f=t.f, L=newt(x, t.L, s, "L"), R=newt(x, t.R, s, "R")) if s else x
 
 tree = Tree(f=_ * _,
             L=Tree(f=_ + _,
@@ -42,5 +42,5 @@ paths = ["L", "R"]
 for a in paths:
     print bold(a), "\t", tour(subt(tree, a)), "\t", bold(tour(subt(branch, a)))
     for b in paths:
-        path = a+b
+        path = a + b
         print bold(path), "\t", tour(subt(tree, path)), "\t", bold(tour(subt(branch, path)))
