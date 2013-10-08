@@ -20,7 +20,7 @@ using ziptainer = deque<pair<string,string>>;
 auto zip = [](container&& a, container&& b) -> ziptainer {
     auto result = ziptainer{};
     auto pop = [](container& x) { auto h = x.front(); x.pop_front(); return h; };
-    while (!a.empty() && !b.empty()) result.push_back( make_pair(pop(a), pop(b)) );
+    while (!a.empty() && !b.empty()) result.emplace_back( make_pair(pop(a), pop(b)) );
     return result;
 };
 
