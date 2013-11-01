@@ -1,5 +1,6 @@
 def split_world(arr, max):
-    indices     = [i for i, x in enumerate(arr) if x == max]
+    if len(arr) < 3:   return [], [], []
+    indices = [i for i, x in enumerate(arr) if x == max]
     if [0] == indices: return [], arr[: : -1], []  # leftmost
     left, right = arr[: indices[0] + 1], arr[: indices[-1] - 1: -1]
     chunks, ran = [], range(len(indices) - 1)
@@ -25,7 +26,7 @@ def inner(arr):
     return 0 if len(arr) < 3 else sum([arr[0] - x for x in arr])
 
 
-world = [2,5,1,3,1,2,1,7,6,3,1,3]
+world = [2, 5, 1, 3, 1, 2, 1, 7, 6, 3, 1, 3]
 left, right, chunks = split_world(world, max(world))
 inner_puddles = []
 for chunk in chunks: inner_puddles.append(inner(chunk))
