@@ -15,76 +15,77 @@ def init(x):
     for i in range(x):
         line = []
         for j in range(x):
-            char = ' ' if i%2 or j%2 else 0
+            char = ' ' if i % 2 or j % 2 else 0
             line.append(char)
         matrix.append(line)
     return matrix
 
-def print_matrix(x,matrix):
+
+def print_matrix(x, matrix):
     for i in range(x):
         for j in range(x):
             # '{number:0{width}d}'.format(width=3, number=19)
-            print(str(matrix[i][j]).rjust(3),end="")
+            print(str(matrix[i][j]).rjust(3), end="")
         print(end="\n")
+
 
 def main(size):
 
-    def toLeft(m,a,b,cnt):
+    def toLeft(m, a, b, cnt):
         while True:
             a += 1
-            if a == M: return 0,0,0 # end of spiral
+            if a == M: return 0, 0, 0  # end of spiral
             m[b][a] = '-'
             a += 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else '-'
-            if not m[b-2][a]: return a,b,cnt
+            if not m[b - 2][a]: return a, b, cnt
 
-    def toUp(m,a,b,cnt):
+    def toUp(m, a, b, cnt):
         while True:
             b -= 1
             m[b][a] = '|'
             b -= 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else '|'
-            if not m[b][a-2]: return a,b,cnt
+            if not m[b][a - 2]: return a, b, cnt
 
-    def toRight(m,a,b,cnt):
+    def toRight(m, a, b, cnt):
         while True:
             a -= 1
             m[b][a] = '-'
             a -= 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else '-'
-            if not m[b+2][a]: return a,b,cnt
+            if not m[b + 2][a]: return a, b, cnt
 
-    def toDown(m,a,b,cnt):
+    def toDown(m, a, b, cnt):
         while True:
             b += 1
             m[b][a] = '|'
             b += 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else '|'
-            if not m[b][a+2]: return a,b,cnt
+            if not m[b][a + 2]: return a, b, cnt
 
     def spiral(m):
         # from 1 to N**2, start is in matrix[M//2][M//2]
-        a = b = M//2
+        a = b = M // 2
         counter = m[a][b] = 1
         # first
-        a,b,counter = toLeft(m,a,b,counter)
+        a, b, counter = toLeft(m, a, b, counter)
         # group of 4
-        for time in range(M//2):
-            for step in [toUp,toRight,toDown,toLeft]:
-                a,b,counter = step(m,a,b,counter)
+        for time in range(M // 2):
+            for step in [toUp, toRight, toDown, toLeft]:
+                a, b, counter = step(m, a, b, counter)
             if 0 == counter: return m
-
 
     # N = [3,5,7,9,11,13,15,17,.... 31]
     N = size
-    M = N + (N-1)  # N + (empty spaces)
+    M = N + (N - 1)  # N + (empty spaces)
     mtrx = init(M)
     mtrx = spiral(mtrx)
-    print_matrix(M,mtrx)
+    print_matrix(M, mtrx)
     print(end="\n\n")
     # end of main
 
@@ -92,5 +93,3 @@ if __name__ == '__main__':
     #for size in range(2,32):
     #    if size % 2: main(size)
     main(23)
-
-
