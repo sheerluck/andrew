@@ -21,10 +21,25 @@ def init(x):
     return matrix
 
 
+def init3(x):
+    matrix = []
+    for i in range(x):
+        line = []
+        for j in range(x):
+            if not (i+2) % 4:
+                char = 0 if i % 2 or j % 2 else ' '
+            else:
+                char = ' ' if i % 2 or j % 2 else 0
+            line.append(char)
+        matrix.append(line)
+    return matrix
+
+
 def print_matrix(x, matrix):
     for i in range(x):
         for j in range(x):
             # '{number:0{width}d}'.format(width=3, number=19)
+            #if 0 == matrix[i][j]: matrix[i][j] = '.'
             print(str(matrix[i][j]).rjust(3), end="")
         print(end="\n")
 
@@ -71,7 +86,7 @@ def main(size):
     def spiral(m):
         # from 1 to N**2, start is in matrix[M//2][M//2]
         a = b = M // 2
-        counter = m[a][b] = 1
+        counter = m[b][a] = 1
         # first
         a, b, counter = toLeft(m, a, b, counter)
         # group of 4
@@ -89,7 +104,60 @@ def main(size):
     print(end="\n\n")
     # end of main
 
+
+def main3(size):
+
+    
+    def toLeft(m, a, b, cnt):
+        while True:
+            a += 1
+            if a == M: return 0, 0, 0  # end of spiral
+            m[b][a] = '-'
+            a += 1
+            cnt += 1
+            m[b][a] = cnt if cnt in primes else '-'
+            if not m[b - 2][a - 1]: return a, b, cnt
+
+    def toUpRight(m, a, b, cnt):
+        while True:
+            cnt += 1
+            a, b = a - 1, b - 2
+            if b < 0: return 0, 0, 0  # end of spiral
+            m[b][a] = cnt if cnt in primes else '-'
+            if not m[b + 2][a - 1]: return a, b, cnt
+
+    def toDownRight(m, a, b, cnt):
+        while True:
+            cnt += 1
+            a, b = a - 1, b + 2
+            if a < 0: return 0, 0, 0  # end of spiral
+            m[b][a] = cnt if cnt in primes else '-'
+            if not m[b][a + 2]: return a, b, cnt
+
+    def spiral3(m):
+        a = M // 2
+        b = M // 2 + 8
+        counter = m[b][a] = 1
+        # first
+        a, b, counter = toLeft(m, a, b, counter)
+        # group of 3
+        for time in range(M // 7):
+            for step in [toUpRight, toDownRight, toLeft]:
+                a, b, counter = step(m, a, b, counter)
+                if 0 == counter: return m
+        return m
+    
+    # N = [5, 9, 13, 17, 21 .. ]
+    N = size
+    M = N + (N - 1)  # N + (empty spaces)
+    mtrx = init3(M)
+    mtrx = spiral3(mtrx)
+    print_matrix(M, mtrx)
+    print(end="\n\n")
+    # end of main
+
 if __name__ == '__main__':
     #for size in range(2,32):
     #    if size % 2: main(size)
-    main(23)
+    main3(41)
+
