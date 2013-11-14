@@ -155,6 +155,12 @@ def main3(size):
     print(end="\n\n")
     # end of main
 
+
+def main6(size):
+    # same as main3 with [toUpRight, toRight, toDownRight, toDownLeft, toLeft, toUpLeft]
+    pass
+
+
 if __name__ == '__main__':
     #for size in range(2,32):
     #    if size % 2: main(size)
