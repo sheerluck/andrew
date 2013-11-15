@@ -1,4 +1,4 @@
-primes = [1,2,   3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43,  47,  53,  59,  61,  67,  71,  73,  79,  83,  89,  97,
+primes = [1, 2,  3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43,  47,  53,  59,  61,  67,  71,  73,  79,  83,  89,  97,
           101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
           211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293,
           307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397,
@@ -44,7 +44,7 @@ def print_matrix(x, matrix):
         print(end="\n")
 
 
-def main(size):
+def main4(size):
 
     def toLeft(m, a, b, cnt):
         while True:
@@ -59,10 +59,10 @@ def main(size):
     def toUp(m, a, b, cnt):
         while True:
             b -= 1
-            m[b][a] = '|'
+            m[b][a] = ':'
             b -= 1
             cnt += 1
-            m[b][a] = cnt if cnt in primes else '|'
+            m[b][a] = cnt if cnt in primes else ':'
             if not m[b][a - 2]: return a, b, cnt
 
     def toRight(m, a, b, cnt):
@@ -77,10 +77,10 @@ def main(size):
     def toDown(m, a, b, cnt):
         while True:
             b += 1
-            m[b][a] = '|'
+            m[b][a] = ':'
             b += 1
             cnt += 1
-            m[b][a] = cnt if cnt in primes else '|'
+            m[b][a] = cnt if cnt in primes else ':'
             if not m[b][a + 2]: return a, b, cnt
 
     def spiral(m):
@@ -157,11 +157,75 @@ def main3(size):
 
 
 def main6(size):
-    # same as main3 with [toUpRight, toRight, toDownRight, toDownLeft, toLeft, toUpLeft]
-    pass
+
+    def toLeft(m, a, b, cnt):
+        while True:
+            a += 1
+            m[b][a] = '-'
+            a += 1
+            cnt += 1
+            m[b][a] = cnt if cnt in primes else '-'
+            if not m[b - 2][a + (-1 if 2 == cnt else 1)]: return a, b, cnt
+
+    def toUpRight(m, a, b, cnt):
+        while True:
+            cnt += 1
+            a, b = a - 1, b - 2
+            m[b][a] = cnt if cnt in primes else '\\'
+            if not m[b][a - 2]: return a, b, cnt
+
+    def toRight(m, a, b, cnt):
+        while True:
+            a -= 1
+            m[b][a] = '-'
+            a -= 1
+            cnt += 1
+            m[b][a] = cnt if cnt in primes else '-'
+            if not m[b + 2][a - 1]: return a, b, cnt
+
+    def toDownRight(m, a, b, cnt):
+        while True:
+            cnt += 1
+            a, b = a - 1, b + 2
+            m[b][a] = cnt if cnt in primes else '/'
+            if not m[b + 2][a + 1]: return a, b, cnt
+
+    def toDownLeft(m, a, b, cnt):
+        while True:
+            cnt += 1
+            a, b = a + 1, b + 2
+            m[b][a] = cnt if cnt in primes else '\\'
+            if not m[b][a + 2]: return a, b, cnt
+
+    def toUpLeft(m, a, b, cnt):
+        while True:
+            cnt += 1
+            a, b = a + 1, b - 2
+            m[b][a] = cnt if cnt in primes else '/'
+            if not m[b - 2][a - 1]: return a, b, cnt
+
+    def spiral6(m):
+        a = b = M // 2
+        counter = m[b][a] = 1
+        # first
+        a, b, counter = toLeft(m, a, b, counter)
+        # group of 6
+        for time in range(M // 4):
+            for step in [toUpRight, toRight, toDownRight, toDownLeft, toLeft, toUpLeft]:
+                a, b, counter = step(m, a, b, counter)
+                if counter > 999: return m
+
+    # N = [5, 9, 13, 17, 21 .. ]
+    N = size
+    M = N + (N - 1)  # N + (empty spaces)
+    mtrx = init3(M)
+    mtrx = spiral6(mtrx)
+    print_matrix(M, mtrx)
+    print(end="\n\n")
+    # end of main
 
 
 if __name__ == '__main__':
-    #for size in range(2,32):
-    #    if size % 2: main(size)
+    main4(31)
     main3(41)
+    main6(41)
