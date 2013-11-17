@@ -10,6 +10,15 @@ primes = [1, 2,  3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43, 
           907, 911, 919, 929, 937, 941, 947, 953, 967, 971, 977, 983, 991, 997]
 
 
+def is_prime(a):
+    if a < max(primes): return a in primes
+    import math
+    sqrt = math.sqrt(a)
+    subprimes = [x for x in primes[1:] if x < sqrt]
+    for prime in subprimes:
+        if a % prime == 0: return False
+    return True
+
 def init(x):
     matrix = []
     for i in range(x):
