@@ -102,6 +102,24 @@ void test(A& p, B& b) {
     }
 } // void test(A& p, B& b)
 
+template<typename A, typename B>
+void test2(A& br, B& b) {
+    if(isInter(br,b)) {
+        br.destroyed = true;
+        auto oL = b .rite() - br.left();
+        auto oR = br.rite() - b .left();
+        auto oT = b .bot()  - br.top();
+        auto oB = br.bot()  - b .top();
+        auto fromL = abs(oL) < abs(oR);
+        auto fromT = abs(oT) < abs(oB);
+        auto minox = fromL ? oL : oR;
+        auto minoy = fromT ? oT : oB;
+        auto da = abs(minox) < abs(minoy);
+        if(da) b.velocity.x = fromL ? -ballV : ballV;
+        else   b.velocity.y = fromT ? -ballV : ballV;
+    }
+} // void test2(A& p, B& b)
+
 void fill_up_bricks_vector(vector<Brck>& br) {
     // ah, use range(), Luke!
     for(int X{0}; X < brckX; X++)
@@ -138,7 +156,9 @@ int main()
         for(auto& b : brx) b.update();
 
         test(pad, ball);
+        for(auto& b : brx) test2(b, ball);
+        brx.erase(remove_if( begin(brx), end(brx),
+                             [] (Brck& b){ return b.destroyed; }),
+                  end(brx));
     }
 }
-
-// 00:27:27
