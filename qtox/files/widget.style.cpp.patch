@@ -1,0 +1,13 @@
+--- ./src/widget/style.cpp.orig	2016-03-19 14:47:30.079415993 +0300
++++ ./src/widget/style.cpp	2016-03-19 14:51:49.932736268 +0300
+@@ -110,6 +110,10 @@
+         appFont(defSize - 1, QFont::Bold),      // medium bold
+         appFont(defSize - 2, QFont::Normal),    // small
+         appFont(defSize - 2, QFont::Light),     // small light
++
++        appFont(defSize + 2, QFont::Bold),      // ExtraBigBold
++        appFont(defSize + 4, QFont::Normal),    // UltraBig
++        appFont(defSize + 4, QFont::Bold),      // UltraBigBold
+     };
+ 
+     return fonts[font];

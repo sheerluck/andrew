@@ -1,0 +1,11 @@
+--- ./ui/chatArea/innerStyle.css.orig	2016-03-19 15:13:47.239336735 +0300
++++ ./ui/chatArea/innerStyle.css	2016-03-19 15:25:51.372633678 +0300
+@@ -1,6 +1,7 @@
+ div.msg {
+-  color: @black;
++  color: #2B587A;
+   font: @big;
++  font-size:12pt;
+ }
+ 
+ div.action {

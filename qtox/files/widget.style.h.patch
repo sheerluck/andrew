@@ -1,0 +1,14 @@
+--- ./src/widget/style.h.orig	2016-03-19 14:32:51.566126809 +0300
++++ ./src/widget/style.h	2016-03-19 14:35:12.896119707 +0300
+@@ -55,7 +55,10 @@
+         Medium,     // [SystemDefault - 1]px
+         MediumBold, // [SystemDefault - 1]px, bold
+         Small,      // [SystemDefault - 2]px
+-        SmallLight  // [SystemDefault - 2]px, light
++        SmallLight, // [SystemDefault - 2]px, light
++	ExtraBigBold,
++	UltraBig,
++	UltraBigBold,
+     };
+ 
+     static QStringList getThemeColorNames();
