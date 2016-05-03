@@ -1,16 +1,24 @@
 #-*- coding: utf-8  -*-
 
 
+class Seconds(object):
+    def __init__(self, count):
+        self._seconds = count
+
+    def this(self):
+        return "{} seconds".format(self._seconds)
+
+
 class Minute(object):
     def __init__(self, count):
         self._minutes = count
-        self._seconds = self._minutes * 60
+        self._seconds = Seconds(self._minutes * 60)
 
     def seconds(self):
-        return self._seconds
+        return self._seconds.this()
 
     def this(self):
-        return self._minutes
+        return "{} minutes".format(self._minutes)
 
 
 class Hour(object):
@@ -25,7 +33,7 @@ class Hour(object):
         return self._minutes.this()
 
     def this(self):
-        return self._hours
+        return "{} hours".format(self._hours)
 
 
 class Day(object):
@@ -43,7 +51,7 @@ class Day(object):
         return self._hours.this()
 
     def this(self):
-        return self._days
+        return "{} days".format(self._days)
 
 
 class Week(object):
@@ -64,7 +72,7 @@ class Week(object):
         return self._days.this()
 
     def this(self):
-        return self._weeks
+        return "{:.1f} weeks".format(self._weeks)
 
 
 class Month(object):
@@ -88,7 +96,7 @@ class Month(object):
         return self._weeks.this()
 
     def this(self):
-        return self._months
+        return "{} months".format(self._months)
 
 
 class Year(object):
@@ -100,6 +108,9 @@ class Year(object):
 
     def seconds(self):
         return self._days.seconds()
+
+    def insec(self):
+        return self._days._hours._minutes._seconds._seconds
 
     def minutes(self):
         return self._days.minutes()
@@ -117,10 +128,10 @@ class Year(object):
         return self._months.this()
 
     def this(self):
-        return self._years
+        return "{} years".format(self._years)
 
 
-sec_in_year = Year(1).seconds()
+sec_in_year = Year(1).insec()
 print(sec_in_year)
 
 se7en_bil = 7 * 1000**3
