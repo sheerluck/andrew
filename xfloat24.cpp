@@ -14,8 +14,6 @@ std::string tostr(const T a_value)
     return std::string{"  \tunpacked "} + out.str();
 }
 
-std::string hex(const float a);
-std::string hex(const std::uint32_t a);
 
 
 
@@ -223,7 +221,23 @@ get1518(const float a)
     g = (uni.dw >> 23) & 0x1FF;
     g = ((g & 0x180) >> 3) | (g & 0xF);
     return (g << 18) | r;
-    return 70;
+}
+
+std::uint32_t
+get0321(const float a)
+{
+    // 0000.0000.aaaa.aaaa.bbbb.bbbb.cccc.cXXX   XXX is key for exp
+    union Uni
+    {
+      float f;
+      std::uint32_t dw;
+    };
+    auto uni = Uni{};
+    uni.f = a;
+    auto exp = std::uint32_t{ (uni.dw >> 23) & 0xFF };
+    auto key = std::uint32_t{ exp - 126 };
+    uni.dw <<= 1;
+    return (uni.dw & 0x00FFFFF8) | key;
 }
 
 float
@@ -468,6 +482,23 @@ unpack1518(const std::uint32_t f)
     return uni.f;
 }
 
+float
+unpack0321(const std::uint32_t dw)
+{
+    // 0000.0000.aaaa.aaaa.bbbb.bbbb.cccc.cXXX   XXX is key for exp
+    union Uni
+    {
+      float f;
+      std::uint32_t dw;
+    };
+    auto uni = Uni{};
+    auto key = std::uint32_t{  dw & 0x07 }; 
+    auto exp = std::uint32_t{ key + 126  };
+    exp      = (exp << 23) & 0x7F800000; 
+    uni.dw   = ( dw >>  1) & 0x00FFFFFC;
+    uni.dw  |= exp;
+    return uni.f;
+}
 
 
 
@@ -527,9 +558,9 @@ repr(const float a,
 
 std::string
 repr(const std::uint32_t a,
-     const int red,
+     const int blue,
      const int green,
-     const int blue)
+     const int red)
 {
     std::uint32_t dw = a;
 
@@ -537,10 +568,28 @@ repr(const std::uint32_t a,
     std::deque<char> g;
     std::deque<char> b;
 
-    for (int i = 0; i<blue; i++)
+    if (0 == blue && 3 == green && 21 == red)
+    {
+        for (int i = 0; i<green; i++)
+        {
+            char ch = (dw & 1) ? '1' : '0';
+            g.emplace_front(ch);
+            dw >>= 1;
+        }
+        for (int i = 0; i<red; i++)
+        {
+            char ch = (dw & 1) ? '1' : '0';
+            r.emplace_front(ch);
+            dw >>= 1;
+        }
+    }
+    else
+    {
+
+    for (int i = 0; i<red; i++)
     {
         char ch = (dw & 1) ? '1' : '0';
-        b.emplace_front(ch);
+        r.emplace_front(ch);
         dw >>= 1;
     }
 
@@ -551,21 +600,22 @@ repr(const std::uint32_t a,
         dw >>= 1;
     }
 
-    for (int i = 0; i<red; i++)
+    for (int i = 0; i<blue; i++)
     {
         char ch = (dw & 1) ? '1' : '0';
-        r.emplace_front(ch);
+        b.emplace_front(ch);
         dw >>= 1;
     }
-
+    }
     std::stringstream ss;
-    if (red) {
+    if (blue) {
 
-    ss << "\033[1;36m";    for(const auto& bit : r) ss << bit;       ss << "\033[0m";
+    ss << "\033[1;36m";    for(const auto& bit : b) ss << bit;       ss << "\033[0m";
     ss << "\033[1;97m"     << "."                                       << "\033[0m";   }
     ss << "\033[1;32m";    for(const auto& bit : g) ss << bit;       ss << "\033[0m";
     ss << "\033[1;97m"     << "."                                       << "\033[0m";
-    ss << "\033[1;31m";    for(const auto& bit : b) ss << bit;       ss << "\033[0m";
+    if (0 == blue && 3 == green && 21 == red) ss << "\033[1;41m"; else
+    ss << "\033[1;31m";    for(const auto& bit : r) ss << bit;       ss << "\033[0m";
 
     return ss.str();
 }
@@ -656,6 +706,7 @@ int main()
            auto float1617 = get1617(value);
            auto float0519 = get0519(value);
            auto float1518 = get1518(value);
+           auto float0321 = get0321(value);
 
            float out0816 = unpack0816(float0816);
            float out1815 = unpack1815(float1815);
@@ -665,26 +716,29 @@ int main()
            float out1617 = unpack1617(float1617);
            float out0519 = unpack0519(float0519);
            float out1518 = unpack1518(float1518);
+           float out0321 = unpack0321(float0321);
 
-           std::cout << "23.8.1 float32 = "      << repr(value,    1,8,23)   << "    "
+
+           std::cout << "23.8.1 float32 = "        << repr(value,    1,8,23)   << "    "
                      << hex(value)     << tostr(value)   << "  "  << hex(value)   << '\n'
-                     << "16.8.0 float24 =   "    << repr(float0816,0,8,16)   << "           "
+                     << "16.8.0 float24 =   "      << repr(float0816,0,8,16)   << "           "
                      << hex(float0816) << tostr(out0816) << "  "  << hex(out0816) << '\n'
-                     << "15.8.1 float24 = "      << repr(float1815,1,8,15)   << "            "
+                     << "15.8.1 float24 = "        << repr(float1815,1,8,15)   << "            "
                      << hex(float1815) << tostr(out1815) << "  "  << hex(out1815) << '\n'
-                     << "17.7.0 float24 =    "   << repr(float0717,0,7,17)   << "          "
+                     << "17.7.0 float24 =    "     << repr(float0717,0,7,17)   << "          "
                      << hex(float0717) << tostr(out0717) << "  "  << hex(out0717) << '\n'
-                     << "16.7.1 float24 =  "     << repr(float1716,1,7,16)   << "           "
+                     << "16.7.1 float24 =  "       << repr(float1716,1,7,16)   << "           "
                      << hex(float1716) << tostr(out1716) << "  "  << hex(out1716) << '\n'
-                     << "18.6.0 float24 =     "  << repr(float0618,0,6,18)   << "         "
+                     << "18.6.0 float24 =     "    << repr(float0618,0,6,18)   << "         "
                      << hex(float0618) << tostr(out0618) << "  "  << hex(out0618) << '\n'
-                     << "17.6.1 float24 =   "    << repr(float1617,1,6,17)   << "          "
+                     << "17.6.1 float24 =   "      << repr(float1617,1,6,17)   << "          "
                      << hex(float1617) << tostr(out1617) << "  "  << hex(out1617) << '\n'
-                     << "19.5.0 float24 =      " << repr(float0519,0,5,19)   << "        "
+                     << "19.5.0 float24 =      "   << repr(float0519,0,5,19)   << "        "
                      << hex(float0519) << tostr(out0519) << "  "  << hex(out0519) << '\n'
-                     << "18.5.1 float24 =    "   << repr(float1518,1,5,18)   << "         "
-                     << hex(float1518) << tostr(out1518) << "  "  << hex(out1518) << std::endl;
+                     << "18.5.1 float24 =    "     << repr(float1518,1,5,18)   << "         "
+                     << hex(float1518) << tostr(out1518) << "  "  << hex(out1518) << '\n'
+                     << "21.3.0 float24 =        " << repr(float0321,0,3,21)   << "      "
+                     << hex(float0321) << tostr(out0321) << "  "  << hex(out0321) << std::endl;
        }
     }
-
 }
