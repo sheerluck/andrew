@@ -237,7 +237,7 @@ get0321(const float a)
     auto exp = std::uint32_t{ (uni.dw >> 23) & 0xFF };
     auto key = std::uint32_t{ exp - 126 };
     uni.dw <<= 1;
-    return (uni.dw & 0x00FFFFF8) | key;
+    return (uni.dw & 0x00FFFFF8) | (key & 0x7);
 }
 
 float
