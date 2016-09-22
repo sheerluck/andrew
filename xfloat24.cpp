@@ -495,7 +495,7 @@ unpack0321(const std::uint32_t dw)
     auto key = std::uint32_t{  dw & 0x07 }; 
     auto exp = std::uint32_t{ key + 126  };
     exp      = (exp << 23) & 0x7F800000; 
-    uni.dw   = ( dw >>  1) & 0x00FFFFFC;
+    uni.dw   = ( dw >>  1) & 0x007FFFFC;
     uni.dw  |= exp;
     return uni.f;
 }
@@ -680,6 +680,13 @@ hex(const std::uint32_t a)
 
 }
 
+std::uint32_t
+swap3(const std::uint32_t a)
+{
+    auto body = std::uint32_t{ a << 3 };
+    auto head = std::uint32_t{ a >> 21 };
+    return body | head;
+}
 
 
 int main()
@@ -740,5 +747,22 @@ int main()
                      << "21.3.0 float24 =        " << repr(float0321,0,3,21)   << "      "
                      << hex(float0321) << tostr(out0321) << "  "  << hex(out0321) << std::endl;
        }
+    }
+
+    auto big24 = std::uint32_t{0};
+    std::ostringstream out;
+    while (big24++ < (0x00FFFFFF & std::numeric_limits<std::uint32_t>::max()))
+    {
+        auto  float0321 = swap3(big24);
+        float out0321   = unpack0321(float0321);
+
+        std::cout << '\t' << repr(float0321,0,3,21)
+                  << '\t' << hex(float0321)
+                  << '\t' << hex(out0321);
+
+        out << std::fixed << std::setprecision(22) << unpack0321(float0321) << '\t';
+        std::cout << '\t' << out.str() << '\n';
+        out.clear();
+        out.seekp(0); // for outputs: seek put ptr to start
     }
 }
