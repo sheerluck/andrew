@@ -14,7 +14,7 @@ object Main
 
     val colors = List(32, 97, 31)
     val binstr = padLeft(green, key.toBinaryString) :: "." :: padLeft(red, body.toBinaryString) :: Nil
-    var lb = new ListBuffer[Any]()
+    var lb = new ListBuffer[String]()
     for ((c,s) <- (colors zip binstr))   lb += color(c, s)
     return lb.toList.mkString("")
   }
@@ -37,7 +37,7 @@ object Main
     return int2flo(head | body)
   }
 
-  def printNext(cnt24:Int)
+  def printFloat(cnt24:Int)
   {
     val float  = unpack0321(cnt24)
     val vrepr  = repr(cnt24,0,3,21)
@@ -49,11 +49,11 @@ object Main
 
   def main(args: Array[String])
   {
-    val max24 = 0x00FFFFFF & Int.MaxValue
-    var cnt24 = 0
+    val max24 = 0x00FFFFFF
+    var cnt24 = 0x0
     while (cnt24 <= max24)
     {
-      printNext(cnt24)
+      printFloat(cnt24)
       cnt24 += 1
     }
   }

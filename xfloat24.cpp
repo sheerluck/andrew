@@ -749,7 +749,7 @@ int main()
     }
 
     auto max24 = 0x00FFFFFF & std::numeric_limits<std::uint32_t>::max();
-    auto cnt24 = std::uint32_t{0x00FFFFA0};
+    auto cnt24 = std::uint32_t{0};
     while (cnt24 <= max24)
     {
         auto  float0321 = swap3(cnt24);
