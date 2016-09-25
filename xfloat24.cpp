@@ -614,7 +614,6 @@ repr(const std::uint32_t a,
     ss << "\033[1;97m"     << "."                                       << "\033[0m";   }
     ss << "\033[1;32m";    for(const auto& bit : g) ss << bit;       ss << "\033[0m";
     ss << "\033[1;97m"     << "."                                       << "\033[0m";
-    if (0 == blue && 3 == green && 21 == red) ss << "\033[1;41m"; else
     ss << "\033[1;31m";    for(const auto& bit : r) ss << bit;       ss << "\033[0m";
 
     return ss.str();
@@ -685,7 +684,7 @@ swap3(const std::uint32_t a)
 {
     auto body = std::uint32_t{ a << 3 };
     auto head = std::uint32_t{ a >> 21 };
-    return body | head;
+    return (body | head) & 0x00FFFFFF;
 }
 
 
@@ -745,24 +744,22 @@ int main()
                      << "18.5.1 float24 =    "     << repr(float1518,1,5,18)   << "         "
                      << hex(float1518) << tostr(out1518) << "  "  << hex(out1518) << '\n'
                      << "21.3.0 float24 =        " << repr(float0321,0,3,21)   << "      "
-                     << hex(float0321) << tostr(out0321) << "  "  << hex(out0321) << std::endl;
+                     << hex(float0321) << tostr(out0321) << "  "  << hex(out0321) << '\n';
        }
     }
 
-    auto big24 = std::uint32_t{0};
-    std::ostringstream out;
-    while (big24++ < (0x00FFFFFF & std::numeric_limits<std::uint32_t>::max()))
+    auto max24 = 0x00FFFFFF & std::numeric_limits<std::uint32_t>::max();
+    auto cnt24 = std::uint32_t{0x00FFFFA0};
+    while (cnt24 <= max24)
     {
-        auto  float0321 = swap3(big24);
+        auto  float0321 = swap3(cnt24);
         float out0321   = unpack0321(float0321);
-
+        
         std::cout << '\t' << repr(float0321,0,3,21)
                   << '\t' << hex(float0321)
-                  << '\t' << hex(out0321);
-
-        out << std::fixed << std::setprecision(22) << unpack0321(float0321) << '\t';
-        std::cout << '\t' << out.str() << '\n';
-        out.clear();
-        out.seekp(0); // for outputs: seek put ptr to start
+                  << '\t' << hex(out0321)
+                  << '\t' << std::fixed << std::setprecision(22) << out0321 << '\n';
+        
+        cnt24 += 1;
     }
 }
