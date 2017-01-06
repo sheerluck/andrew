@@ -3,11 +3,13 @@
 #include <vector>
 #include <boost/type_index.hpp>
 
+// g++ -std=c++17 -fsanitize=bounds-strict,undefined,address -pedantic -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual covar.cpp
 
 class Animal
 {
     public:
         virtual void make_sound() const = 0;
+        virtual ~Animal() = default;
 };
 
 class Cat : public Animal
@@ -68,7 +70,7 @@ void sounds_cat(const std::vector<std::unique_ptr<Cat>>& param )
 
 int main()
 {
-    const auto boo = []() {
+    const auto animals = []() {
         auto boo = std::vector<std::unique_ptr<Animal>>{};
         boo.push_back(std::make_unique<Cat>());
         boo.push_back(std::make_unique<Dog>());
@@ -76,7 +78,11 @@ int main()
         return boo;
     }();
 
-    sounds(boo);
+    sounds(animals); /*
+    Nya!
+    Wan!
+    Oi!
+    void sounds(const std::vector<std::unique_ptr<Animal> >&) */
 
     const auto cats = []() {
         auto boo = std::vector<std::unique_ptr<Cat>>{};
@@ -86,7 +92,13 @@ int main()
         return boo;
     }();
 
-    sounds_cat(cats);
+    sounds_cat(cats); /*
+    Nya!
+    Nya!
+    Nya!
+    void sounds_cat(const std::vector<std::unique_ptr<Cat> >&)
+    */
 
-    // sounds(cats);  - no covariance!
+    // sounds(cats); <- no covariance! 
+    // ошибка: некорректная инициализация ссылки типа «const std::vector<std::unique_ptr<Animal> >&» из выражения типа «const std::vector<std::unique_ptr<Cat> >»
 }
