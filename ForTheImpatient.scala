@@ -47,5 +47,20 @@ def countdown = (o:Int) => (o to 0 by -1) foreach println
 "Hello".map (_.toLong).product                 // Long = 9415087488 
 "Hello".map (_.toInt ).product                 // Int  =  825152896
 
+def xn(x: Int, n: Int): Double = {
+  n match {
+    case m if m < 0      => 1.0 / xn(x, -n)
+    case m if 0 == m     => 1.0
+    case m if 0 == m % 2 => {
+      val y = xn(x, n / 2)
+      y * y 
+    }
+    case _ => x * xn(x, n - 1)
+  }
+}
+
+def test_xn = xn(2, _:Int)
+
+(-3 to 4).map {test_xn}                        // Vector(0.125, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0)
 
 
