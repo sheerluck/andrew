@@ -94,11 +94,21 @@ for (i <- 0 until triangle.length)
   triangle(i) = new Array[Int](i + 1)          // Array(Array(0), Array(0, 0), ... Array(10x0))
 
 val a = Array(1, 2, 3, 4, 5)
-val b = a zip a.tail ++ Array(-1)            // Array((1,2), (2,3), (3,4), (4,5), (5,-1))
-val s = b.map { case (a, b) => Array(b, a)}  // Array(Array(2, 1), Array(3, 2) ...Array(-1, 5))
+val b = a zip a.tail ++ Array(-1)              // Array((1,2), (2,3), (3,4), (4,5), (5,-1))
+val s = b.map { case (a, b) => Array(b, a)}    // Array(Array(2, 1), Array(3, 2) ...Array(-1, 5))
 val g = s.grouped(2).map { _(0) }.flatten
-g.filter {_>0}.toArray                       // Array(2, 1, 4, 3, 5)
+g.filter {_>0}.toArray                         // Array(2, 1, 4, 3, 5)
 
+val a = Array(1,2,-1,-2,1,2,3,4,-4,0,-4,9)  
+val m = a.groupBy { _>0 }                      // Map(false -> Array(-1, ...), true -> Array(1, ...))
+Array(true, false).map { m(_) }.flatten        // Array(1, 2, 1, 2, 3, 4, 9, -1, -2, -4, 0, -4)
 
+val a = Array(3.14, 1.59, 2.65, 3.58, 9.79)
+val avg = (a.sum, a.size, a.sum/a.size)        // (20.75, 5, 4.15)
+
+val ids  = java.util.TimeZone.getAvailableIDs
+val eur  = ids filter {_.startsWith("Europe")} // Array(Europe/Amsterdam, ...
+val city = eur map {_.split("/")(1)}           // Array(Amsterdam, Andorra, ...
+val u    = city dropWhile {_ < "U"}            // Array(Ulyanovsk, Uzhgorod, Vaduz, Vatican, ...
 
 
