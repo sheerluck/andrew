@@ -96,12 +96,12 @@ for (i <- 0 until triangle.length)
 val a = Array(1, 2, 3, 4, 5)
 val b = a zip a.tail ++ Array(-1)              // Array((1,2), (2,3), (3,4), (4,5), (5,-1))
 val s = b.map { case (a, b) => Array(b, a)}    // Array(Array(2, 1), Array(3, 2) ...Array(-1, 5))
-val g = s.grouped(2).map { _(0) }.flatten
+val g = s.grouped(2).flatMap { _(0) }
 g.filter {_>0}.toArray                         // Array(2, 1, 4, 3, 5)
 
 val a = Array(1,2,-1,-2,1,2,3,4,-4,0,-4,9)  
 val m = a.groupBy { _>0 }                      // Map(false -> Array(-1, ...), true -> Array(1, ...))
-Array(true, false).map { m(_) }.flatten        // Array(1, 2, 1, 2, 3, 4, 9, -1, -2, -4, 0, -4)
+Array(true, false).flatMap { m(_) }            // Array(1, 2, 1, 2, 3, 4, 9, -1, -2, -4, 0, -4)
 
 val a = Array(3.14, 1.59, 2.65, 3.58, 9.79)
 val avg = (a.sum, a.size, a.sum/a.size)        // (20.75, 5, 4.15)
@@ -141,11 +141,12 @@ import scala.collection.JavaConverters._
 SortedMap(mapAsScalaMap(env).toArray:_*)       // Map(ANT_HOME -> /usr/share/ant ...
 val p = System.getProperties                   // java.util.Properties = {env.emacs=, ...
 val s = propertiesAsScalaMap(p)                // Map(env.emacs -> "",
-  val f = s filter {_._1.startsWith("java.v")} // Map(java.vendor.url.bug -> "http ..."
+val f = s filter {_._1.startsWith("java.v")}   // Map(java.vendor.url.bug -> "http ..."
 
 def pp(s: (String, String)) = {
   println(s"${s._1} -> '${s._2}'")
 }
+
 SortedMap(f.toArray:_*) foreach pp
 /*
  java.vendor -> 'Oracle Corporation'
