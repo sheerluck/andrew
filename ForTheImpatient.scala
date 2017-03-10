@@ -121,9 +121,9 @@ scores - "Alice"                               // Map(Bob -> 3, Cindy -> 8)
 
 for {(k, v) <- scores} yield v -> k            // Map(10 -> Alice, 3 -> Bob, 8 -> Cindy)
 
-import collection.immutable.{SortedMap => TreeMap}
+import collection.immutable.SortedMap
 
-val balanced = TreeMap("z" -> 9, "a" -> 1)     // SortedMap[String,Int] = Map(a -> 1, z -> 9)
+val balanced = SortedMap("z" -> 9, "a" -> 1)   // SortedMap[String,Int] = Map(a -> 1, z -> 9)
 balanced + ("five" -> 5)                       // SortedMap[String,Int] = Map(a -> 1, five -> 5, z -> 9)
 
 import collection.mutable.LinkedHashMap
@@ -134,10 +134,39 @@ order =+ ("five" -> 5)                         // LinkedHashMap[String,Int] = Ma
 "how About No".partition(_.isLower)            // ("howbouto", " A N") 
 "how About No".span(_.isLower)                 // ("how", " About No")
 
+(List("one", "two") zip List(1, 2)).toMap      // Map(one -> 1, two -> 2)
 
+val env  = System.getenv                       // java.util.Map[String,String] = {PATH=/usr/local/bin ...
+import scala.collection.JavaConverters._
+SortedMap(mapAsScalaMap(env).toArray:_*)       // Map(ANT_HOME -> /usr/share/ant ...
+val p = System.getProperties                   // java.util.Properties = {env.emacs=, ...
+val s = propertiesAsScalaMap(p)                // Map(env.emacs -> "",
+  val f = s filter {_._1.startsWith("java.v")} // Map(java.vendor.url.bug -> "http ..."
 
+def pp(s: (String, String)) = {
+  println(s"${s._1} -> '${s._2}'")
+}
+SortedMap(f.toArray:_*) foreach pp
+/*
+ java.vendor -> 'Oracle Corporation'
+ java.vendor.url -> 'http://java.oracle.com/'
+ java.vendor.url.bug -> 'http://bugreport.sun.com/bugreport/'
+ java.version -> '1.8.0_121'
+ java.vm.info -> 'mixed mode'
+ java.vm.name -> 'Java HotSpot(TM) 64-Bit Server VM'
+ java.vm.specification.name -> 'Java Virtual Machine Specification'
+ java.vm.specification.vendor -> 'Oracle Corporation'
+ java.vm.specification.version -> '1.8'
+ java.vm.vendor -> 'Oracle Corporation'
+ java.vm.version -> '25.121-b13'
+ */
 
+def minmax(v: Array[Int]) = (v.min, v.max)
+def lteqgt(v: Array[Int], x: Int) = (v.count(_ < x), v.count(_ == x), v.count(_ > x))
 
+lteqgt(Array(3, 10, 7, -9, -9, 7, 7), -9)      // (0, 2, 5)
+lteqgt(Array(3, 10, 7, -9, -9, 7, 7),  7)      // (3, 3, 1) 
 
+LinkedHashMap(("World" zip "Hello":_*))        // Map(W -> H, o -> e, r -> l, l -> l, d -> o)
 
 
