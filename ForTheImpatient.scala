@@ -111,4 +111,33 @@ val eur  = ids filter {_.startsWith("Europe")} // Array(Europe/Amsterdam, ...
 val city = eur map {_.split("/")(1)}           // Array(Amsterdam, Andorra, ...
 val u    = city dropWhile {_ < "U"}            // Array(Ulyanovsk, Uzhgorod, Vaduz, Vatican, ...
 
+val scores = Map("Alice" -> 10, "Bob" -> 3, "Cindy" -> 8)
+
+("Alice", 10) == "Alice" -> 10                 // true
+
+val bobsScore = scores.getOrElse("Bob", 0)     // 3
+
+scores - "Alice"                               // Map(Bob -> 3, Cindy -> 8)
+
+for {(k, v) <- scores} yield v -> k            // Map(10 -> Alice, 3 -> Bob, 8 -> Cindy)
+
+import collection.immutable.{SortedMap => TreeMap}
+
+val balanced = TreeMap("z" -> 9, "a" -> 1)     // SortedMap[String,Int] = Map(a -> 1, z -> 9)
+balanced + ("five" -> 5)                       // SortedMap[String,Int] = Map(a -> 1, five -> 5, z -> 9)
+
+import collection.mutable.LinkedHashMap
+
+val order = LinkedHashMap("z" -> 9, "a" -> 1)  // LinkedHashMap[String,Int] = Map(z -> 9, a -> 1) 
+order =+ ("five" -> 5)                         // LinkedHashMap[String,Int] = Map(z -> 9, a -> 1, five -> 5)
+
+"how About No".partition(_.isLower)            // ("howbouto", " A N") 
+"how About No".span(_.isLower)                 // ("how", " About No")
+
+
+
+
+
+
+
 
