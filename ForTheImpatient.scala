@@ -15,7 +15,7 @@ val r = BigInt.probablePrime(100, Random)      // 852844104814964237775339325523
 
 r.toString(36)                                 // 2aon8rqll6x8ibdux7wz
 
-"qwerty".appLYOrElse(14, (o:Int) => o)         // AnyVal = 14
+"qwerty".applyOrElse(14, (o:Int) => o)         // AnyVal = 14
 
 // http://www.scala-lang.org/api/current/scala/collection/immutable/StringOps.html
 
@@ -62,5 +62,26 @@ def xn(x: Int, n: Int): Double = {
 def test_xn = xn(2, _:Int)
 
 (-3 to 4).map {test_xn}                        // Vector(0.125, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0)
+
+// Use an Array if the length is fixed, and an ArrayBuffer if the length can vary.
+
+import collection.mutable.ArrayBuffer
+val ab = ArrayBuffer[Int]()
+ab += (1, 2, 3)                                // ArrayBuffer(1, 2, 3)
+ab ++= Array(10, 11, 12)                       // ArrayBuffer(1, 2, 3, 10, 11, 12)
+ab.trimStart(2)                                // ArrayBuffer(3, 10, 11, 12)
+ab.trimEnd(2)                                  // ArrayBuffer(3, 10) 
+ab += (7, 7, 7)                                // ArrayBuffer(3, 10, 7, 7, 7)
+ab.insert(3, -9, -9)                           // ArrayBuffer(3, 10, 7, -9, -9, 7, 7)
+ab.remove(0, 2)                                // ArrayBuffer(7, -9, -9, 7, 7)
+val a = ab.toArray                             // Array(7, -9, -9, 7, 7)
+a filter { _ % 3 == 0 } map { -2 * _ }         // Array(18, 18)
+
+// Most of business computations are nothing but computing sums and sorting.
+
+Sorting.quickSort(a)                           // Array(-9, -9, 7, 7, 7) in place!
+a.mkString("<", ", ", ">")                     // "<-9, -9, 7, 7, 7>"
+
+
 
 
