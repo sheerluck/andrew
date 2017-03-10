@@ -81,6 +81,23 @@ a filter { _ % 3 == 0 } map { -2 * _ }         // Array(18, 18)
 
 Sorting.quickSort(a)                           // Array(-9, -9, 7, 7, 7) in place!
 a.mkString("<", ", ", ">")                     // "<-9, -9, 7, 7, 7>"
+a.padTo(7, 3)                                  // Array(-9, -9, 7, 7, 7, 3, 3)  padRight!
+Array.fill(7 - a.size)(3) ++ a                 // Array(3, 3, -9, -9, 7, 7, 7)  padLeft!
+
+val matrix = Array.ofDim[Double](3, 4)         // Array( 3 x Array(0.0, 0.0, 0.0, 0.0))
+val m3     = Array.ofDim[Int](3, 4, 5)         // Array( 3 x Array( 4 x Array(0, 0, 0, 0, 0)))
+val (row, column, wtf) = (2, 3, 4)
+m3(row)(column)(wtf) = 42                      // Array(Array(Array(0, ... 0, 42)))
+
+val triangle = new Array[Array[Int]](10)       // Array(10 x null)     WTF?
+for (i <- 0 until triangle.length)
+  triangle(i) = new Array[Int](i + 1)          // Array(Array(0), Array(0, 0), ... Array(10x0))
+
+val a = Array(1, 2, 3, 4, 5)
+val b = a zip a.tail ++ Array(-1)            // Array((1,2), (2,3), (3,4), (4,5), (5,-1))
+val s = b.map { case (a, b) => Array(b, a)}  // Array(Array(2, 1), Array(3, 2) ...Array(-1, 5))
+val g = s.grouped(2).map { _(0) }.flatten
+g.filter {_>0}.toArray                       // Array(2, 1, 4, 3, 5)
 
 
 
