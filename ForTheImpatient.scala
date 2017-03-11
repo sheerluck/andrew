@@ -260,4 +260,49 @@ class Employee(val name: String = "John Q. Public",
   override def toString() = s"name=$name, s=$salary"
 }
 
+class  Account {
+  val id = Account.newUniqueNumber() // from object Account (not in scope!)
+  private var balance = 0.0
+  def deposit(amount: Double) { balance += amount }
+  override def toString() = s"id=$id, b=$balance"
+}
+object Account { // The companion object (not in scope!)
+  private var lastNumber = 0
+  private def newUniqueNumber() = { lastNumber += 1; lastNumber }
+}
+
+val x = (10 to 13) map { _ => new Account }    // Vector([id=1, b=0.0], ... [id=4, b=0.0])
+
+//  It is easy to confuse Array(100) and new Array(100)
+//  "Array(100)"      is "apply(100)", yielding an Array[Int] with a single element, 100
+//  "new Array(100)"  is "this(100)",  yielding an Array[Nothing] with 100 null elements.
+
+def uuid = java.util.UUID.randomUUID.toString
+class  Meh private (val id: String, val boo: Int)
+object Meh {
+  def apply(bar: Double) = new Meh(uuid, bar.toInt)
+}
+
+Meh(3.14)                                      // [d6727be8-1920-474d-9062-de559096ee4b, 3] 
+
+// Unlike Java or C++, Scala does not have enumerated types. 
+object TrafficLightColor extends Enumeration {
+  type TrafficLightColor = Value               // for "import TrafficLightColor._"
+  val Red, Yellow, Green = Value
+  val Blue = Value(0x0000FF)                   // B as in RGB
+}
+import TrafficLightColor._                     // !!!
+for (c <- TrafficLightColor.values.toList)
+  yield (c.id + ": " + c)                      // List("0: Red", "1: Yellow", "2: Green", "255: Blue")
+
+def say(color: TrafficLightColor) = {
+  if      (Red    == color) "stop"
+  else if (Yellow == color) "hurry up"
+  else                      "go"
+}
+say(Green)                                     // "go" 
+TrafficLightColor(0)                           // TrafficLightColor.Value = Red
+TrafficLightColor.withName("Yellow")           // TrafficLightColor.Value = Yellow
+Try(TrafficLightColor(10))                     // Failure(java.util.NoSuchElementException: key not found: 10)
+
 
