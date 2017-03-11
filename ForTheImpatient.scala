@@ -170,4 +170,65 @@ lteqgt(Array(3, 10, 7, -9, -9, 7, 7),  7)      // (3, 3, 1)
 
 LinkedHashMap(("World" zip "Hello":_*))        // Map(W -> H, o -> e, r -> l, l -> l, d -> o)
 
+class Counter {
+  private var value = 0          // You must initialize the field
+  def increment() { value += 1 } // Methods are public by default
+  def current = value            // No () in definition
+}
+
+val c = new Counter
+c.increment()         //  Use () with mutator
+println(c.current)    //  Don’t use () with accessor
+
+class Person(private var _name: String) {
+  def name = { print("get"); _name }           // accessor
+  def name_=(a: String): Unit = {
+    print("set"); _name = a                    // mutator
+  }
+}
+
+val p = new Person("Bob")
+p.name = "Bobby"   // setter
+println(p.name)    // getter
+
+// If the field is private, the getter and setter are private.
+// If the field is a val, only a getter is generated.
+// If you don’t want any getter or setter, declare the field as private[this]
+
+class Message {
+  val timeStamp = new java.util.Date // private final field + getter method, no setter.
+}
+
+// To summarize, you have four choices for implementing properties:
+//   1. var foo: Scala synthesizes a getter and a setter.
+//   2. val foo: Scala synthesizes a getter.
+//   3. You define methods foo and foo_=  (accessor+mutator).
+//   4. You define a method foo.
+
+class Person {
+  private var name = ""
+  private var age  = 0
+  def this(name: String) { this(); this.name = name }  // An auxiliary constructor
+  def this(name: String, age: Int) { // Another auxiliary constructor
+    this(name) // Calls previous auxiliary constructor
+    this.age = age
+  }
+}
+
+val p1 = new Person             // Primary constructor
+val p2 = new Person("Fred")     // First auxiliary constructor
+val p3 = new Person("Fred", 42) // Second auxiliary constructor
+
+//  The Primary Constructor
+
+class Person(private val name: String, private val age: Int) {
+  println(s"body of The Primary Constructor, n=$name, a=$age")
+}
+
+// If a parameter without val or var is used inside at least one method, it becomes a field.
+
+class Person private(val id: Int) // primary constructor is private
+
+
+
 
