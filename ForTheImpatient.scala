@@ -229,6 +229,35 @@ class Person(private val name: String, private val age: Int) {
 
 class Person private(val id: Int) // primary constructor is private
 
+class Network(val name: String) { self =>
+  class Member(val name: String) {
+    def description = this.name + " inside " + self.name
+  }
+  val m = new Member("Bob")
+  println(m.description)
+}
 
+val n = new Network("Alice")  // Bob inside Alice
+
+// you can move the Member type from class Network to object Network (no "self=>" syntax)
+// or you can use a type projection Network#Member
+
+class Time(val hours: Int, val minutes: Int) {
+  private def int (x: Time) = 60*x.hours + x.minutes
+  def before(other: Time)   = int(this) < int(other) 
+}
+
+val morning = new Time(11, 11)
+val evening = new Time(22, 22)
+morning before evening                         // Boolean = true
+
+class Employee(val name: String, var salary: Double) {
+  def this() { this("John Q. Public", 0.0) }
+  override def toString() = s"name=$name, s=$salary"
+}
+class Employee(val name: String = "John Q. Public",
+               var salary: Double = 0.0) {
+  override def toString() = s"name=$name, s=$salary"
+}
 
 
