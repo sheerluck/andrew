@@ -1,4 +1,5 @@
 
+import collection.immutable.Seq
 import util._
 
 ("Hell, 2017").toCharArray.map(_.toString).flatMap {o => Try(o.toInt).toOption}  // Array(2, 0, 1, 7)
