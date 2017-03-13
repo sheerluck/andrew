@@ -305,4 +305,21 @@ TrafficLightColor(0)                           // TrafficLightColor.Value = Red
 TrafficLightColor.withName("Yellow")           // TrafficLightColor.Value = Yellow
 Try(TrafficLightColor(10))                     // Failure(java.util.NoSuchElementException: key not found: 10)
 
+import scala.language.implicitConversions
+object Functional {
+  class PipedObject[+T] private[Functional] (value:T) {
+    def |>[R] (f : T => R) = f(this.value)
+  }
+  implicit def toPiped[T] (value:T) = new PipedObject[T](value)
+}
+import Functional._
+def boo (a: Int) (b: Int) = {1000 * a + b}
+12 |> boo(7)                                   // Int = 7012 
+42 |> {_.toDouble} |> {_.toString}             // String = 42.0
+
+val x = "abcd".toVector                        // 
+// combop may be invoked an N times (even 0)
+x.aggregate(0)  ( _ + _.toInt, _ + _ )         // [0,a] -> [97,b] -> [97+98,c] -> [97+98+99, d] -> 97+98+99+100
+x.aggregate("0")( _ + _,       _ + _ )         // "0abcd"
+
 
