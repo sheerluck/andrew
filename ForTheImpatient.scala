@@ -317,6 +317,7 @@ import Functional._
 def boo (a: Int) (b: Int) = {1000 * a + b}
 12 |> boo(7)                                   // Int = 7012 
 42 |> {_.toDouble} |> {_.toString}             // String = 42.0
+(3,4) |> { case(a, b) => a + b}                // Int = 7 
 
 val x = "abcd".toVector                        // 
 // combop may be invoked an N times (even 0)
