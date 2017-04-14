@@ -486,4 +486,10 @@ class Item(val description: String, val price: Double) {
 
 // Вместо целой главы про файлы, я просто https://github.com/pathikrit/better-files
 
+// Вместо сериализации - сравнение "best scala serialization dkomanov"
+// Chill (Twitter’s extension for Kryo) 
+// ScalaPB (Google Protocol Buffers)
+// etc
+
+
 
