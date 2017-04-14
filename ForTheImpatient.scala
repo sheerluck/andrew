@@ -410,4 +410,57 @@ der .getClass == classOf[random.Test]          // false
 
 // INSTEAD USE PATTERN MATCHING
 
+class Derived(a: Int, b: Int) extends Base(a)  // primary constructor calls the superclass constructor
+// In a Scala constructor, you can never call super(param) to call the superclass constructor.
+
+// def can only override another def.
+// val can only override another val or a parameterless def.
+// var can only override an abstract var 
+
+val x = new Boo(1,2,3) {  // anonymous subclass, type is "Boo{def bar(a: Int): String}"
+  def bar(a: Int) = "olo" + "lo" * a
+}
+
+def anon(p: Boo{def bar(a: Int): String}) = p.bar(2)
+
+abstract class Person(val name: String) {
+  def aa: Int // No method body for abstract method
+  val bb: Int // No initializer for abstract field with an abstract getter method
+  var cc: String //     Yet another abstract field with abstract getter and setter methods
+}
+
+class Employee(val bb: Int) extends Person("\n") { // Subclass has concrete bb property
+ var cc = ""                                       //          and concrete cc property
+ def aa = name.size
+}
+
+val fred = new Person("oh") { //  customize an abstract field by using an anonymous type
+  val bb = 123
+  var cc = "he"
+  def aa = (cc+bb).hashCode   // override keyword not required
+}
+
+/* The “early definition” syntax lets you initialize val fields of a subclass
+ * before the superclass is executed. The syntax is so ugly that only a mother could love it.
+ * You place the val fields in a block after the extends keyword, like this*/
+class Creature {
+  val range: Int = 10
+  val env: Array[Int] = new Array[Int](range)
+}
+class Bug extends {
+  override val range = 3
+} with Creature
+
+/* NOTE: At the root of the construction order problem lies a design decision of the Java language
+ * namely, to allow the invocation of subclass methods in a superclass constructor.
+ * In C++, an object’s virtual function table pointer is set to the table of the superclass
+ * when the superclass constructor executes. Afterwards, the pointer is set to the subclass table.
+ * Therefore, in C++, it is not possible to modify constructor behavior through overriding.
+ * The Java designers felt that this subtlety was unnecessary, and the Java virtual machine
+ * does not adjust the virtual function table during construction*/
+
+val x = new Bug                                //  [3, Array(0, 0, 0)]
+
+// For example, the empty list Nil has type List[Nothing], which is a subtype of List[T] for any T.
+
 
