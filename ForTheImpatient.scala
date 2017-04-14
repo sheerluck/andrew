@@ -492,4 +492,19 @@ class Item(val description: String, val price: Double) {
 // etc
 
 
+//  Regular Expressions
+
+val n = """[0-9]+""".r                         // .r -> util.matching.Regex
+val w = """\s+[0-9]+\s+""".r                   // Regex = \s+[0-9]+\s+
+val m = n.findAllIn("99 bottles, 98 bottles")  // non-empty iterator, 
+m.toVector                                     // Vector(99, 98)
+n.findFirstIn("99 bottles, 98 bottles")        // Option[String] = Some(99)
+// findPrefixOf + replaceFirstIn + replaceAllIn
+
+val n = """([0-9]+) ([a-z]+)""".r              // n(a,b) as "extractor"
+val n(num, item) = "99 bottles"                // num: String = 99, item: String = bottles
+val c = for (n(x, y) <- m) yield (x, y)        // Iterator[(String, String)] = non-empty iterator
+c.toVector                                     // Vector((99,bottles), (98,bottles))
+
+
 
