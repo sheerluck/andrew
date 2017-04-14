@@ -484,6 +484,6 @@ class Item(val description: String, val price: Double) {
   final override def hashCode = 13 * description.hashCode + 17 * price.hashCode
 }
 
-
+// Вместо целой главы про файлы, я просто https://github.com/pathikrit/better-files
 
 
