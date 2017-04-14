@@ -464,3 +464,26 @@ val x = new Bug                                //  [3, Array(0, 0, 0)]
 // For example, the empty list Nil has type List[Nothing], which is a subtype of List[T] for any T.
 
 
+//   OBJECT  EQUALITY
+
+// AnyRef:
+// * eq     method checks whether two references refer to the same object.
+// * equals method calls eq.
+// * == operator - for reference types it calls `equals'
+// * comparing a fresh object using `eq' will always yield false
+// * you should never override the == operator
+// * when you define equals, remember to define hashCode as well.
+// * for case classes [equals, hashCode] are overridden
+
+class Item(val description: String, val price: Double) {
+  final override def equals(other: Any) = {
+    val that = other.asInstanceOf[Item]
+    if (that == null) false
+    else description == that.description && price == that.price
+  }
+  final override def hashCode = 13 * description.hashCode + 17 * price.hashCode
+}
+
+
+
+
