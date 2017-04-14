@@ -360,17 +360,54 @@ package object random {
 
 package random {
   class Test {
-    def test() = {
+    def test(n: Int) = {
       setSeed(123)
-      (0 until 2) foreach { o => println(nextInt)    }
-      (0 to    1) foreach { o => println(nextDouble) }
+      (0 until n+1) foreach { o => println(nextInt)    }
+      (0 to    n)   foreach { o => println(nextDouble) }
     }
   }
 }
 
-val x = new random.Test                        // random.Test@1d7d968c
-x.test                                         // 121, 186, 1.66E8, 9.4E8
+val base = new random.Test                     // random.Test@1d7d968c
+base.test(1)                                   // 121, 186, 1.66E8, 9.4E8
 
 val sys = System.getProperty("user.name")      // sheerluck
+
+class ExString extends String                  // illegal inheritance from final class String
+class ExTest   extends random.Test {
+  override def test(a: Int) = println(a)
+  final def test(a: Double) = {                // so that they cannot be overridden
+    super.test(a.toInt)                        // 
+  }
+  protected[this] val q = 0
+  private  [this] val w = 0
+}
+
+val der: random.Test = new ExTest              // der: random.Test = ExTest@2fd72332
+der.test(1)                                    // 1
+der.test(1.1)                                  // error: type mismatch;
+
+// DO NOT ACTUALLY USE IT
+val p = if (der.isInstanceOf[ExTest])          // p: ExTest        = ExTest@2fd72332
+          der  .asInstanceOf[ExTest] 
+        else
+          new ExTest
+
+p.test(1.1)                                    // 121, 186, 1.66E8, 9.4E8
+// same object, same type:
+(der, p)  // (random.Test, ExTest) = (ExTest@2fd72332, ExTest@2fd72332)
+
+// DO NOT ACTUALLY USE IT
+base.isInstanceOf[ExTest]                      // false
+base.isInstanceOf[random.Test]                 // true
+base.getClass == classOf[ExTest]               // false
+base.getClass == classOf[random.Test]          // true
+
+der .isInstanceOf[ExTest]                      // true
+der .isInstanceOf[random.Test]                 // true
+der .getClass == classOf[ExTest]               // true
+der .getClass == classOf[random.Test]          // false
+
+// INSTEAD USE PATTERN MATCHING
 
 
