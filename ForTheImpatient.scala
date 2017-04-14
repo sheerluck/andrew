@@ -326,3 +326,51 @@ x.aggregate(0)  ( _ + _.toInt, _ + _ )         // [0,a] -> [97,b] -> [97+98,c] -
 x.aggregate("0")( _ + _,       _ + _ )         // "0abcd"
 
 
+// Packages  (":paste -raw" in REPL)
+// * can be defined in multiple files
+// * do not relate to directory hierarchy
+// * can contain a “chain”: package com.ho.imp { ... }
+// * Top-of-File Notation without braces
+// * can contain classes, objects, and traits, but not the definitions of functions or variables.
+//   That’s an unfortunate limitation of the Java virtual machine.
+//   But every package can have one package object:
+package object people {
+  val name = "Andrew"
+}
+
+package people {
+  class Boo {
+    var x = name            // package object people name
+    private[people] def bar = "is visible in its own package"
+    import scala.collection.mutable._
+    // scope of the import statement extends until the end of the enclosing block. 
+    import java.util.{HashMap => JavaHashMap}
+    import java.util.{HashSet => _} // hides a member instead of renaming it
+  }
+}
+
+package object random {
+  var prev = 0.0
+  val p32  = 4294967296L
+  def pab  = prev * 1664525 + 1013904223
+  def nextDouble(): Double = { prev = pab % p32; prev }
+  def nextInt():    Int    = nextDouble.toInt
+  def setSeed(seed: Int)   = { prev = seed }
+}
+
+package random {
+  class Test {
+    def test() = {
+      setSeed(123)
+      (0 until 2) foreach { o => println(nextInt)    }
+      (0 to    1) foreach { o => println(nextDouble) }
+    }
+  }
+}
+
+val x = new random.Test                        // random.Test@1d7d968c
+x.test                                         // 121, 186, 1.66E8, 9.4E8
+
+val sys = System.getProperty("user.name")      // sheerluck
+
+
