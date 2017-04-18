@@ -520,6 +520,13 @@ object Main extends App {
   val rev = lines.toArray.reverse              // Array[String] = Array("    f.write ... ", ...)
   y.overwrite("").appendLines(rev: _*)         // yes!
 
+  val dir = File.home/"git/andrew"             // better.files.File
+  val m   = "*.{py,scala}"
+  val g   = dir.glob(m, includePath = true)    // better.files.Files = non-empty iterator 
+  val v   = g.toVector                         // Vector[better.files.File] = Vector(/h/s/p.py, /h/s/F.scala)
+  val w   = dir.walk(2).toVector               // walk(2) for dir and one level subdir
+  def s = (f:File) => f.name.endsWith("scala") // better.files.File => Boolean
+  val f   = w filter {f => s(f)}               // Vector(/h/s/SUBDIR/boo.scala, /h/s/F.scala, /h/s/I.scala)
 }
 
 
