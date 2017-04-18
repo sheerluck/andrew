@@ -1,3 +1,4 @@
+package floatin3bytes
 import scala.collection.mutable.ListBuffer
 import java.nio.ByteBuffer
 
