@@ -505,5 +505,22 @@ val n(num, item) = "99 bottles"                // num: String = 99, item: String
 val c = for (n(x, y) <- m) yield (x, y)        // Iterator[(String, String)] = non-empty iterator
 c.toVector                                     // Vector((99,bottles), (98,bottles))
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+package betterfiles
+import better.files._
+import java.io.{File => JFile}                 // I personally prefer renaming the Java crap instead
+
+object Main extends App {
+
+  val x = File.home/"git/andrew/selfincrement.py" 
+  val y = File.home/"git"/"andrew"/"selfincrement.py"
+  val eq = x == y                              // true
+  val lines = x.lines                          // Traversable[String] = Buffer("num = 1", "print num", ...)
+  val rev = lines.toArray.reverse              // Array[String] = Array("    f.write ... ", ...)
+  y.overwrite("").appendLines(rev: _*)         // yes!
+
+}
+
 
 
