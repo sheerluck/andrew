@@ -149,19 +149,18 @@ def pp(s: (String, String)) = {
 }
 
 SortedMap(f.toArray:_*) foreach pp
-/*
- java.vendor -> 'Oracle Corporation'
- java.vendor.url -> 'http://java.oracle.com/'
- java.vendor.url.bug -> 'http://bugreport.sun.com/bugreport/'
- java.version -> '1.8.0_121'
- java.vm.info -> 'mixed mode'
- java.vm.name -> 'Java HotSpot(TM) 64-Bit Server VM'
- java.vm.specification.name -> 'Java Virtual Machine Specification'
- java.vm.specification.vendor -> 'Oracle Corporation'
- java.vm.specification.version -> '1.8'
- java.vm.vendor -> 'Oracle Corporation'
- java.vm.version -> '25.121-b13'
- */
+
+// java.vendor -> 'Oracle Corporation'
+// java.vendor.url -> 'http://java.oracle.com/'
+// java.vendor.url.bug -> 'http://bugreport.sun.com/bugreport/'
+// java.version -> '1.8.0_121'
+// java.vm.info -> 'mixed mode'
+// java.vm.name -> 'Java HotSpot(TM) 64-Bit Server VM'
+// java.vm.specification.name -> 'Java Virtual Machine Specification'
+// java.vm.specification.vendor -> 'Oracle Corporation'
+// java.vm.specification.version -> '1.8'
+// java.vm.vendor -> 'Oracle Corporation'
+// java.vm.version -> '25.121-b13'
 
 def minmax(v: Array[Int]) = (v.min, v.max)
 def lteqgt(v: Array[Int], x: Int) = (v.count(_ < x), v.count(_ == x), v.count(_ > x))
@@ -440,9 +439,9 @@ val fred = new Person("oh") { //  customize an abstract field by using an anonym
   def aa = (cc+bb).hashCode   // override keyword not required
 }
 
-/* The “early definition” syntax lets you initialize val fields of a subclass
- * before the superclass is executed. The syntax is so ugly that only a mother could love it.
- * You place the val fields in a block after the extends keyword, like this*/
+// The “early definition” syntax lets you initialize val fields of a subclass
+// before the superclass is executed. The syntax is so ugly that only a mother could love it.
+// You place the val fields in a block after the extends keyword, like this
 class Creature {
   val range: Int = 10
   val env: Array[Int] = new Array[Int](range)
@@ -451,13 +450,13 @@ class Bug extends {
   override val range = 3
 } with Creature
 
-/* NOTE: At the root of the construction order problem lies a design decision of the Java language
- * namely, to allow the invocation of subclass methods in a superclass constructor.
- * In C++, an object’s virtual function table pointer is set to the table of the superclass
- * when the superclass constructor executes. Afterwards, the pointer is set to the subclass table.
- * Therefore, in C++, it is not possible to modify constructor behavior through overriding.
- * The Java designers felt that this subtlety was unnecessary, and the Java virtual machine
- * does not adjust the virtual function table during construction*/
+// NOTE: At the root of the construction order problem lies a design decision of the Java language
+// namely, to allow the invocation of subclass methods in a superclass constructor.
+// In C++, an object’s virtual function table pointer is set to the table of the superclass
+// when the superclass constructor executes. Afterwards, the pointer is set to the subclass table.
+// Therefore, in C++, it is not possible to modify constructor behavior through overriding.
+// The Java designers felt that this subtlety was unnecessary, and the Java virtual machine
+// does not adjust the virtual function table during construction
 
 val x = new Bug                                //  [3, Array(0, 0, 0)]
 
