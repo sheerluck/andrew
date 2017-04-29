@@ -24,15 +24,13 @@ locateTemperatures(const int year,
     const auto f = [](const auto a) {
       bool ok;
       float q = a.toFloat(&ok);
-      if (ok) return Opt<float>{q};
-      return Opt<float>{};
+      return ok ? Opt<float>{q} : Opt<float>{};
     };
 
     const auto g = [](const auto a) {
       bool ok;
       int q = a.toInt(&ok);
-      if (ok) return Opt<int>{q};
-      return Opt<int>{};
+      return ok ? Opt<float>{q} : Opt<float>{};
     };
 
     auto getLines = [](const SV name)
