@@ -1,5 +1,6 @@
 #pragma once
 
+#include <experimental/string_view>
 #include <tuple>
 #include <vector>
 
@@ -17,6 +18,8 @@ struct Color {
     int green;
     int blue;
 };
+
+using     SV = std::experimental::string_view;
 
 using     FC = std::tuple<float, Color>;
 

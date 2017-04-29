@@ -1,6 +1,6 @@
 #pragma once
 
-#include <tuple>
+//#include <tuple>
 #include <vector>
 
 #include "model.h"
@@ -8,12 +8,12 @@
 namespace data {
 
 model::TID
-data(int year);
+data(const int year);
 
 void
-gen(int year, int zoom,
-    int x,    int y,
-    model::VMLT data);
+gen(const int year, const int zoom,
+    const int x,    const int y,
+    const model::VMLT data);
 
 
 }
