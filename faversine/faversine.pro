@@ -23,4 +23,5 @@ HEADERS += \
     data.h \
     extraction.h \
     interaction.h \
-    model.h
+    model.h \
+    functional.h

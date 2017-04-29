@@ -1,27 +1,31 @@
 #include "extraction.h"
 
 #include <vector>
-//#include <tuple>
+#include <tuple>
 #include <iostream>
 
 #include <QDateTime>
 #include <QFile>
 #include <QTextStream>
 #include <QString>
+#include <QVector>
+#include <QStringRef>
 
 #include "model.h"
+#include "functional.h"
 
 namespace extraction {
 
 model::VDTMLT
 locateTemperatures(const int year,
-                   const model::SV stationsFileName,
-                   const model::SV temperaturesFileName)
+                   const SV stationsFileName,
+                   const SV temperaturesFileName)
 {
-    auto getLines = [](const model::SV name)
+    auto getLines = [](const SV name)
     {
+        const auto root = "/home/sheerluck/tmp/scala/resources";
         auto result = std::vector<QString>{};
-        auto input  = QFile{QString(name.data())};
+        auto input  = QFile{QString{root} + name.data()};
         if (input.open(QIODevice::ReadOnly))
         {
             auto in = QTextStream{&input};
@@ -30,7 +34,36 @@ locateTemperatures(const int year,
         return result;
     };
 
-    auto stationsLines = getLines(stationsFileName);
+    auto parseSt = [](QString line)
+    {
+        const auto f= [](auto a) {
+          // Try(a.toDouble).toOption.flatMap(Option.apply)
+          bool ok;
+          float q = a.toFloat(&ok);
+          if (ok)
+              return Opt<float>{q};
+          else
+              return Opt<float>{};
+        };
+
+        const auto a = line.splitRef(",");
+        const auto [stn, wban, Lat, Lon] = std::make_tuple(a[0], a[1], a[2], a[3]);
+        const auto STN  = ( stn.isEmpty() ? QString{"000000"} :  stn.toString());
+        const auto WBAN = (wban.isEmpty() ? QString{ "00000"} : wban.toString());
+        const auto code = QString("%1%2").arg(STN).arg(WBAN);
+        return std::make_tuple(code, f(Lat), f(Lon));
+    };
+
+    const auto stationsLines = getLines(stationsFileName);
+    //const auto stations =
+
+    for (const auto [key, opa, opb] : fmap(parseSt, stationsLines))
+    {
+        std::cout << key.toStdString() << '\n';
+    }
+
+    auto xxx = 15.7 / (2 - 2);
+    std::cout << xxx << "!!!\n";
 
     std::cout << "kill me plz " << stationsFileName
               << " oh plz"      << temperaturesFileName
@@ -44,7 +77,7 @@ locateTemperatures(const int year,
 model::VMLT
 locationYearlyAverageRecords(const model::VDTMLT)
 {
-    auto x = 6;
+    return {};
 }
 
 

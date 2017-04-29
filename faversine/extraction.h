@@ -6,8 +6,8 @@ namespace extraction {
 
 model::VDTMLT
 locateTemperatures(const int year,
-                   const model::SV stationsFileName,
-                   const model::SV temperaturesFileName);
+                   const SV stationsFileName,
+                   const SV temperaturesFileName);
 model::VMLT
 locationYearlyAverageRecords(const model::VDTMLT);
 

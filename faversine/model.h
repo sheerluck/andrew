@@ -1,10 +1,16 @@
 #pragma once
 
 #include <experimental/string_view>
+#include <experimental/optional>
 #include <tuple>
 #include <vector>
 
 #include <QDateTime>
+
+using  SV = std::experimental::string_view;
+
+template<typename T>
+using Opt = std::experimental::optional<T>;
 
 namespace model {
 
@@ -18,8 +24,6 @@ struct Color {
     int green;
     int blue;
 };
-
-using     SV = std::experimental::string_view;
 
 using     FC = std::tuple<float, Color>;
 
