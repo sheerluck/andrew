@@ -4,6 +4,7 @@
 #include <experimental/optional>
 #include <tuple>
 #include <vector>
+#include <unordered_map>
 
 #include <QDateTime>
 
@@ -29,16 +30,18 @@ using     FC = std::tuple<float, Color>;
 
 using    VFC = std::vector<FC>;
 
-using    MLT = std::tuple<           model::Location, float/*temperature*/>;
+using    MLT = std::tuple<           Location, float/*temperature*/>;
 
 using   VMLT = std::vector<MLT>;
 
-using  DTMLT = std::tuple<QDateTime, model::Location, float/*temperature*/>;
+using  DTMLT = std::tuple<QDateTime, Location, float/*temperature*/>;
 
 using VDTMLT = std::vector<DTMLT>;
 
 using    TID = std::tuple<int, VMLT>;
 
 using   VTID = std::vector<TID>;
+
+using  L     = std::unordered_map<std::string, Location>;
 
 }

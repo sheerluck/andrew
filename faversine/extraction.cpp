@@ -21,6 +21,20 @@ locateTemperatures(const int year,
                    const SV stationsFileName,
                    const SV temperaturesFileName)
 {
+    const auto f = [](const auto a) {
+      bool ok;
+      float q = a.toFloat(&ok);
+      if (ok) return Opt<float>{q};
+      return Opt<float>{};
+    };
+
+    const auto g = [](const auto a) {
+      bool ok;
+      int q = a.toInt(&ok);
+      if (ok) return Opt<int>{q};
+      return Opt<int>{};
+    };
+
     auto getLines = [](const SV name)
     {
         const auto root = "/home/sheerluck/tmp/scala/resources";
@@ -34,44 +48,60 @@ locateTemperatures(const int year,
         return result;
     };
 
-    auto parseSt = [](QString line)
+    auto parseSt = [f](const QString line)
     {
-        const auto f= [](auto a) {
-          // Try(a.toDouble).toOption.flatMap(Option.apply)
-          bool ok;
-          float q = a.toFloat(&ok);
-          if (ok)
-              return Opt<float>{q};
-          else
-              return Opt<float>{};
-        };
-
         const auto a = line.splitRef(",");
         const auto [stn, wban, Lat, Lon] = std::make_tuple(a[0], a[1], a[2], a[3]);
         const auto STN  = ( stn.isEmpty() ? QString{"000000"} :  stn.toString());
         const auto WBAN = (wban.isEmpty() ? QString{ "00000"} : wban.toString());
         const auto code = QString("%1%2").arg(STN).arg(WBAN);
-        return std::make_tuple(code, f(Lat), f(Lon));
+        return std::make_tuple(code.toStdString(), f(Lat), f(Lon));
     };
 
     const auto stationsLines = getLines(stationsFileName);
-    //const auto stations =
+          auto statimap = model::L{};
 
     for (const auto [key, opa, opb] : fmap(parseSt, stationsLines))
     {
-        std::cout << key.toStdString() << '\n';
+      if (opa)
+        if (opb)
+          statimap[key] = model::Location{opa.value(), opa.value()};
     }
 
-    auto xxx = 15.7 / (2 - 2);
-    std::cout << xxx << "!!!\n";
+    auto parseT = [f,g](const QString line)
+    {
+        const auto a = line.splitRef(",");
+        const auto [stn, wban, MM, DD, T] = std::make_tuple(a[0], a[1], a[2], a[3], a[4]);
+        const auto STN  = ( stn.isEmpty() ? QString{"000000"} :  stn.toString());
+        const auto WBAN = (wban.isEmpty() ? QString{ "00000"} : wban.toString());
+        const auto code = QString("%1%2").arg(STN).arg(WBAN);
+        return std::make_tuple(code.toStdString(), g(MM), g(DD), f(T));
+    };
 
-    std::cout << "kill me plz " << stationsFileName
-              << " oh plz"      << temperaturesFileName
-              << "oh noooooo!!!111\n";
-    auto tempLoc = model::Location{0.2, 0.4};
-    auto now     = QDateTime::currentDateTime();
-    return {{now, tempLoc, 11.11 - year}};
+    auto getDate = [](int y, int m, int d) { return QDate{y, m, d}; };
+    const auto k = float{  5.0 / 9.0};
+    const auto y = float{160.0 / 9.0};
+    auto f2c = [k,y](float f) { return k*f - y; };
 
+    const auto temLines = getLines(temperaturesFileName);
+          auto temper   = model::VDTMLT{};
+
+    for (const auto [key, opm, opd, opt] : fmap(parseT, temLines))
+    {
+      if (opm)
+        if (opd)
+          if (opt)
+            temper.emplace_back(
+                     getDate(
+                        year,
+                        opm.value(),     // guess what?
+                        opd.value()),    // it's not Scala
+                     statimap[key],      // no for-yield for you
+                     f2c(opt.value())
+                   );
+    }
+
+    return temper;
 }
 
 model::VMLT
