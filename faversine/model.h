@@ -44,4 +44,7 @@ using   VTID = std::vector<TID>;
 
 using  L     = std::unordered_map<std::string, Location>;
 
+using  G     = std::unordered_map<Location, std::vector<float>>;
+
+
 }

@@ -59,7 +59,7 @@ locateTemperatures(const int year,
     const auto stationsLines = getLines(stationsFileName);
           auto statimap = model::L{};
 
-    for (const auto [key, opa, opb] : fmap(parseSt, stationsLines))
+    for (const auto& [key, opa, opb] : fmap(parseSt, stationsLines))
     {
       if (opa)
         if (opb)
@@ -84,7 +84,7 @@ locateTemperatures(const int year,
     const auto temLines = getLines(temperaturesFileName);
           auto temper   = model::VDTMLT{};
 
-    for (const auto [key, opm, opd, opt] : fmap(parseT, temLines))
+    for (const auto& [key, opm, opd, opt] : fmap(parseT, temLines))
     {
       if (opm)
         if (opd)
@@ -103,8 +103,23 @@ locateTemperatures(const int year,
 }
 
 model::VMLT
-locationYearlyAverageRecords(const model::VDTMLT)
+locationYearlyAverageRecords(const model::VDTMLT& records)
 {
+    const auto f = [](const std::vector<float> a) {
+      const auto size = a.size();
+      auto acc = float{0.0};
+      for (const auto& t : a) acc += t;
+      return acc/size;
+    };
+
+    // groupBy
+    auto gr = model::G{};
+    for (const auto& [date, Loc, t] : records)
+    {
+        // TODO: fix this try_emplace
+        const auto& [it, ok] = gr.try_emplace(Loc, {t});
+        if (!ok) it->emplace_back(t);  // it's a kind of magic
+    }
     return {};
 }
 

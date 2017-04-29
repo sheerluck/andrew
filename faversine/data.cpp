@@ -26,7 +26,7 @@ data(const int year)
 void
 gen(const int year, const int zoom,
     const int x,    const int y,
-    const model::VMLT data)
+    const model::VMLT& data)
 {
     const auto p = 255;
     const auto table = model::VFC{

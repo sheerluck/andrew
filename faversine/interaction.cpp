@@ -10,7 +10,7 @@ namespace interaction {
 void
 generateTiles(const model::VTID yearlyData)
 {
-    auto gen = [](int year, const auto data) {
+    auto gen = [](int year, const auto& data) {
         for (const auto z: range(0, 4))
         {
             const auto m = std::pow(2, z);
@@ -24,7 +24,7 @@ generateTiles(const model::VTID yearlyData)
         }
     };
 
-    for (const auto [year, data] : yearlyData)
+    for (const auto& [year, data] : yearlyData)
     {
         gen(year, data);
     }

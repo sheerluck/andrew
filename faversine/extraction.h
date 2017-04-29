@@ -9,7 +9,7 @@ locateTemperatures(const int year,
                    const SV stationsFileName,
                    const SV temperaturesFileName);
 model::VMLT
-locationYearlyAverageRecords(const model::VDTMLT);
+locationYearlyAverageRecords(const model::VDTMLT& records);
 
 }
 
