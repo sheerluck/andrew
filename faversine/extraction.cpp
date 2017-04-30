@@ -114,11 +114,18 @@ locationYearlyAverageRecords(const model::VTQLF& records)
 
     // groupBy
     auto gr = model::MLVFh{};
+    auto vt = std::vector<float>{3.1415926};
     for (const auto& [date, Loc, t] : records)
     {
-        // TODO: fix this try_emplace
-        const auto& [it, ok] = gr.try_emplace(Loc, {t});
-        if (!ok) it->emplace_back(t);  // it's a kind of magic
+        vt[0] = t;
+        auto [it, ok] = gr.try_emplace(Loc, vt);
+        if (!ok)
+        {
+            // sad thing is I can't just it->emplace_back(t);
+            auto& [key, val] = *it;
+            val.emplace_back(t);
+            gr[key] = val;
+        }
     }
     return {};
 }
