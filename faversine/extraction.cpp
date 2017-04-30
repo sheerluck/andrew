@@ -63,7 +63,7 @@ locateTemperatures(const int year,
     {
       if (opa)
         if (opb)
-          statimap[key] = model::Location{opa.value(), opa.value()};
+          statimap[key] = model::Location{opa.value(), opb.value()};
     }
 
     auto parseT = [f,g](const QString line)
