@@ -105,7 +105,7 @@ locateTemperatures(const int year,
 model::VTLF
 locationYearlyAverageRecords(const model::VTQLF& records)
 {
-    const auto f = [](const std::vector<float> a) {
+    const auto f = [](const auto& a) {
       const auto size = a.size();
       auto acc = float{0.0};
       for (const auto& t : a) acc += t;
@@ -113,12 +113,12 @@ locationYearlyAverageRecords(const model::VTQLF& records)
     };
 
     // groupBy
-    auto gr = model::MLVFh{};
+    auto groups = model::MLVFh{};
     auto vt = std::vector<float>{3.1415926};
     for (const auto& [date, Loc, t] : records)
     {
         vt[0] = t;
-        auto [it, ok] = gr.try_emplace(Loc, vt);
+        auto [it, ok] = groups.try_emplace(Loc, vt);
         if (!ok)
         {
             // sad thing is I can't just it->emplace_back(t);
@@ -126,7 +126,13 @@ locationYearlyAverageRecords(const model::VTQLF& records)
             val.emplace_back(t);
         }
     }
-    return {};
+
+    auto result = model::VTLF{};
+    for (const auto& [key, val] : groups)
+    {
+        result.emplace_back(key, f(val));
+    }
+    return result;
 }
 
 

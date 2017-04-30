@@ -11,7 +11,7 @@ int main()
     {
         std::cout << year << '\n';
         auto data   = data::data(year);
-        //auto single = model::VTID{data};
-        //interaction::generateTiles(single);
+        auto single = model::VTID{data};
+        interaction::generateTiles(single);
     }
 }

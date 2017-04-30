@@ -32,7 +32,6 @@ struct LocationHash
         } d;
         d.input[0] = k.lat;
         d.input[1] = k.lon;
-        std::cout << "DEBUG " << std::hash<double>()(d.result);
         return std::hash<double>()(d.result);
     }
 };
