@@ -124,7 +124,6 @@ locationYearlyAverageRecords(const model::VTQLF& records)
             // sad thing is I can't just it->emplace_back(t);
             auto& [key, val] = *it;
             val.emplace_back(t);
-            gr[key] = val;
         }
     }
     return {};
