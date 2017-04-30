@@ -13,7 +13,7 @@ data(const int year);
 void
 gen(const int year, const int zoom,
     const int x,    const int y,
-    const model::VMLT& data);
+    const model::VTLF& data);
 
 
 }

@@ -16,7 +16,7 @@
 
 namespace extraction {
 
-model::VDTMLT
+model::VTQLF
 locateTemperatures(const int year,
                    const SV stationsFileName,
                    const SV temperaturesFileName)
@@ -57,7 +57,7 @@ locateTemperatures(const int year,
     };
 
     const auto stationsLines = getLines(stationsFileName);
-          auto statimap = model::L{};
+          auto statimap = model::MSL{};
 
     for (const auto& [key, opa, opb] : fmap(parseSt, stationsLines))
     {
@@ -82,7 +82,7 @@ locateTemperatures(const int year,
     auto f2c = [k,y](float f) { return k*f - y; };
 
     const auto temLines = getLines(temperaturesFileName);
-          auto temper   = model::VDTMLT{};
+          auto temper   = model::VTQLF{};
 
     for (const auto& [key, opm, opd, opt] : fmap(parseT, temLines))
     {
@@ -102,8 +102,8 @@ locateTemperatures(const int year,
     return temper;
 }
 
-model::VMLT
-locationYearlyAverageRecords(const model::VDTMLT& records)
+model::VTLF
+locationYearlyAverageRecords(const model::VTQLF& records)
 {
     const auto f = [](const std::vector<float> a) {
       const auto size = a.size();
@@ -113,7 +113,7 @@ locationYearlyAverageRecords(const model::VDTMLT& records)
     };
 
     // groupBy
-    auto gr = model::G{};
+    auto gr = model::MLVFh{};
     for (const auto& [date, Loc, t] : records)
     {
         // TODO: fix this try_emplace

@@ -13,8 +13,8 @@ generateTiles(const model::VTID yearlyData);
 
 QImage
 tile(
-  const model::VMLT temperatures,
-  const model::VFC  colors,
+  const model::VTLF temperatures,
+  const model::VTFC colors,
   int zoom, int x, int y);
 
 }

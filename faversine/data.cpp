@@ -26,10 +26,11 @@ data(const int year)
 void
 gen(const int year, const int zoom,
     const int x,    const int y,
-    const model::VMLT& data)
+    const model::VTLF& data)
 {
     const auto p = 255;
-    const auto table = model::VFC{
+    const auto table = model::VTFC
+    {
         { 60.0, model::Color{p,p,p}},
         { 32.0, model::Color{p,0,0}},
         { 12.0, model::Color{p,p,0}},

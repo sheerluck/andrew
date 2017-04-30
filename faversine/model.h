@@ -15,36 +15,62 @@ using Opt = std::experimental::optional<T>;
 
 namespace model {
 
-struct Location {
+struct Location
+{
     float lat;
     float lon;
 };
 
-struct Color {
+struct LocationHash
+{
+    std::size_t operator()(const Location& k) const
+    {
+        union cast
+        {
+            float  input[2];
+            double result;
+        } d;
+        d.input[0] = k.lat;
+        d.input[1] = k.lon;
+        std::cout << "DEBUG " << std::hash<double>()(d.result);
+        return std::hash<double>()(d.result);
+    }
+};
+
+struct LocationEqual
+{
+    bool operator()(const Location& lhs, const Location& rhs) const
+    {
+        return lhs.lat == rhs.lat && lhs.lon == rhs.lon;
+    }
+};
+
+struct Color
+{
     int red;
     int green;
     int blue;
 };
 
-using     FC = std::tuple<float, Color>;
+using    TFC = std::tuple<float, Color>;
 
-using    VFC = std::vector<FC>;
+using   VTFC = std::vector<TFC>;
 
-using    MLT = std::tuple<           Location, float/*temperature*/>;
+using    TLF = std::tuple<           Location, float/*temperature*/>;
 
-using   VMLT = std::vector<MLT>;
+using   VTLF = std::vector<TLF>;
 
-using  DTMLT = std::tuple<QDateTime, Location, float/*temperature*/>;
+using   TQLF = std::tuple<QDateTime, Location, float/*temperature*/>;
 
-using VDTMLT = std::vector<DTMLT>;
+using  VTQLF = std::vector<TQLF>;
 
-using    TID = std::tuple<int, VMLT>;
+using    TID = std::tuple<int, VTLF>;
 
 using   VTID = std::vector<TID>;
 
-using  L     = std::unordered_map<std::string, Location>;
+using    MSL = std::unordered_map<std::string, Location>;
 
-using  G     = std::unordered_map<Location, std::vector<float>>;
+using  MLVFh = std::unordered_map<Location, std::vector<float>, LocationHash, LocationEqual>;
 
 
 }

@@ -4,12 +4,12 @@
 
 namespace extraction {
 
-model::VDTMLT
+model::VTQLF
 locateTemperatures(const int year,
                    const SV stationsFileName,
                    const SV temperaturesFileName);
-model::VMLT
-locationYearlyAverageRecords(const model::VDTMLT& records);
+model::VTLF
+locationYearlyAverageRecords(const model::VTQLF& records);
 
 }
 
