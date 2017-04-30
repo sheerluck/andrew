@@ -71,5 +71,9 @@ using    MSL = std::unordered_map<std::string, Location>;
 
 using  MLVFh = std::unordered_map<Location, std::vector<float>, LocationHash, LocationEqual>;
 
+using    TII = std::tuple<int, int>;
+
+using   VTII = std::vector<TII>;
+
 
 }
