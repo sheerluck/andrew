@@ -12,7 +12,8 @@ TEMPLATE = app
 SOURCES += main.cpp \
     data.cpp \
     extraction.cpp \
-    interaction.cpp
+    interaction.cpp \
+    visualisation.cpp
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -24,4 +25,5 @@ HEADERS += \
     extraction.h \
     interaction.h \
     model.h \
-    functional.h
+    functional.h \
+    visualisation.h

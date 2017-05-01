@@ -5,6 +5,7 @@
 #include <QtMath>
 
 #include "data.h"
+#include "visualisation.h"
 #include "range.h"
 #include "functional.h"
 
@@ -13,7 +14,8 @@ namespace interaction {
 void
 generateTiles(const model::VTID yearlyData)
 {
-    auto gen = [](int year, const auto& data) {
+    auto gen = [](int year, const auto& data)
+    {
         for (const auto z: range(0, 4))
         {
             const auto m = std::pow(2, z);
@@ -71,7 +73,9 @@ tile(
 
     auto pairs  = model::VTII{};
     for (const auto ind : range(0, width * height))
+    {
         pairs.emplace_back(ind % width, ind / width);
+    }
 
     //for (const auto& [a, b] : pairs)
     //    std::cout << a << ',' << b << '\n';
@@ -89,12 +93,22 @@ tile(
         return center(nw, se);
     };
 
-    const auto Locs  = fmap(toLoc, pairs);
+    const auto Locs    = fmap(toLoc, pairs);
 
     //Locs.resize(10);
     //for (const auto& elem : Locs)
     //    std::cout << elem.lat << ',' << elem.lon << '\n';
 
+    const auto predict = [&rt = temperatures]  (auto o)
+    {
+        return visualisation::predictTemperature(rt, o);
+    };
+    const auto interpl = [&rc = colors]        (auto o)
+    {
+        return visualisation::interpolateColor  (rc, o);
+    };
+    const auto t = fmap(predict, Locs);
+    const auto c = fmap(interpl, t   );
     return QImage{};
 }
 
