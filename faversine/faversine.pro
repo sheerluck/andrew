@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     data.cpp \
     extraction.cpp \
     interaction.cpp \
-    visualisation.cpp
+    visualisation.cpp \
+    vincenty.cpp
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -26,4 +27,5 @@ HEADERS += \
     interaction.h \
     model.h \
     functional.h \
-    visualisation.h
+    visualisation.h \
+    vincenty.h

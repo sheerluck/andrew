@@ -1,11 +1,14 @@
 #include "visualisation.h"
 
+#include "vincenty.h"
+
 namespace visualisation {
 
 float
 predictTemperature(model::VTLF temperatures,
                    model::Location location)
 {
+
     return {};
 }
 
