@@ -3,6 +3,7 @@
 
 #include "model.h"
 #include "vincenty.h"
+#include "visualisation.h"
 
 
 TEST_CASE( "01", "[vincenty]" ) {
@@ -60,4 +61,46 @@ TEST_CASE( "haskell", "[vincenty]" ) {
     const auto r  = vincenty(L2, L1);
     REQUIRE( r == 15000939.0f );
 }
+
+
+
+
+
+
+TEST_CASE( "31℃", "[color]" ) {
+    const auto t = 31.8300167f;
+    const auto c = visualisation::interpolateColor(t);
+    REQUIRE( c.red   == 255 );
+    REQUIRE( c.green ==   2 );
+    REQUIRE( c.blue  ==   0 );
+}
+
+TEST_CASE( "-11℃", "[color]" ) {
+    const auto t = -11.f;
+    const auto c = visualisation::interpolateColor(t);
+    REQUIRE( c.red   ==   0 );
+    REQUIRE( c.green ==  68 );
+    REQUIRE( c.blue  == 255 );
+}
+
+TEST_CASE( "-50℃", "[color]" ) {
+    const auto t = -50.f;
+    const auto c = visualisation::interpolateColor(t);
+    REQUIRE( c.red   ==  33 );
+    REQUIRE( c.green ==   0 );
+    REQUIRE( c.blue  == 107 );
+}
+
+
+TEST_CASE( "77℃", "[color]" ) {
+    const auto t = 77.f;
+    const auto c = visualisation::interpolateColor(t);
+    REQUIRE( c.red   == 255 );
+    REQUIRE( c.green == 255 );
+    REQUIRE( c.blue  == 255 );
+}
+
+
+
+
 

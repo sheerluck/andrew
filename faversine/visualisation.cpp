@@ -72,7 +72,7 @@ const auto colortable = model::VTFC
     {-50.f, model::Color{33,0,107}},
     {-60.f, model::Color{0,0,0}},
 };
-
+const auto last   = colortable.size() - 1;
 const auto zipped = model::Zipped
 {
     { 60.f, model::Color{p,p,p},     32.f, model::Color{p,0,0}},
@@ -90,6 +90,9 @@ model::Color
 interpolateColor(  //model::VTFC colors,
                    float value)
 {
+    if (const auto& [t, c] = colortable[0];    value >= t) return c;
+    if (const auto& [t, c] = colortable[last]; value <= t) return c;
+
     for (const auto& [t, c] : colortable)
     {
         if (t == value) return c;
@@ -97,7 +100,7 @@ interpolateColor(  //model::VTFC colors,
 
     for (const auto& [t0, c0, t1, c1] : zipped)
     {
-        if (value > t0 && value < t1)
+        if (value < t0 && value > t1)
         {
             const auto t  = (value - t0)/(t1 - t0);
             const auto x0 = std::vector<int>{c0.red, c0.green, c0.blue};
