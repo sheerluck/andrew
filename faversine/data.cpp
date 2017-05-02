@@ -61,7 +61,7 @@ gen(const int year, const int zoom,
         std::cout << QString("before %1\n")
                      .arg(QDateTime::currentDateTime().toString())
                      .toStdString();
-        auto img  = interaction::tile(data, table, zoom, x, y);
+        auto img  = interaction::tile(data, /*table,*/ zoom, x, y);
         std::cout << QString("after %1\n")
                      .arg(QDateTime::currentDateTime().toString())
                      .toStdString();

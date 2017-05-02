@@ -55,6 +55,10 @@ using    TFC = std::tuple<float, Color>;
 
 using   VTFC = std::vector<TFC>;
 
+using   Four = std::tuple<float, Color, float, Color>;
+
+using Zipped = std::vector<Four>;
+
 using    TLF = std::tuple<           Location, float/*temperature*/>;
 
 using   VTLF = std::vector<TLF>;

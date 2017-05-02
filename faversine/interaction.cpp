@@ -64,7 +64,7 @@ center(const model::Location a, const model::Location b)
 QImage
 tile(
   const model::VTLF temperatures,
-  const model::VTFC colors,
+  //const model::VTFC colors,
   int zoom, int x, int y)
 {
     const auto width  = 256;
@@ -98,13 +98,13 @@ tile(
     //for (const auto& elem : Locs)
     //    std::cout << elem.lat << ',' << elem.lon << '\n';
 
-    const auto predict = [&rt = temperatures]  (auto o)
+    const auto predict = [&rt = temperatures]      (auto o)
     {
-        return visualisation::predictTemperature(rt, o);
+        return visualisation::predictTemperature(rt,     o);
     };
-    const auto interpl = [&rc = colors]        (auto o)
+    const auto interpl = [/*&rc = colors*/]        (auto o)
     {
-        return visualisation::interpolateColor  (rc, o);
+        return visualisation::interpolateColor  (/*rc,*/ o);
     };
     const auto t = fmap(predict, Locs);
     const auto c = fmap(interpl, t   );

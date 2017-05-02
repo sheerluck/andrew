@@ -12,7 +12,7 @@ predictTemperature(model::VTLF temperatures,
                    model::Location location);
 
 model::Color
-interpolateColor(  model::VTFC colors,
+interpolateColor(  //model::VTFC colors,
                    float value);
 
 
