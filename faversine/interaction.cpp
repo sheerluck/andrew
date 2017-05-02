@@ -43,7 +43,6 @@ model::Location
 tileLocation(int zoom, int x, int y)
 {
     const auto pi  = float{3.1415926535897932384626433832795};
-    const auto tor = pi / 180.f;
     const auto n   = std::pow(2.f, 1.f*zoom);
     const auto lonDeg = 1.f*x / n * 360.f - 180.f;
     const auto k      = 1.f*y / n;

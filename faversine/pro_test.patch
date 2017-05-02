@@ -1,0 +1,18 @@
+--- faversine.pro	2017-05-01 12:50:46.000000000 +0300
++++ test.pro	2017-05-01 17:05:10.000000000 +0300
+@@ -3,13 +3,13 @@
+ 
+ CONFIG += c++1z
+ 
+-TARGET = faversine
++TARGET = test
+ CONFIG += console
+ CONFIG -= app_bundle
+ 
+ TEMPLATE = app
+ 
+-SOURCES += main.cpp \
++SOURCES += test.cpp \
+     data.cpp \
+     extraction.cpp \
+     interaction.cpp \

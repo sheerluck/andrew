@@ -25,7 +25,7 @@ sqr(float x)
 float
 haversine(const std::vector<float>&& p)
 {
-    const auto r    = fmap([](float r){ return qRadiansToDegrees(r); }, p);
+    const auto r    = fmap([](float r){ return qDegreesToRadians(r); }, p);
     const auto dlat = r[2] - r[0];
     const auto dlon = r[3] - r[1];
     const auto slat = sin(0.5f  * dlat);
@@ -46,9 +46,9 @@ vincenty(const model::Location x,
     if (p1_0 == p2_0 && p1_1 == p2_1) return 0.f;
     if (abs(p2_0 - p1_0) > 80)        return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});
     if (abs(p2_1 - p1_1) > 80)        return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});
-    const auto u1 = atan(g * tan(qRadiansToDegrees(p1_0)));
-    const auto u2 = atan(g * tan(qRadiansToDegrees(p2_0)));
-    const auto L  = qRadiansToDegrees(p2_1 - p1_1);
+    const auto u1 = atan(g * tan(qDegreesToRadians(p1_0)));
+    const auto u2 = atan(g * tan(qDegreesToRadians(p2_0)));
+    const auto L  = qDegreesToRadians(p2_1 - p1_1);
     /*V*/ auto lambda = L;
     const auto sinU1 = sin(u1);
     const auto cosU1 = cos(u1);
