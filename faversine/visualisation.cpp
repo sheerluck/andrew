@@ -1,9 +1,12 @@
 #include "visualisation.h"
 
 #include <iostream>
+#include <cmath>
+#include <tuple>
 
 #include "vincenty.h"
 #include "functional.h"
+#include "range.h"
 
 namespace visualisation {
 
@@ -92,8 +95,23 @@ interpolateColor(  //model::VTFC colors,
         if (t == value) return c;
     }
 
-
-
+    for (const auto& [t0, c0, t1, c1] : zipped)
+    {
+        if (value > t0 && value < t1)
+        {
+            const auto t  = (value - t0)/(t1 - t0);
+            const auto x0 = std::vector<int>{c0.red, c0.green, c0.blue};
+            const auto x1 = std::vector<int>{c1.red, c1.green, c1.blue};
+            auto xyz = std::vector<float>{0, 0, 0};
+            auto rgb = std::vector<int>  {0, 0, 0};
+            for (const auto i : range(0, 3))
+            {
+                xyz[i] = x1[i] - x0[i];
+                rgb[i] = std::lround(x0[i] + t * xyz[i]);
+            }
+            return {rgb[0], rgb[1], rgb[2]};
+        }
+    }
     return {};
 }
 
