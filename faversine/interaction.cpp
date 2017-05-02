@@ -3,6 +3,7 @@
 #include <cmath>
 
 #include <QtMath>
+#include <QColor>
 
 #include "data.h"
 #include "visualisation.h"
@@ -92,7 +93,7 @@ tile(
         return center(nw, se);
     };
 
-    const auto Locs    = fmap(toLoc, pairs);
+    const auto Locations   = fmap(toLoc, pairs);
 
     //Locs.resize(10);
     //for (const auto& elem : Locs)
@@ -106,9 +107,22 @@ tile(
     {
         return visualisation::interpolateColor  (/*rc,*/ o);
     };
-    const auto t = fmap(predict, Locs);
-    const auto c = fmap(interpl, t   );
-    return QImage{};
+    const auto temperature = fmap(predict, Locations);
+    const auto colors      = fmap(interpl, temperature);
+
+    //for (const auto elem : c)
+    //    std::cout << elem << '\n';
+
+    auto  img = QImage{width, height, QImage::Format_ARGB32};
+    QRgb* bit = reinterpret_cast<QRgb*>(img.bits());
+    for (const auto ind : range(0, width * height))
+    {
+        const auto& c = colors[ind];
+        const auto& [r,g,b] = std::make_tuple(c.red, c.green, c.blue);
+        const auto pixel = qRgba(r, g, b, 127);  // alpha
+        bit[ind] = pixel; // QImage.setPixel is too slow
+    }
+    return img;
 }
 
 

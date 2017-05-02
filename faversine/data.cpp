@@ -28,19 +28,6 @@ gen(const int year, const int zoom,
     const int x,    const int y,
     const model::VTLF& data)
 {
-    const auto p = 255;
-    const auto table = model::VTFC
-    {
-        { 60.0, model::Color{p,p,p}},
-        { 32.0, model::Color{p,0,0}},
-        { 12.0, model::Color{p,p,0}},
-        {  0.0, model::Color{0,p,p}},
-        {-15.0, model::Color{0,0,p}},
-        {-27.0, model::Color{p,0,p}},
-        {-50.0, model::Color{33,0,107}},
-        {-60.0, model::Color{0,0,0}},
-    };
-
     const auto root = "/home/sheerluck/tmp/scala/";
     const auto qdot = QDir{root};
     std::cout << QString("generateImage(%1, %2, %3, %4, %5)\n")
