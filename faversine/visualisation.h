@@ -8,12 +8,12 @@
 namespace visualisation {
 
 float
-predictTemperature(model::VTLF temperatures,
-                   model::Location location);
+predictTemperature(const model::VTLF temperatures,
+                   const model::Location location);
 
 model::Color
 interpolateColor(  //model::VTFC colors,
-                   float value);
+                   const float value);
 
 
 }

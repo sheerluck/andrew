@@ -32,9 +32,6 @@ generateTiles(const model::VTID yearlyData)
 
     for (const auto& [year, data] : yearlyData)
     {
-        //std::cout << data.size() << '\n';
-
-        //for (const auto& [L, t] : data)  std::cout << L.lat << ' ' << L.lon << ' ' << t << '\n';
         gen(year, data);
     }
 }
@@ -77,9 +74,6 @@ tile(
         pairs.emplace_back(ind % width, ind / width);
     }
 
-    //for (const auto& [a, b] : pairs)
-    //    std::cout << a << ',' << b << '\n';
-
     const auto toLoc = [width, height,
                         zoom, x, y]
                        (const auto pxpy)
@@ -95,10 +89,6 @@ tile(
 
     const auto Locations   = fmap(toLoc, pairs);
 
-    //Locs.resize(10);
-    //for (const auto& elem : Locs)
-    //    std::cout << elem.lat << ',' << elem.lon << '\n';
-
     const auto predict = [&rt = temperatures]      (auto o)
     {
         return visualisation::predictTemperature(rt,     o);
@@ -109,9 +99,6 @@ tile(
     };
     const auto temperature = fmap(predict, Locations);
     const auto colors      = fmap(interpl, temperature);
-
-    //for (const auto elem : c)
-    //    std::cout << elem << '\n';
 
     auto  img = QImage{width, height, QImage::Format_ARGB32};
     QRgb* bit = reinterpret_cast<QRgb*>(img.bits());

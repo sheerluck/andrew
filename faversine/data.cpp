@@ -49,11 +49,11 @@ gen(const int year, const int zoom,
                      .arg(QDateTime::currentDateTime().toString())
                      .toStdString();
         auto img  = interaction::tile(data, /*table,*/ zoom, x, y);
-        std::cout << QString("after %1\n")
+        std::cout << QString("after  %1\n")
                      .arg(QDateTime::currentDateTime().toString())
                      .toStdString();
 
-        std::cout << (img.save(path) ? "saved\n" : "failed");
+        std::cout << (img.save(path) ? "saved\n\n" : "failed\n\n");
     }
 } // gen
 

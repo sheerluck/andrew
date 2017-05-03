@@ -11,30 +11,40 @@
 namespace visualisation {
 
 float
-predictTemperature(model::VTLF temperatures,
-                   model::Location location)
+predictTemperature(const model::VTLF temperatures,
+                   const model::Location location)
 {
-    {   // DEBUG START
-        const auto p_y  = location.lat;
-        const auto p_x  = location.lon;
-        std::cout << QString("p_x=%1 p_y=%2\n").arg(p_x).arg(p_y).toStdString();
-    }   // DEBUG STOP
-
     const auto eq = model::LocationEqual{};
     for (const auto& [Loc, t] : temperatures)
     {
         if (eq(Loc, location)) return t;
     }
 
-    //dist = temperatures map { case(a,t) => (vincenty(a, location), t) }
     using  FF = std::tuple<float, float>;
     using VFF = std::vector<FF>;
     auto dist = VFF{};
     for (const auto& [Loc, t] : temperatures)  // over 9000 elements
     {
-        // MOST TIME CONSUMING LINE OF CODE?
         dist.emplace_back(vincenty(Loc, location), t);
     }
+
+    // we don't need full dist, top30 is enough
+    // but sorting is too expensive
+    // Thank god there's std::nth_element
+    const auto topN = 30;  // or 40, or 50, or 100
+    std::nth_element(std::begin(dist),
+                     std::begin(dist) + topN,
+                     std:: end (dist),
+                     [](auto& p1, auto& p2)
+                     {
+                         const auto& [len1, t1] = p1;
+                         const auto& [len2, t2] = p2;
+                         return len1 < len2;
+                     }
+                     );
+
+    dist.resize(topN);
+
     const auto allWeight = [](VFF c)
     {
         const auto f = [](auto at)
@@ -46,8 +56,7 @@ predictTemperature(model::VTLF temperatures,
         };
         return fmap(f, c);
     };
-    // top?  sort(dist).take(50)?  worth it?
-    const auto all = allWeight(dist);  // MOST TIME CONSUMING LINE OF CODE?
+    const auto all = allWeight(dist);
 
     auto sumwt = 0.f;
     auto sumw  = 0.f;
@@ -88,7 +97,7 @@ const auto zipped = model::Zipped
 
 model::Color
 interpolateColor(  //model::VTFC colors,
-                   float value)
+                   const float value)
 {
     if (const auto& [t, c] = colortable[0];    value >= t) return c;
     if (const auto& [t, c] = colortable[last]; value <= t) return c;
