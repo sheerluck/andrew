@@ -43,13 +43,14 @@ vincenty(const model::Location x,
     const auto p1_1 = x.lon;
     const auto p2_0 = y.lat;
     const auto p2_1 = y.lon;
+    return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});/*
     if (p1_0 == p2_0 && p1_1 == p2_1) return 0.f;
     if (abs(p2_0 - p1_0) > 80)        return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});
     if (abs(p2_1 - p1_1) > 80)        return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});
     const auto u1 = atan(g * tan(qDegreesToRadians(p1_0)));
     const auto u2 = atan(g * tan(qDegreesToRadians(p2_0)));
     const auto L  = qDegreesToRadians(p2_1 - p1_1);
-    /*V*/ auto lambda = L;
+    / V / auto lambda = L;
     const auto sinU1 = sin(u1);
     const auto cosU1 = cos(u1);
     const auto sinU2 = sin(u2);
@@ -98,6 +99,6 @@ vincenty(const model::Location x,
     const auto k3 = -3.f + 4.f * sqr(sinSigma);
     const auto k4 = -3.f + 4.f * sqr(cos2SigmaM);
     const auto dSigma = k1 * (cos2SigmaM + B4 * (cosSigma * k2 - B6 * cos2SigmaM * k3 * k4));
-    return b * A * (sigma - dSigma);
+    return b * A * (sigma - dSigma);*/
 }
 
