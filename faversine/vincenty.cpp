@@ -1,6 +1,7 @@
 #include "vincenty.h"
 
 #include <cmath>
+#include <array>
 
 #include "range.h"
 #include "functional.h"
@@ -8,6 +9,7 @@
 
 constexpr auto a = 6378137.f;
 constexpr auto b = 6356752.314245f;
+constexpr auto ab= a + b;
 constexpr auto f = 1.f / 298.257223563;
 constexpr auto g = 1.f - f;
 constexpr auto h = f / 16;
@@ -22,6 +24,39 @@ sqr(float x)
     return x * x;
 }
 
+
+const auto sintab = []() {
+    auto arr = std::array<float, 2*314160>{};
+    for (const auto i : range(0, 2*314160))
+    {
+        auto x  = float{ -314160.f + i};
+        x      /= 100000.f;
+        arr[i]  = sin(x);
+    }
+    return arr;
+}();
+
+const auto costab = []() {
+    auto arr = std::array<float, 2*314160>{};
+    for (const auto i : range(0, 2*314160))
+    {
+        auto x  = float{ -314160.f + i};
+        x      /= 100000.f;
+        arr[i]  = cos(x);
+    }
+    return arr;
+}();
+
+std::string test_me_sin(const float vonny)
+{
+    auto ind = static_cast<int>(100000.f * vonny);
+    ind     += 314160;
+    auto s = QString("sin(%1)=%2, tab[%3]=%4")
+                    .arg(vonny).arg(sin(vonny))
+                    .arg(ind)  .arg(sintab[ind]);
+    return s.toStdString();
+}
+
 float
 haversine(const std::vector<float>&& p)
 {
@@ -32,7 +67,7 @@ haversine(const std::vector<float>&& p)
     const auto slon = sin(0.5f  * dlon);
     const auto k    = cos(r[0]) * cos(r[2]);
     const auto d    = sqr(slat) + k * sqr(slon);
-    return (a + b) * asin(sqrt(d));
+    return ab * asin(sqrt(d));
 }
 
 float

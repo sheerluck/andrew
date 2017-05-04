@@ -20,9 +20,9 @@ generateTiles(const model::VTID yearlyData)
         for (const auto z: range(0, 4))
         {
             const auto m = std::pow(2, z);
-            for (const auto x: range(0, m+1))
+            for (const auto x: range(0, m))
             {
-                for (const auto y: range(0, m+1))
+                for (const auto y: range(0, m))
                 {
                     data::gen(ayear, z, x, y, adata);
                 }
