@@ -81,7 +81,7 @@ locateTemperatures(const int year,
     const auto getDate = [](int y, int m, int d) { return QDate{y, m, d}; };
     const auto k = float{  5.0 / 9.0};
     const auto y = float{160.0 / 9.0};
-    const auto f2c  = [k,y](float f) { return k*f - y; };
+    const auto f2c  = [k,y](float x) { return k*x - y; };
 
     const auto temLines = getLines(temperaturesFileName);
           auto temper   = model::VTQLF{};
@@ -127,7 +127,9 @@ locationYearlyAverageRecords(const model::VTQLF& records)
             // sad thing is I can't just it->emplace_back(t);
             auto& [key, val] = *it;
             val.emplace_back(t);
+            vt[0] = key.lat; // gcc: C++17 can't [[maybe_unused]] with Structured Bindings
         }
+        date.isValid();      // gcc: C++17 can't [[maybe_unused]] with Structured Bindings
     }
 
     auto result = model::VTLF{};

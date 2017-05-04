@@ -25,7 +25,7 @@ sqr(float x)
 float
 haversine(const std::vector<float>&& p)
 {
-    const auto r    = fmap([](float r){ return qDegreesToRadians(r); }, p);
+    const auto r    = fmap([](float x){ return qDegreesToRadians(x); }, p);
     const auto dlat = r[2] - r[0];
     const auto dlon = r[3] - r[1];
     const auto slat = sin(0.5f  * dlat);

@@ -30,18 +30,12 @@ HEADERS += \
     visualisation.h \
     vincenty.h
 
-QMAKE_CXXFLAGS_RELEASE -= -O1
-QMAKE_CXXFLAGS_RELEASE -= -O2
-QMAKE_CXXFLAGS_RELEASE *= -O3 -march=native -mtune=native -pedantic -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor
 
-
-CONFIG *= VALGRIND
+#CONFIG *= VALGRIND
 VALGRIND {
     # Valgrind: compile in Release, with debug symbols and optimized debugging
-    CONFIG -= debug
-    CONFIG *= release
-    QMAKE_CXXFLAGS_RELEASE *= -g
-    QMAKE_CXXFLAGS_RELEASE -= -O -O1 -O2 -O3 -Os
-    QMAKE_CXXFLAGS_RELEASE *= -O0 -fno-inline
+    QMAKE_CXXFLAGS_RELEASE = -g -O0 -fno-inline
 }
-
+else {
+    QMAKE_CXXFLAGS_RELEASE = -O3 -march=native -mtune=native -mmmx -msse -msse2 -msse3 -pedantic -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor
+}

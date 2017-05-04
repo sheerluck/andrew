@@ -40,6 +40,7 @@ predictTemperature(const model::VTLF temperatures,
                          const auto& [len1, t1] = p1;
                          const auto& [len2, t2] = p2;
                          return len1 < len2;
+                         return t1 < t2; // gcc: C++17 can't [[maybe_unused]] with Structured Bindings
                      }
                      );
 
