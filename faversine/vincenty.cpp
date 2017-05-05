@@ -128,6 +128,46 @@ haversine(const std::vector<float>&& p)
 }
 
 float
+faversine(const std::vector<float>&& p)
+{
+    const auto r    = fmap([](float x){ return qDegreesToRadians(x); }, p);
+    const auto dlat = r[2] - r[0];
+    const auto dlon = r[3] - r[1];
+
+auto ind = static_cast<int>(100000.f * 0.5f * dlat);     ind += 314160;
+    const auto slat = sintab[ind];
+    ind  = static_cast<int>(100000.f * 0.5f * dlon);     ind += 314160;
+    const auto slon = sintab[ind];
+    ind  = static_cast<int>(100000.f * r[0]);            ind += 314160;
+    const auto cos0 = costab[ind];
+    ind  = static_cast<int>(100000.f * r[2]);            ind += 314160;
+    const auto cos2 = costab[ind];
+
+    const auto k     = cos0 * cos2;
+    const auto d     = sqr(slat) + k * sqr(slon);
+    const auto vonny = sqrt(d);
+
+    auto val = float{0.f};
+    if (abs(vonny) < 0.001f) val = vonny;
+    else
+    if (abs(vonny) < 0.1f)
+    {
+        ind = static_cast<int>(5000000.f * vonny);
+        ind += 500000;
+        val = asin10[ind];  // -0.1 .. +0.1
+    }
+    else
+    {
+        ind = static_cast<int>(500000.f * vonny);
+        ind += 500000;
+        val = asintb[ind];  // -1 .. +1
+    }
+
+    return ab * val;
+}
+
+
+float
 vincenty(const model::Location x,
          const model::Location y)
 {
@@ -135,7 +175,7 @@ vincenty(const model::Location x,
     const auto p1_1 = x.lon;
     const auto p2_0 = y.lat;
     const auto p2_1 = y.lon;
-    return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});/*
+    return faversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});/*
     if (p1_0 == p2_0 && p1_1 == p2_1) return 0.f;
     if (abs(p2_0 - p1_0) > 80)        return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});
     if (abs(p2_1 - p1_1) > 80)        return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});
