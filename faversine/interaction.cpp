@@ -4,6 +4,7 @@
 
 #include <QtMath>
 #include <QColor>
+#include <QtConcurrent>
 
 #include "data.h"
 #include "visualisation.h"
@@ -62,56 +63,80 @@ center(const model::Location a, const model::Location b)
 QImage
 tile(
   const model::VTLF temperatures,
-  //const model::VTFC colors,
   int zoom, int x, int y)
 {
     const auto width  = 256;
     const auto height = 256;
 
-    auto pairs  = model::VTII{};
-    for (const auto ind : range(0, width * height))
+    const auto divide = [](const auto h)
     {
-        pairs.emplace_back(ind % width, ind / width);
-    }
-
-
-
-    const auto toLoc = [width, height,
-                        zoom, x, y]
-                       (const auto pxpy)
-    {
-        const auto& [px, py] = pxpy;
-        const auto  xx = x * width  + px;
-        const auto  yy = y * height + py;
-        const auto  z  = zoom + 8; // a subtile at a higher zoom level (256 = 2⁸).
-        const auto  nw = tileLocation(z, xx,   yy);
-        const auto  se = tileLocation(z, xx+1, yy+1);
-        return center(nw, se);
+        const auto q = h / 4;
+        auto result  = model::VTII{};
+        for (const auto i : {0,1,2,3})
+        {
+            result.emplace_back(i*q, (i+1)*q);
+        }
+        return result;
     };
 
-    const auto Locations   = fmap(toLoc, pairs);
-
-    const auto predict = [&rt = temperatures]      (auto o)
+    const auto rangez = divide(width * height);
+    const auto task = [width, height,
+                       zoom, x, y,           // some ugly shit
+                       &rt = temperatures]
+                      (const auto& pp)
     {
-        return visualisation::predictTemperature(rt,     o);
+        const auto& [a, b] = pp;
+        auto pairs  = model::VTII{};
+        for (const auto ind : range(a, b))
+        {
+            pairs.emplace_back(ind % width, ind / width);
+        }
+
+        const auto toLoc = [width, height,
+                            zoom, x, y]
+                           (const auto pxpy)
+        {
+            const auto& [px, py] = pxpy;
+            const auto  xx = x * width  + px;
+            const auto  yy = y * height + py;
+            const auto  z  = zoom + 8; // a subtile at a higher zoom level (256 = 2⁸).
+            const auto  nw = tileLocation(z, xx,   yy);
+            const auto  se = tileLocation(z, xx+1, yy+1);
+            return center(nw, se);
+        };
+
+        const auto Locations   = fmap(toLoc, pairs);
+
+        const auto predict = [rt](auto o)
+        {
+            return visualisation::predictTemperature(rt,     o);
+        };
+        const auto interpl = []  (auto o)
+        {
+            return visualisation::interpolateColor  (/*rc,*/ o);
+        };
+        const auto temperature = fmap(predict, Locations);
+        const auto colors      = fmap(interpl, temperature);
+        return colors;
     };
-    const auto interpl = [/*&rc = colors*/]        (auto o)
-    {
-        return visualisation::interpolateColor  (/*rc,*/ o);
-    };
-    const auto temperature = fmap(predict, Locations);
-    const auto colors      = fmap(interpl, temperature);
 
-    // merge to colors
+    // God damn QtConcurrent for forcing me to write this
+    using TASK  = std::function<model::VC(model::TII)>; // auto my ass
+    auto future = QtConcurrent::mapped(rangez, TASK{ task });
 
-    auto  img = QImage{width, height, QImage::Format_ARGB32};
-    QRgb* bit = reinterpret_cast<QRgb*>(img.bits());
-    for (const auto ind : range(0, width * height))
+    auto  img   = QImage{width, height, QImage::Format_ARGB32};
+    QRgb* bit   = reinterpret_cast<QRgb*>(img.bits());
+    auto ind    = int{0};
+    auto colors = model::VC{};
+    for (const auto& slice : future.results())
     {
-        const auto& c = colors[ind];
-        const auto& [r,g,b] = std::make_tuple(c.red, c.green, c.blue);
-        const auto pixel = qRgba(r, g, b, 127);  // alpha
-        bit[ind] = pixel; // QImage.setPixel is too slow
+        for (const auto& c : slice)
+        {
+            const auto& [r,g,b] = std::make_tuple(c.red, c.green, c.blue);
+            const auto pixel = qRgba(r, g, b, 127);  // alpha
+            bit[ind] = pixel; // QImage.setPixel is too slow
+            ind += 1;  // coz it's future.results(), not range(0, width * height)
+        }
     }
     return img;
 }

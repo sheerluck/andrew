@@ -51,6 +51,8 @@ struct Color
     int blue;
 };
 
+using     VC = std::vector<Color>;
+
 using    TFC = std::tuple<float, Color>;
 
 using   VTFC = std::vector<TFC>;

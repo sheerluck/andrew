@@ -1,5 +1,6 @@
 QT += core
 QT += gui
+QT += concurrent
 
 CONFIG += c++1z
 
