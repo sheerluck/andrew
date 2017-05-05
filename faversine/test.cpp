@@ -4,6 +4,7 @@
 #include "model.h"
 #include "vincenty.h"
 #include "visualisation.h"
+#include "range.h"
 
 
 TEST_CASE( "01", "[vincenty]" ) {
@@ -98,7 +99,7 @@ TEST_CASE( "77℃", "[color]" ) {
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 TEST_CASE( "sin-31", "[sincostab]" ) {
     const auto t = -3.1415;
     const auto c = test_me_sin(t);
@@ -221,7 +222,23 @@ TEST_CASE( "asin 99", "[sincostab]" ) {
     const auto c = test_me_asin(t);
     REQUIRE( c  == "asin(1)=1.5708, tab1[1000000]=1.5708" );
 }
-
+*/
 /////////////////////////////////////////////////////////////////////////////
+
+TEST_CASE( "para01", "[size]" ) {
+
+    const auto width  = 8;
+    const auto height = 8;
+
+    auto pairs  = model::VTII{};
+    for (const auto ind : range(0, width * height))
+    {
+        pairs.emplace_back(ind % width, ind / width);
+    }
+
+    REQUIRE( 64  == pairs.size() );
+
+    //for (const auto )
+}
 
 

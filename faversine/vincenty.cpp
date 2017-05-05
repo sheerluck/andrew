@@ -24,7 +24,7 @@ sqr(float x)
     return x * x;
 }
 
-
+/*
 const auto sintab = []() {
     auto arr = std::array<float, 2*314160>{};
     for (const auto i : range(0, 2*314160))
@@ -111,7 +111,7 @@ std::string test_me_asin(const float vonny)
                     .arg(tab)
                     .arg(ind)  .arg(val);
     return s.toStdString();
-}
+}*/
 
 
 float
@@ -126,7 +126,7 @@ haversine(const std::vector<float>&& p)
     const auto d    = sqr(slat) + k * sqr(slon);
     return ab * asin(sqrt(d));
 }
-
+/*
 float
 faversine(const std::vector<float>&& p)
 {
@@ -165,7 +165,7 @@ auto ind = static_cast<int>(100000.f * 0.5f * dlat);     ind += 314160;
 
     return ab * val;
 }
-
+*/
 
 float
 vincenty(const model::Location x,
@@ -175,7 +175,7 @@ vincenty(const model::Location x,
     const auto p1_1 = x.lon;
     const auto p2_0 = y.lat;
     const auto p2_1 = y.lon;
-    return faversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});/*
+    return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});/*
     if (p1_0 == p2_0 && p1_1 == p2_1) return 0.f;
     if (abs(p2_0 - p1_0) > 80)        return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});
     if (abs(p2_1 - p1_1) > 80)        return haversine(std::vector<float>{p1_0, p1_1, p2_0, p2_1});

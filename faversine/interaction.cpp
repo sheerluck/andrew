@@ -74,16 +74,18 @@ tile(
         pairs.emplace_back(ind % width, ind / width);
     }
 
+
+
     const auto toLoc = [width, height,
                         zoom, x, y]
                        (const auto pxpy)
     {
-        const auto [px, py] = pxpy;
-        const auto xx = x * width  + px;
-        const auto yy = y * height + py;
-        const auto z  = zoom + 8; // a subtile at a higher zoom level (256 = 2⁸).
-        const auto nw = tileLocation(z, xx,   yy);
-        const auto se = tileLocation(z, xx+1, yy+1);
+        const auto& [px, py] = pxpy;
+        const auto  xx = x * width  + px;
+        const auto  yy = y * height + py;
+        const auto  z  = zoom + 8; // a subtile at a higher zoom level (256 = 2⁸).
+        const auto  nw = tileLocation(z, xx,   yy);
+        const auto  se = tileLocation(z, xx+1, yy+1);
         return center(nw, se);
     };
 
@@ -99,6 +101,8 @@ tile(
     };
     const auto temperature = fmap(predict, Locations);
     const auto colors      = fmap(interpl, temperature);
+
+    // merge to colors
 
     auto  img = QImage{width, height, QImage::Format_ARGB32};
     QRgb* bit = reinterpret_cast<QRgb*>(img.bits());

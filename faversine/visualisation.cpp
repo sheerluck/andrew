@@ -52,7 +52,7 @@ predictTemperature(const model::VTLF temperatures,
         {
             const auto& [a, t] = at;
             // p is a positive real number, called the power parameter.
-            const auto w = 1.f / (a*a); // p = 2
+            const auto  w = 1.f / (a*a); // p = 2
             return FF{w*t, w};
         };
         return fmap(f, c);
@@ -100,8 +100,8 @@ model::Color
 interpolateColor(  //model::VTFC colors,
                    const float value)
 {
-    if (const auto& [t, c] = colortable[0];    value >= t) return c;
-    if (const auto& [t, c] = colortable[last]; value <= t) return c;
+    if  (const auto& [t, c] = colortable[0];    value >= t) return c;
+    if  (const auto& [t, c] = colortable[last]; value <= t) return c;
 
     for (const auto& [t, c] : colortable)
     {

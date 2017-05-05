@@ -50,11 +50,11 @@ locateTemperatures(const int year,
 
     auto parseSt = [f](const QString line)
     {
-        const auto a    = line.splitRef(",");
-        const auto [stn, wban, Lat, Lon] = std::make_tuple(a[0], a[1], a[2], a[3]);
-        const auto STN  = ( stn.isEmpty() ? QString{"000000"} :  stn.toString());
-        const auto WBAN = (wban.isEmpty() ? QString{ "00000"} : wban.toString());
-        const auto code = QString("%1%2").arg(STN).arg(WBAN);
+        const auto  a    = line.splitRef(",");
+        const auto& [stn, wban, Lat, Lon] = std::make_tuple(a[0], a[1], a[2], a[3]);
+        const auto  STN  = ( stn.isEmpty() ? QString{"000000"} :  stn.toString());
+        const auto  WBAN = (wban.isEmpty() ? QString{ "00000"} : wban.toString());
+        const auto  code = QString("%1%2").arg(STN).arg(WBAN);
         return std::make_tuple(code.toStdString(), f(Lat), f(Lon));
     };
 
@@ -70,17 +70,17 @@ locateTemperatures(const int year,
 
     auto parseT = [f,g](const QString line)
     {
-        const auto a    = line.splitRef(",");
-        const auto [stn, wban, MM, DD, T] = std::make_tuple(a[0], a[1], a[2], a[3], a[4]);
-        const auto STN  = ( stn.isEmpty() ? QString{"000000"} :  stn.toString());
-        const auto WBAN = (wban.isEmpty() ? QString{ "00000"} : wban.toString());
-        const auto code = QString("%1%2").arg(STN).arg(WBAN);
+        const auto  a    = line.splitRef(",");
+        const auto& [stn, wban, MM, DD, T] = std::make_tuple(a[0], a[1], a[2], a[3], a[4]);
+        const auto  STN  = ( stn.isEmpty() ? QString{"000000"} :  stn.toString());
+        const auto  WBAN = (wban.isEmpty() ? QString{ "00000"} : wban.toString());
+        const auto  code = QString("%1%2").arg(STN).arg(WBAN);
         return std::make_tuple(code.toStdString(), g(MM), g(DD), f(T));
     };
 
     const auto getDate = [](int y, int m, int d) { return QDate{y, m, d}; };
-    const auto k = float{  5.0 / 9.0};
-    const auto y = float{160.0 / 9.0};
+    const auto k =   5.f / 9.f;
+    const auto y = 160.f / 9.f;
     const auto f2c  = [k,y](float x) { return k*x - y; };
 
     const auto temLines = getLines(temperaturesFileName);
