@@ -62,10 +62,7 @@ TEST_CASE( "haskell", "[vincenty]" ) {
     REQUIRE( r == 15000939.0f );
 }
 
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////
 
 TEST_CASE( "31℃", "[color]" ) {
     const auto t = 31.8300167f;
@@ -99,6 +96,8 @@ TEST_CASE( "77℃", "[color]" ) {
     REQUIRE( c.green == 255 );
     REQUIRE( c.blue  == 255 );
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 TEST_CASE( "sin-31", "[sincostab]" ) {
     const auto t = -3.1415;
@@ -142,5 +141,87 @@ TEST_CASE( "sin 04", "[sincostab]" ) {
     REQUIRE( c  == "sin(0.444444)=0.429956, tab[358604]=0.429952" );
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+TEST_CASE( "asin-35", "[sincostab]" ) {
+    const auto t = -9.26574e-5;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(-9.26574e-5)=-9.26574e-5, tab?[1]=-9.26574e-5" );
+}
+
+TEST_CASE( "asin-34", "[sincostab]" ) {
+    const auto t = -9.26574e-4;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(-0.000926574)=-0.000926574, tab?[1]=-0.000926574" );
+}
+
+
+TEST_CASE( "asin-33", "[sincostab]" ) {
+    const auto t = -9.26574e-3;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(-0.00926574)=-0.00926587, tab2[453672]=-0.00926573" );
+}
+
+TEST_CASE( "asin-xx", "[sincostab]" ) {
+    const auto t = -0.0999;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(-0.0999)=-0.100067, tab2[500]=-0.100067" );
+}
+
+TEST_CASE( "asin+xx", "[sincostab]" ) {
+    const auto t = +0.0999;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(0.0999)=0.100067, tab2[999500]=0.100067" );
+}
+
+TEST_CASE( "asin-01", "[sincostab]" ) {
+    const auto t = -0.110883f;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(-0.110883)=-0.111111, tab1[444559]=-0.11111" );
+}
+
+TEST_CASE( "asin 00", "[sincostab]" ) {
+    const auto t = 0.f;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(0)=0, tab?[1]=0" );
+}
+
+TEST_CASE( "asin 01", "[sincostab]" ) {
+    const auto t = 0.0998334f;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(0.0998334)=0.1, tab2[999167]=0.1" );
+}
+
+TEST_CASE( "asin 02", "[sincostab]" ) {
+    const auto t = 0.198669f;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(0.198669)=0.2, tab1[599334]=0.199999" );
+}
+
+TEST_CASE( "asin 03", "[sincostab]" ) {
+    const auto t = 0.29552f;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(0.29552)=0.3, tab1[647760]=0.3" );
+}
+
+TEST_CASE( "asin 04", "[sincostab]" ) {
+    const auto t = 0.429956f;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(0.429956)=0.444444, tab1[714978]=0.444444" );
+}
+
+TEST_CASE( "asin-99", "[sincostab]" ) {
+    const auto t = -0.99999999999;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(-1)=-1.5708, tab1[0]=-1.5708" );
+}
+
+TEST_CASE( "asin 99", "[sincostab]" ) {
+    const auto t = 0.99999999999;
+    const auto c = test_me_asin(t);
+    REQUIRE( c  == "asin(1)=1.5708, tab1[1000000]=1.5708" );
+}
+
+/////////////////////////////////////////////////////////////////////////////
 
 

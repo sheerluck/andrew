@@ -47,6 +47,29 @@ const auto costab = []() {
     return arr;
 }();
 
+const auto asintb = []() {
+    auto arr = std::array<float, 2*500000 + 1>{};
+    for (const auto i : range(0, 2*500000 + 1))
+    {
+        auto x  = float{ -500000.f + i};
+        x      /= 500000.f;
+        arr[i]  = asin(x);
+    }
+    return arr;
+}();
+
+const auto asin10 = []() {
+    auto arr = std::array<float, 2*500000 + 1>{};
+    for (const auto i : range(0, 2*500000 + 1))
+    {
+        auto x  = float{ -500000.f + i};
+        x      /= 5000000.f;
+        arr[i]  = asin(x);
+    }
+    return arr;
+}();
+
+
 std::string test_me_sin(const float vonny)
 {
     auto ind = static_cast<int>(100000.f * vonny);
@@ -56,6 +79,40 @@ std::string test_me_sin(const float vonny)
                     .arg(ind)  .arg(sintab[ind]);
     return s.toStdString();
 }
+
+std::string test_me_asin(const float vonny)
+{
+    auto ind = int{0};
+    auto val = float{0.f};
+    auto tab = "!";
+    if (abs(vonny) < 0.001f)
+    {
+        ind = 1;
+        val = vonny;
+        tab = "?";
+    }
+    else
+    if (abs(vonny) < 0.1f)
+    {
+        ind = static_cast<int>(5000000.f * vonny);
+        ind += 500000;
+        val = asin10[ind];  // -0.1 .. +0.1
+        tab = "2";
+    }
+    else
+    {
+        ind = static_cast<int>(500000.f * vonny);
+        ind += 500000;
+        val = asintb[ind];  // -1 .. +1
+        tab = "1";
+    }
+    auto s = QString("asin(%1)=%2, tab%3[%4]=%5")
+                    .arg(vonny).arg(asin(vonny))
+                    .arg(tab)
+                    .arg(ind)  .arg(val);
+    return s.toStdString();
+}
+
 
 float
 haversine(const std::vector<float>&& p)
