@@ -15,7 +15,9 @@ SOURCES += main.cpp \
     extraction.cpp \
     interaction.cpp \
     visualisation.cpp \
-    vincenty.cpp
+    vincenty.cpp \
+    manipulation.cpp \
+    bits.cpp
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -29,7 +31,9 @@ HEADERS += \
     model.h \
     functional.h \
     visualisation.h \
-    vincenty.h
+    vincenty.h \
+    manipulation.h \
+    bits.h
 
 
 #CONFIG *= VALGRIND

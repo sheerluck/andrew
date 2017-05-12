@@ -5,6 +5,7 @@
 #include <tuple>
 #include <vector>
 #include <unordered_map>
+#include <array>
 
 #include <QDateTime>
 
@@ -80,6 +81,8 @@ using  MLVFh = std::unordered_map<Location, std::vector<float>, LocationHash, Lo
 using    TII = std::tuple<int, int>;
 
 using   VTII = std::vector<TII>;
+
+using   Grid = std::unordered_map<quint32, float>;
 
 
 }

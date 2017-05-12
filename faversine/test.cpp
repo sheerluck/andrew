@@ -1,11 +1,14 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
 
+#include <QString>
+#include <tuple>
+
 #include "model.h"
 #include "vincenty.h"
 #include "visualisation.h"
 #include "range.h"
-
+#include "bits.h"
 
 TEST_CASE( "01", "[vincenty]" ) {
     const auto L1 = model::Location{42.3541165, -71.0693514};
@@ -242,3 +245,16 @@ TEST_CASE( "para01", "[size]" ) {
 }
 
 
+TEST_CASE( "2*16 = 32", "[gridsize]" ) {
+
+    for (const qint16 x : range(-2, 2))
+    for (const qint16 y : range(-2, 2))
+    {
+        const auto key = to32(x, y);
+        std::cout << QString("x=%1 y=%2 key=%3\n").arg(x).arg(y).arg(key).toStdString();
+        const auto& [a, b] = from(key);
+        std::cout << QString("a=%1 b=%2 key=%3\n\n").arg(a).arg(b).arg(key).toStdString();
+
+    }
+
+}

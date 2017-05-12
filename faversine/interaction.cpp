@@ -62,7 +62,7 @@ center(const model::Location a, const model::Location b)
 
 QImage
 tile(
-  const model::VTLF temperatures,
+  const model::VTLF& temperatures,
   int zoom, int x, int y)
 {
     const auto width  = 256;
