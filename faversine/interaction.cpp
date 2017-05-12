@@ -70,9 +70,9 @@ tile(
 
     const auto divide = [](const auto h)
     {
-        const auto q = h / 4;
+        const auto q = h / 2;
         auto result  = model::VTII{};
-        for (const auto i : {0,1,2,3})
+        for (const auto i : {0,1})
         {
             result.emplace_back(i*q, (i+1)*q);
         }
