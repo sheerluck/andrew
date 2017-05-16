@@ -16,7 +16,8 @@ int main()
         auto single = model::VTID{data};
         interaction::generateTiles(single);
     }*/
-    
+
+    /*
     for (const auto year : range(1975, 2016))
     {
         const auto& [y, lt] = data::data(year);
@@ -24,5 +25,9 @@ int main()
         const auto grid = manipulation::makeGrid(lt);
         manipulation::save2text(y, grid);
     }
+    */
+
+    //  0,0,1090903441 -> grid[(0,0)]  =  8.36659
+    // 10,0,1103560031 -> grid[(10,0)] = 24.8737
     
 }

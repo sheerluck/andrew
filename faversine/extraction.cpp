@@ -11,7 +11,6 @@
 #include <QVector>
 #include <QStringRef>
 
-#include "model.h"
 #include "functional.h"
 
 namespace extraction {
