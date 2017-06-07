@@ -29,5 +29,15 @@ int main()
 
     //  0,0,1090903441 -> grid[(0,0)]  =  8.36659
     // 10,0,1103560031 -> grid[(10,0)] = 24.8737
-    
+
+    // normal grid
+    auto wtf = model::wtf{};
+    for (const auto year : range(1975, 1990))
+    {
+        std::cout << "\nyear=" << year << '\n';
+        wtf.emplace_back(manipulation::loadFromText(year));
+    }
+    const auto grid = manipulation::average(wtf);
+    manipulation::save2text(9000, grid);
+
 }
