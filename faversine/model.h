@@ -54,6 +54,8 @@ struct Color
 
 using     VC = std::vector<Color>;
 
+using     VF = std::vector<float>;
+
 using    TFC = std::tuple<float, Color>;
 
 using   VTFC = std::vector<TFC>;
@@ -76,13 +78,15 @@ using   VTID = std::vector<TID>;
 
 using    MSL = std::unordered_map<std::string, Location>;
 
-using  MLVFh = std::unordered_map<Location, std::vector<float>, LocationHash, LocationEqual>;
+using  MLVFh = std::unordered_map<Location, VF, LocationHash, LocationEqual>;
 
 using    TII = std::tuple<int, int>;
 
 using   VTII = std::vector<TII>;
 
 using   Grid = std::unordered_map<quint32, float>;
+
+using    wtf = std::vector<Grid>;
 
 
 }

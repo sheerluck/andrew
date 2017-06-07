@@ -7,6 +7,7 @@
 #include <QTextStream>
 
 #include "bits.h"
+#include "avg.h"
 #include "range.h"
 #include "visualisation.h"
 #include "functional.h"
@@ -129,6 +130,36 @@ loadFromText(const int       year)
     return {};
 }
 
+
+model::Grid
+average(const model::wtf& gridvec)
+{
+    //const auto allf = fmap(vt, makeGrid);  // grid collection
+
+    auto result = model::Grid{};
+    for (const qint16 x : range(-185, 185))
+    for (const qint16 y : range( -95,  95))
+    {
+        if (0 == y) std::cout << x << '\n';
+        const auto key = to32(x, y);
+        //const auto lat = static_cast<float>(y);
+        //const auto lon = static_cast<float>(x);
+        //const auto Lok = model::Location{lat, lon};  // Y!!! X!!! NOT X,Y
+        const auto ff   = [key](auto f) { return f[key]; };
+        const auto allt = fmap(ff, gridvec);
+        // avg is here!
+        result[key]    = avg(allt);
+    }
+    return result;
+}
+
+
+model::Grid
+deviation(const model::VTLF& temperatures,
+          const model::Grid& normals)
+{
+    const auto x = 55;
+}
 
 
 }

@@ -12,6 +12,7 @@
 #include <QStringRef>
 
 #include "functional.h"
+#include "avg.h"
 
 namespace extraction {
 
@@ -106,14 +107,6 @@ locateTemperatures(const int year,
 model::VTLF
 locationYearlyAverageRecords(const model::VTQLF& records)
 {
-    const auto f = [](const auto& a)
-    {
-        const auto size = a.size();
-        auto acc = float{0.0};
-        for (const auto& t : a) acc += t;
-        return acc/size;
-    };
-
     // groupBy
     auto groups = model::MLVFh{};
     auto vt     = std::vector<float>{3.1415926};
@@ -134,7 +127,7 @@ locationYearlyAverageRecords(const model::VTQLF& records)
     auto result = model::VTLF{};
     for (const auto& [key, val] : groups)
     {
-        result.emplace_back(key, f(val));
+        result.emplace_back(key, avg(val));
     }
     return result;
 }

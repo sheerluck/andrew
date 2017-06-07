@@ -14,4 +14,13 @@ save2text(const int          year,
 model::Grid
 loadFromText(const int       year);
 
+model::Grid
+average(const model::wtf& vt);
+
+model::Grid
+deviation(const model::VTLF& temperatures,
+          const model::Grid& normals);
+
+
+
 }
