@@ -149,11 +149,18 @@ average(const model::wtf& gridvec)
 
 
 model::Grid
-deviation(const model::VTLF& temperatures,
+deviation(const model::Grid& grid,
           const model::Grid& normals)
 {
-    std::cout << temperatures.size();
-    return normals;
+    auto result = model::Grid{};
+    for (const qint16 x : range(-185, 185))
+    for (const qint16 y : range( -95,  95))
+    {
+        if (0 == y) std::cout << x << '\n';
+        const auto key = to32(x, y);
+        result[key]    = grid.at(key) - normals.at(key);
+    }
+    return result;
 }
 
 

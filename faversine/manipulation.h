@@ -18,9 +18,8 @@ model::Grid
 average(const model::wtf& vt);
 
 model::Grid
-deviation(const model::VTLF& temperatures,
+deviation(const model::Grid& grid,
           const model::Grid& normals);
-
 
 
 }
