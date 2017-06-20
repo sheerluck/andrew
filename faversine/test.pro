@@ -17,7 +17,9 @@ SOURCES += test.cpp \
     visualisation.cpp \
     vincenty.cpp \
     manipulation.cpp \
-    bits.cpp
+    bits.cpp \
+    avg.cpp \
+    visualisation2.cpp
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -33,5 +35,7 @@ HEADERS += \
     visualisation.h \
     vincenty.h \
     manipulation.h \
-    bits.h
+    bits.h \
+    avg.h \
+    visualisation2.h
 
