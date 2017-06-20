@@ -3,7 +3,7 @@ ru = "A,Б,В,Г,Д,Е,Ё,Ж,  З,И,Й,К,Л, М,Н,О,П,Р,С,Т,У,Ф, Х,Ц
 en = "A,6,B,r,g,E,E,}l{,3,U,U,K,Jl,M,H,O,n,P,C,T,Y,qp,X,LL,4,LLl,LLL,`b,bl,b,-),l0,9l," \
      "a,6,B,r,g,e,e,}l{,3,u,u,k,Jl,m,H,o,n,p,c,t,y,qp,x,LL,4,LLl,LLL,`b,bl,b,-),l0,9l"
 strip_split = lambda lg: [x.strip() for x in lg.split(',')]
-ru, en = map(strip_split, [ru, en])
+ru, en = list(map(strip_split, [ru, en]))
 
 mapa, out, full = {}, [], "CS.txt"
 for i, char in enumerate(ru): mapa[char] = en[i]

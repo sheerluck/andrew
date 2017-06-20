@@ -27,20 +27,20 @@ tree = Tree(f=_ * _,
                           )
                    ),
             )
-print tree,   "\n", bold(tour(tree)), "\n"
+print(tree,   "\n", bold(tour(tree)), "\n")
 
 branch = subt(tree, "RR")
-print branch, "\n", bold(tour(branch)), "\n"
+print(branch, "\n", bold(tour(branch)), "\n")
 
 branch = plac(leaf(pi + pi / 2), tree, "L")
-print branch, "\n", bold(tour(branch)), "\n"
+print(branch, "\n", bold(tour(branch)), "\n")
 
 branch = plac(subt(tree, "L"), plac(subt(tree, "R"), tree, "L"), "R")
-print branch, "\n", bold(tour(branch)), "\n"
+print(branch, "\n", bold(tour(branch)), "\n")
 
 paths = ["L", "R"]
 for a in paths:
-    print bold(a), "\t", tour(subt(tree, a)), "\t", bold(tour(subt(branch, a)))
+    print(bold(a), "\t", tour(subt(tree, a)), "\t", bold(tour(subt(branch, a))))
     for b in paths:
         path = a + b
-        print bold(path), "\t", tour(subt(tree, path)), "\t", bold(tour(subt(branch, path)))
+        print(bold(path), "\t", tour(subt(tree, path)), "\t", bold(tour(subt(branch, path))))

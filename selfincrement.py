@@ -1,5 +1,5 @@
 num = 1
-print num
+print(num)
 linebreak = '\n'  #  '\r\n'
 with open(__file__, mode="rb") as f:
     content    = f.read().split(linebreak)

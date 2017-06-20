@@ -3,7 +3,7 @@ def split_world(arr, max):
     indices = [i for i, x in enumerate(arr) if x == max]
     if [0] == indices: return [], arr[: : -1], []  # leftmost
     left, right = arr[: indices[0] + 1], arr[: indices[-1] - 1: -1]
-    chunks, ran = [], range(len(indices) - 1)
+    chunks, ran = [], list(range(len(indices) - 1))
     for k in ran: chunks.append(arr[indices[k]: indices[k + 1] + 1])
     return left, right, chunks
 
@@ -30,4 +30,4 @@ world = [2, 5, 1, 3, 1, 2, 1, 7, 6, 3, 1, 3]
 left, right, chunks = split_world(world, max(world))
 inner_puddles = []
 for chunk in chunks: inner_puddles.append(inner(chunk))
-print world, "\nwater=", puddles(left) + puddles(right) + sum(inner_puddles)
+print(world, "\nwater=", puddles(left) + puddles(right) + sum(inner_puddles))

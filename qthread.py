@@ -1,8 +1,7 @@
 #-*- coding: utf-8  -*-
 
 import sys
-from PyQt4.QtCore import QObject, QCoreApplication, QThread, pyqtSignal, pyqtSlot
-
+from PyQt5.QtCore import QObject, QCoreApplication, QThread, pyqtSignal, pyqtSlot
 
 class Worker(QObject):
 
@@ -14,7 +13,7 @@ class Worker(QObject):
 
     @pyqtSlot()
     def boo(self):
-        print self.m_a
+        print(self.m_a)
         self.finished.emit()
 
 
