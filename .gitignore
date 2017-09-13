@@ -20,4 +20,6 @@ build-*
 
 # python
 .mypy_cache
+.hypothesis
+.cache
 __pycache__
