@@ -4,13 +4,15 @@ def split_world(arr, max):
     if [0] == indices: return [], arr[: : -1], []  # leftmost
     left, right = arr[: indices[0] + 1], arr[: indices[-1] - 1: -1]
     chunks, ran = [], list(range(len(indices) - 1))
-    for k in ran: chunks.append(arr[indices[k]: indices[k + 1] + 1])
+    for k in ran:
+        chunks.append(arr[indices[k]: indices[k + 1] + 1])
     return left, right, chunks
 
 
 def puddles(arr):
     indx, length = 0, len(arr)
-    if length < 3: return 0
+    if length < 3:
+        return 0
     while (arr[indx + 1] >= arr[indx]):
         indx += 1
         if length == indx + 1: return 0
@@ -29,5 +31,6 @@ def inner(arr):
 world = [2, 5, 1, 3, 1, 2, 1, 7, 6, 3, 1, 3]
 left, right, chunks = split_world(world, max(world))
 inner_puddles = []
-for chunk in chunks: inner_puddles.append(inner(chunk))
+for chunk in chunks:
+    inner_puddles.append(inner(chunk))
 print(world, "\nwater=", puddles(left) + puddles(right) + sum(inner_puddles))

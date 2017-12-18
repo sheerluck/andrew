@@ -29,7 +29,8 @@ for line in fileinput.input():
     else:
         continue
 
-    if isstart == prev and isstart == True: continue
+    if isstart == prev and isstart == True:
+        continue
 
     if name in namesmap.keys():
         if not isstart: continue

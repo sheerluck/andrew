@@ -6,12 +6,15 @@
 import sys
 import os
 
+
 def echo(msg):
     os.system('echo -n "' + str(msg) + '"')
+
 
 def out(n):
     os.system("tput setab " + str(n) + "; echo -n " + ("\"% 4d\"" % n))
     os.system("tput setab 0")
+
 
 # normal colors 1 - 16
 os.system("tput setaf 16")
@@ -24,9 +27,9 @@ for n in range(8, 16):
 echo("\n")
 echo("\n")
 
-y=16
+y = 16
 while y < 231:
-    for z in range(0,6):
+    for z in range(0, 6):
         out(y)
         y += 1
 

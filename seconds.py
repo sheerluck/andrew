@@ -23,7 +23,7 @@ class Minute(object):
 
 class Hour(object):
     def __init__(self, count):
-        self._hours   = count
+        self._hours = count
         self._minutes = Minute(self._hours * 60)
 
     def seconds(self):
@@ -38,8 +38,8 @@ class Hour(object):
 
 class Day(object):
     def __init__(self, count):
-        self._days   = count
-        self._hours  = Hour(self._days * 24)
+        self._days = count
+        self._hours = Hour(self._days * 24)
 
     def seconds(self):
         return self._hours.seconds()
@@ -56,8 +56,8 @@ class Day(object):
 
 class Week(object):
     def __init__(self, count):
-        self._weeks  = count
-        self._days   = Day(self._weeks * 7)
+        self._weeks = count
+        self._days = Day(self._weeks * 7)
 
     def seconds(self):
         return self._days.seconds()
@@ -78,7 +78,7 @@ class Week(object):
 class Month(object):
     def __init__(self, count):
         self._months = count
-        self._weeks  = Week(self._months * 4)
+        self._weeks = Week(self._months * 4)
 
     def seconds(self):
         return self._weeks.seconds()

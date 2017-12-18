@@ -25,13 +25,14 @@ class XLineEdit(QLineEdit):
         appendText(self.text())
         self.setText("")
 
+
 class App(QApplication):
     def __init__(self, argv):
         super(App, self).__init__(argv)
         self.line = XLineEdit()
         self.line.show()
 
+
 if __name__ == "__main__":
     app = App(sys.argv)
     sys.exit(app.exec_())
-

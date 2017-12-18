@@ -6,6 +6,7 @@ import math
 import time
 import collections
 from datetime import datetime, timedelta, date as dtdate
+from typing import List, Dict
 
 
 def to_unicode(x):
@@ -183,7 +184,7 @@ class ProgressBarMixinBase:
     def update(self, value=None):
         pass
 
-    def finish(self):
+    def finish(self, *args, **kwargs):
         pass
 
 
@@ -284,20 +285,20 @@ def create_marker(marker):
 
 class Bar(AutoWidthWidgetBase):
     def __init__(self, marker='#', left='|', right='|', fill=' ', fill_left=True, **kwargs):
-        self.marker    = create_marker(marker)
-        self.left      = string_or_lambda(left)
-        self.right     = string_or_lambda(right)
-        self.fill      = string_or_lambda(fill)
+        self.marker = create_marker(marker)
+        self.left = string_or_lambda(left)
+        self.right = string_or_lambda(right)
+        self.fill = string_or_lambda(fill)
         self.fill_left = fill_left
 
         AutoWidthWidgetBase.__init__(self, **kwargs)
 
     def __call__(self, progress, data, width):
-        left   = to_unicode(self.left(progress, data, width))
-        right  = to_unicode(self.right(progress, data, width))
+        left = to_unicode(self.left(progress, data, width))
+        right = to_unicode(self.right(progress, data, width))
         width -= progress.custom_len(left) + progress.custom_len(right)
         marker = to_unicode(self.marker(progress, data, width))
-        fill   = to_unicode(self.fill(progress, data, width))
+        fill = to_unicode(self.fill(progress, data, width))
 
         if self.fill_left:
             marker = marker.ljust(width, fill)
@@ -309,13 +310,13 @@ class Bar(AutoWidthWidgetBase):
 
 class FormatLabel(FormatWidgetMixin, WidthWidgetMixin):
     mapping = {
-        'finished':    ('end_time',         None),
+        'finished': ('end_time', None),
         'last_update': ('last_update_time', None),
-        'max':         ('max_value',        None),
-        'seconds':     ('seconds_elapsed',  None),
-        'start':       ('start_time',       None),
-        'elapsed':     ('total_seconds_elapsed', format_time),
-        'value':       ('value',            None),
+        'max': ('max_value', None),
+        'seconds': ('seconds_elapsed', None),
+        'start': ('start_time', None),
+        'elapsed': ('total_seconds_elapsed', format_time),
+        'value': ('value', None),
     }
 
     def __init__(self, format_, **kwargs):
@@ -354,18 +355,18 @@ class ETA(Timer):
     def __init__(
             self,
             format_not_started='ETA:  --:--:--',
-            format_finished=   'Time: %(elapsed)s',
-            format_=           'ETA:  %(eta)s',
-            format_zero=       'ETA:  0:00:00',
-            format_NA=         'ETA:      N/A',
+            format_finished='Time: %(elapsed)s',
+            format_='ETA:  %(eta)s',
+            format_zero='ETA:  0:00:00',
+            format_NA='ETA:      N/A',
             **kwargs):
 
         Timer.__init__(self, **kwargs)
         self.format_not_started = format_not_started
-        self.format_finished    = format_finished
-        self.format_            = format_
-        self.format_zero        = format_zero
-        self.format_NA          = format_NA
+        self.format_finished = format_finished
+        self.format_ = format_
+        self.format_zero = format_zero
+        self.format_NA = format_NA
 
     def _calculate_eta(self, progress, data, value, elapsed):
         if elapsed:
@@ -378,7 +379,7 @@ class ETA(Timer):
 
     def __call__(self, progress, data, value=None, elapsed=None):
         if value is None:
-            value   = data['value']
+            value = data['value']
         if elapsed is None:
             elapsed = data['total_seconds_elapsed']
 
@@ -504,7 +505,7 @@ class StdRedirectMixin(DefaultFdMixin):
         self.stderr = streams.stderr
 
         streams.start_capturing()
-        DefaultFdMixin.start(self, *args, **kwargs)
+        DefaultFdMixin.start(self, **kwargs)
 
     def update(self, value=None):
         self.fd.write('\r' + ' ' * self.term_width + '\r')
@@ -556,11 +557,10 @@ class ProgressBar(StdRedirectMixin, ResizableMixin, ProgressBarBase):
             poll_interval = timedelta(seconds=poll_interval)
 
         self.poll_interval = poll_interval
-        self.dynamic_messages = {}
+        self.dynamic_messages: Dict = {}
 
     def init(self):
         self.previous_value = None
-        self.last_update_time = None
         self.start_time = None
         self.updates = 0
         self.end_time = None
@@ -651,8 +651,8 @@ class ProgressBar(StdRedirectMixin, ResizableMixin, ProgressBarBase):
         return self
 
     def _format_widgets(self):
-        result = []
-        expanding = []
+        result: List = []
+        expanding: List = []
         width = self.term_width
         data = self.data()
 

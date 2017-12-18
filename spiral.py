@@ -11,13 +11,16 @@ primes = [1, 2,  3,   5,   7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43, 
 
 
 def is_prime(a):
-    if a < max(primes): return a in primes
+    if a < max(primes):
+        return a in primes
     import math
     sqrt = math.sqrt(a)
     subprimes = [x for x in primes[1:] if x < sqrt]
     for prime in subprimes:
-        if a % prime == 0: return False
+        if a % prime == 0:
+            return False
     return True
+
 
 def init(x):
     matrix = []
@@ -48,7 +51,8 @@ def print_matrix(x, matrix):
     for i in range(x):
         for j in range(x):
             # '{number:0{width}d}'.format(width=3, number=19)
-            if 0 == matrix[i][j]: matrix[i][j] = '.'
+            if 0 == matrix[i][j]:
+                matrix[i][j] = '.'
             print(str(matrix[i][j]).rjust(3), end="")
         print(end="\n")
 
@@ -72,7 +76,8 @@ def main4(size):
             b -= 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else ':'
-            if not m[b][a - 2]: return a, b, cnt
+            if not m[b][a - 2]:
+                return a, b, cnt
 
     def toRight(m, a, b, cnt):
         while True:
@@ -81,7 +86,8 @@ def main4(size):
             a -= 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else '-'
-            if not m[b + 2][a]: return a, b, cnt
+            if not m[b + 2][a]:
+                return a, b, cnt
 
     def toDown(m, a, b, cnt):
         while True:
@@ -90,7 +96,8 @@ def main4(size):
             b += 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else ':'
-            if not m[b][a + 2]: return a, b, cnt
+            if not m[b][a + 2]:
+                return a, b, cnt
 
     def spiral(m):
         # from 1 to N**2, start is in matrix[M//2][M//2]
@@ -102,7 +109,8 @@ def main4(size):
         for time in range(M // 2):
             for step in [toUp, toRight, toDown, toLeft]:
                 a, b, counter = step(m, a, b, counter)
-            if 0 == counter: return m
+            if 0 == counter:
+                return m
 
     # N = [3,5,7,9,11,13,15,17,.... 31]
     N = size
@@ -152,7 +160,8 @@ def main3(size):
         for time in range(M // 7):
             for step in [toUpRight, toDownRight, toLeft]:
                 a, b, counter = step(m, a, b, counter)
-                if 0 == counter: return m
+                if 0 == counter:
+                    return m
         return m
 
     # N = [5, 9, 13, 17, 21 .. ]
@@ -174,14 +183,16 @@ def main6(size):
             a += 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else '-'
-            if not m[b - 2][a + (-1 if 2 == cnt else 1)]: return a, b, cnt
+            if not m[b - 2][a + (-1 if 2 == cnt else 1)]:
+                return a, b, cnt
 
     def toUpRight(m, a, b, cnt):
         while True:
             cnt += 1
             a, b = a - 1, b - 2
             m[b][a] = cnt if cnt in primes else '\\'
-            if not m[b][a - 2]: return a, b, cnt
+            if not m[b][a - 2]:
+                return a, b, cnt
 
     def toRight(m, a, b, cnt):
         while True:
@@ -190,14 +201,16 @@ def main6(size):
             a -= 1
             cnt += 1
             m[b][a] = cnt if cnt in primes else '-'
-            if not m[b + 2][a - 1]: return a, b, cnt
+            if not m[b + 2][a - 1]:
+                return a, b, cnt
 
     def toDownRight(m, a, b, cnt):
         while True:
             cnt += 1
             a, b = a - 1, b + 2
             m[b][a] = cnt if cnt in primes else '/'
-            if not m[b + 2][a + 1]: return a, b, cnt
+            if not m[b + 2][a + 1]:
+                return a, b, cnt
 
     def toDownLeft(m, a, b, cnt):
         while True:
@@ -211,7 +224,8 @@ def main6(size):
             cnt += 1
             a, b = a + 1, b - 2
             m[b][a] = cnt if cnt in primes else '/'
-            if not m[b - 2][a - 1]: return a, b, cnt
+            if not m[b - 2][a - 1]:
+                return a, b, cnt
 
     def spiral6(m):
         a = b = M // 2
@@ -222,7 +236,8 @@ def main6(size):
         for time in range(M // 4):
             for step in [toUpRight, toRight, toDownRight, toDownLeft, toLeft, toUpLeft]:
                 a, b, counter = step(m, a, b, counter)
-                if counter > 999: return m
+                if counter > 999:
+                    return m
 
     # N = [5, 9, 13, 17, 21 .. ]
     N = size

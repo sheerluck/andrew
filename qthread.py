@@ -3,6 +3,7 @@
 import sys
 from PyQt5.QtCore import QObject, QCoreApplication, QThread, pyqtSignal, pyqtSlot
 
+
 class Worker(QObject):
 
     finished = pyqtSignal()
@@ -21,7 +22,8 @@ def connectAll(thread, worker):
     worker.finished.connect(thread.quit)
     thread.started.connect(worker.boo)
     thread.finished.connect(app.exit)
-    #return (thread, worker)
+    # return (thread, worker)
+
 
 app = QCoreApplication(sys.argv)
 

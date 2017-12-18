@@ -20,8 +20,6 @@ def hook(o):
     return o
 
 
-
-
 from hypothesis import given, strategies as st
 from hypothesis import settings as Settings, Verbosity
 

@@ -1,15 +1,18 @@
 #-*- coding: utf-8  -*-
 
-from bs4      import BeautifulSoup as bs
+from bs4 import BeautifulSoup as bs
 from requests import get as download
 
 light = ["Ночь", "Утро", "День", "Вечер", ]
 
+
 def bold(t):
     return "\033[1;%sm%s\033[1;m" % (37, t)
 
+
 def f(xa, xb, xc, msg):
-    return '\033[{a};{b};{c}m{txt}\033[0m'.format(a=xa,b=xb,c=xc, txt=msg)
+    return '\033[{a};{b};{c}m{txt}\033[0m'.format(a=xa, b=xb, c=xc, txt=msg)
+
 
 def gismeteo_ru():
 
