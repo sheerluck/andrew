@@ -27,11 +27,8 @@ def int2china(x: int) -> str:
     """ 12345 -> 䠾䠿䡀䡁 """
     N = 5_000       # 19_000 - 14_000
     shift = 14_000  # china magic
-    if x < N:       # 1-char digit
-        return chr(shift + x)
-
     bits = []
-    while x > N:
+    while x >= N:
         div, mod = x // N, x % N
         bits.append(chr(shift + mod))
         x = div
