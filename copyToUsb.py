@@ -836,7 +836,8 @@ def copy_with_progress(fn, s, d):
             if not buf:
                 break
             fdst.write(buf)
-            os.sync()
+            if 0 == dummy % 10:
+                os.sync()
             copied += len(buf)
             bar.update(copied)
         bar.finish()
