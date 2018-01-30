@@ -12,7 +12,9 @@
 
 import sys
 from time import sleep
+from random import randint
 from typing import List
+
 
 
 sep = "\u3000"  # Это китайский широкий пробел
@@ -38,7 +40,7 @@ def main():
     counter = 0
     while True:
         print(int2china(counter)[::-1], f"  {counter}")
-        counter += 1
+        counter += randint(200, 3000)
         sleep(0.01)
 
 
