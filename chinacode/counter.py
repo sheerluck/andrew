@@ -39,7 +39,7 @@ def main():
 
     counter = 0
     while True:
-        print(int2china(counter)[::-1], f"  {counter}")
+        print(int2china(counter)[::-1], f"  {counter:_}")
         counter += randint(200, 3000)
         sleep(0.01)
 
