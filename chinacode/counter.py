@@ -6,6 +6,7 @@
 Вот по основанию 10:  1234567890
 Вот по основанию 16:  450bad054
 А я придумал числа по основанию 5000:  䉘䗵㷺䁡㹿㚴
+А потом числа по основанию 20000: 乂蚌烘鎑諤靆
 
 
 """
@@ -21,9 +22,9 @@ sep = "\u3000"  # Это китайский широкий пробел
 
 
 def int2china(x: int) -> str:
-    """ 12345 -> 䠾䠿䡀䡁 """
-    N = 5_000       # 19_000 - 14_000
-    shift = 14_000  # china magic
+    """ 123456789 -> 昼辵 """
+    N = 20_000      # 40_000 - 20_000
+    shift = 20_000  # china magic
     bits = []
     while x >= N:
         div, mod = x // N, x % N
@@ -37,10 +38,10 @@ def int2china(x: int) -> str:
 
 def main():
 
-    counter = 0
+    counter = 111_111_111_111_111_111_111_111
     while True:
         print(int2china(counter)[::-1], f"  {counter:_}")
-        counter += randint(200, 3000)
+        counter += randint(2_000, 30_000)
         sleep(0.01)
 
 
