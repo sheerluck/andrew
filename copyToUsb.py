@@ -1,7 +1,7 @@
 import os
 import abc
 import sys
-import six
+import io
 import math
 import time
 import collections
@@ -35,7 +35,7 @@ def timedelta_to_seconds(delta):
 class WrappingIO:
 
     def __init__(self, target, capturing=False):
-        self.buffer = six.StringIO()
+        self.buffer = io.StringIO()
         self.target = target
         self.capturing = capturing
 
