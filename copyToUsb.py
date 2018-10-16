@@ -188,7 +188,7 @@ class ProgressBarMixinBase:
         pass
 
 
-class ProgressBarBase(collections.Iterable, ProgressBarMixinBase):
+class ProgressBarBase(collections.abc.Iterable, ProgressBarMixinBase):
     pass
 
 

@@ -1,6 +1,7 @@
 import sys
 from numbers import Number
-from collections import Set, Mapping, deque
+from collections import deque
+from collections.abc import Set, Mapping
 
 zero_depth_bases = (str, bytes, Number, range, bytearray)
 iteritems = 'items'
@@ -28,3 +29,6 @@ def getsize(obj_0):
             size += sum(inner(getattr(obj, s)) for s in obj.__slots__ if hasattr(obj, s))
         return size
     return inner(obj_0)
+
+print(getsize(1))
+print(getsize([1,2,3]))
