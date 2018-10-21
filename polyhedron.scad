@@ -72,52 +72,52 @@ points_list36 = [
 module top36() {
   color([0.9,0.3,0.2])
     polyhedron( points=points_list36,
-                triangles=[[2,1,11], [3,2,11], [4,3,11], [5,4,11],
-                           [6,5,11], [7,6,11], [8,7,11], [9,8,11],
-                          [10,9,11],[1,10,11]] ); }                
+                faces=[[2,1,11], [3,2,11], [4,3,11], [5,4,11],
+                       [6,5,11], [7,6,11], [8,7,11], [9,8,11],
+                       [10,9,11],[1,10,11]] ); }                
 module top45() {
   color([0.9,0.3,0.2])
     polyhedron( points=points_list45,
-                triangles=[[2,1,9], [3,2,9], [4,3,9], [5,4,9],
-                           [6,5,9], [7,6,9], [8,7,9], [1,8,9]] ); }
+                faces=[[2,1,9], [3,2,9], [4,3,9], [5,4,9],
+                       [6,5,9], [7,6,9], [8,7,9], [1,8,9]] ); }
 module top60() {
   color([0.9,0.3,0.2])
     polyhedron( points=points_list60,
-                triangles=[[2,1,7], [3,2,7], [4,3,7], [5,4,7],
-                           [6,5,7], [1,6,7]] ); }
+                faces=[[2,1,7], [3,2,7], [4,3,7], [5,4,7],
+                       [6,5,7], [1,6,7]] ); }
 module top90() {
   color([0.9,0.3,0.2])
     polyhedron( points=points_list90,
-                triangles=[[2,1,5], [3,2,5], [4,3,5], [1,4,5]] ); }
+                faces=[[2,1,5], [3,2,5], [4,3,5], [1,4,5]] ); }
 
 module top180() {
   color([0.9,0.3,0.2])
-    polyhedron( points=points_list180,     triangles=[[2,1,3]] ); }
+    polyhedron( points=points_list180, faces=[[2,1,3]] ); }
 
 module bottom36() {
   color([0.2,0.3,0.9])
     polyhedron( points=points_list36,
-                triangles=[[1,2,0], [2,3,0], [3,4,0], [4,5,0],
-                           [5,6,0], [6,7,0], [7,8,0], [8,9,0],
-                          [9,10,0],[10,1,0]] ); }
+                faces=[[1,2,0], [2,3,0], [3,4,0], [4,5,0],
+                       [5,6,0], [6,7,0], [7,8,0], [8,9,0],
+                       [9,10,0],[10,1,0]] ); }
 module bottom45() {
   color([0.2,0.3,0.9])
     polyhedron( points=points_list45,
-                triangles=[[1,2,0], [2,3,0], [3,4,0], [4,5,0],
-                           [5,6,0], [6,7,0], [7,8,0], [8,1,0]] ); }
+                faces=[[1,2,0], [2,3,0], [3,4,0], [4,5,0],
+                       [5,6,0], [6,7,0], [7,8,0], [8,1,0]] ); }
 module bottom60() {
   color([0.2,0.3,0.9])
     polyhedron( points=points_list60,
-                triangles=[[1,2,0], [2,3,0], [3,4,0], [4,5,0],
-                           [5,6,0], [6,1,0]] ); }
+                faces=[[1,2,0], [2,3,0], [3,4,0], [4,5,0],
+                       [5,6,0], [6,1,0]] ); }
 module bottom90() {
   color([0.2,0.3,0.9])
     polyhedron( points=points_list90,
-                triangles=[[1,2,0], [2,3,0], [3,4,0], [4,1,0]] ); }
+                faces=[[1,2,0], [2,3,0], [3,4,0], [4,1,0]] ); }
 
 module bottom180() {
   color([0.2,0.3,0.9])
-    polyhedron( points=points_list180,      triangles=[[1,2,0]]); }
+    polyhedron( points=points_list180, faces=[[1,2,0]]); }
 
 module thing36() {   top36();   bottom36();    }
 module thing45() {   top45();   bottom45();    }
