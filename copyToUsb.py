@@ -9,10 +9,6 @@ from datetime import datetime, timedelta, date as dtdate
 from typing import List, Dict
 
 
-def to_unicode(x):
-    return x
-
-
 def scale_1024(x, n_prefixes):
     if x <= 0:
         power = 0
@@ -206,7 +202,7 @@ class DefaultFdMixin(ProgressBarMixinBase):
 
     def update(self, *args, **kwargs):
         ProgressBarMixinBase.update(self, *args, **kwargs)
-        line = to_unicode('\r' + self._format_line())
+        line = '\r' + self._format_line()
         self.fd.write(line)
 
     def finish(self, *args, **kwargs):
@@ -294,11 +290,11 @@ class Bar(AutoWidthWidgetBase):
         AutoWidthWidgetBase.__init__(self, **kwargs)
 
     def __call__(self, progress, data, width):
-        left = to_unicode(self.left(progress, data, width))
-        right = to_unicode(self.right(progress, data, width))
+        left = self.left(progress, data, width)
+        right = self.right(progress, data, width)
         width -= progress.custom_len(left) + progress.custom_len(right)
-        marker = to_unicode(self.marker(progress, data, width))
-        fill = to_unicode(self.fill(progress, data, width))
+        marker = self.marker(progress, data, width)
+        fill = self.fill(progress, data, width)
 
         if self.fill_left:
             marker = marker.ljust(width, fill)
@@ -664,7 +660,7 @@ class ProgressBar(StdRedirectMixin, ResizableMixin, ProgressBarBase):
                 result.append(widget)
                 width -= self.custom_len(widget)
             else:
-                widget_output = to_unicode(widget(self, data))
+                widget_output = widget(self, data)
                 result.append(widget_output)
                 width -= self.custom_len(widget_output)
 
@@ -681,14 +677,9 @@ class ProgressBar(StdRedirectMixin, ResizableMixin, ProgressBarBase):
 
         return result
 
-    @classmethod
-    def _to_unicode(cls, args):
-        for arg in args:
-            yield to_unicode(arg)
-
     def _format_line(self):
 
-        widgetzzz = ''.join(self._to_unicode(self._format_widgets()))
+        widgetzzz = ''.join(self._format_widgets())
 
         if self.left_justify:
             return widgetzzz.ljust(self.term_width)
