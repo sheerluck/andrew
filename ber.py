@@ -20,7 +20,11 @@ def ber(n):
         b = bernoulli(n)
         if b:
             nu, de = b.numerator, b.denominator
-            yield n, f"{nu}/{de}", nu/de
+            try:
+                nude = nu/de
+            except OverflowError:
+                nude = "inf"
+            yield n, f"{nu}/{de}", nude
         n += 1
 
 
