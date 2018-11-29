@@ -25,6 +25,8 @@ def ber(n):
 
 with Pool(processes=8) as pool:
     acc = 0
-    while True:
+    while acc < 1000:
         pool.apply_async(ber, (acc, ))
         acc += 1
+    pool.close()
+    pool.join()
