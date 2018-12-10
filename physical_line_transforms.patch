@@ -1,0 +1,15 @@
+--- /usr/lib64/python3.6/site-packages/IPython/core/inputtransformer2.py
++++ /usr/lib64/python3.7/site-packages/IPython/core/inputtransformer2.py
+@@ -523,12 +523,6 @@
+             EscapedCommand,
+             HelpEnd,
+         ]
+-        self.physical_line_transforms = [
+-                                     leading_indent,
+-                                     classic_prompt,
+-                                     cell_magic,
+-                                    ]
+-        self.python_line_transforms = []
+ 
+     def do_one_token_transform(self, lines):
+         """Find and run the transform earliest in the code.
