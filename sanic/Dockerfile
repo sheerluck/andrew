@@ -1,15 +1,17 @@
-FROM ubuntu:19.04
+FROM python:alpine3.7
 ENV PYTHONDONTWRITEBYTECODE 1
 
 ENV LANG en_US.UTF-8
 
-RUN DEBIAN_FRONTEND=noninteractive \
-        apt-get update && apt-get install -y \
-            language-pack-en \
-            autoconf automake libtool build-essential \
-            python3 python3-pip git
-
-RUN pip3 install sanic
+RUN set -ex \
+      && apk add --no-cache --virtual .build-deps \
+        git \
+        gcc \
+        make \
+        libc-dev \
+        linux-headers \
+      && pip3 install --no-cache-dir sanic \
+      && apk del .build-deps
 
 
 WORKDIR /
