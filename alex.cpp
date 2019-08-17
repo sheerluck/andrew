@@ -20,7 +20,7 @@ find_freq(const std::vector<double>& v)
 {
     auto result = std::vector<int>{};
     result.reserve(v.size());
-    auto m = std::unordered_map<double, int>{};
+    auto m = std::unordered_map<int, int>{};
     for (const auto& elem : v)
     {
         auto key = static_cast<int>(elem * EPS1);
