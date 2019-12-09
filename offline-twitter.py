@@ -1,7 +1,8 @@
+import sys
+from datetime import datetime
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QLineEdit
-from datetime import datetime
-import sys
 
 
 class XLineEdit(QLineEdit):
@@ -11,11 +12,13 @@ class XLineEdit(QLineEdit):
     def keyPressEvent(self, ev):
         def appendText(text):
             today = datetime.today()
-            day, hms = today.strftime("%Y-%m-%d"), today.strftime("%Y-%m-%d %H:%M:%S")
-            stamp = ''.join(["[", hms, "]"])
-            txt = ' -> '.join([stamp, text])
-            with open(day + ".txt", mode='a') as f:
+            day = today.strftime("%Y-%m-%d")
+            hms = today.strftime("%Y-%m-%d %H:%M:%S")
+            stamp = "".join(["[", hms, "]"])
+            txt = " -> ".join([stamp, text])
+            with open(day + ".txt", mode="a") as f:
                 f.write(txt + "\n")
+
         if ev.key() not in [Qt.Key_Return, Qt.Key_Enter]:
             QLineEdit.keyPressEvent(self, ev)
             return
