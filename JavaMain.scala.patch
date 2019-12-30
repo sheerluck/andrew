@@ -1,0 +1,13 @@
+diff --git a/jvm/src/main/scala/io/kaitai/struct/JavaMain.scala b/jvm/src/main/scala/io/kaitai/struct/JavaMain.scala
+index b9f11412..a8eefde0 100644
+--- a/jvm/src/main/scala/io/kaitai/struct/JavaMain.scala
++++ b/jvm/src/main/scala/io/kaitai/struct/JavaMain.scala
+@@ -238,7 +238,7 @@ object JavaMain {
+     parseCommandLine(args) match {
+       case None => System.exit(1)
+       case Some(config0) =>
+-        Log.initFromVerboseFlag(config0.verbose)
++        Log.initFromVerboseFlag(Seq("file", "value", "parent", "type_resolve", "type_valid", "seq_sizes", "import"))
+         val config = config0.copy(importPaths = config0.importPaths ++ envPaths ++ homePath)
+         new JavaMain(config).run()
+     }
