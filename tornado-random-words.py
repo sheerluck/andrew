@@ -6,10 +6,8 @@ import tornado.web
 
 class MainHandler(tornado.web.RequestHandler):
 
-    def initialize(self) -> None:
-        self.filename = "google-10000-english.txt"
-        with open(self.filename) as f:
-            self.content = [line.rstrip('\n') for line in f]
+    def initialize(self, c) -> None:
+        self.content = c
 
     def get(self):
         s = " ".join([choice(self.content) for _ in range(3)])
@@ -18,7 +16,10 @@ class MainHandler(tornado.web.RequestHandler):
 
 
 if __name__ == "__main__":
-    app = tornado.web.Application([(r"/", MainHandler)])
+    name = "google-10000-english.txt"
+    with open(name) as f:
+        content = [line.rstrip('\n') for line in f]
+    app = tornado.web.Application([(r"/", MainHandler, dict(c=content))])
     app.listen(8888)
     try:
         tornado.ioloop.IOLoop.current().start()
