@@ -46,5 +46,5 @@ VALGRIND {
     QMAKE_CXXFLAGS_RELEASE = -g -O0 -fno-inline
 }
 else {
-    QMAKE_CXXFLAGS_RELEASE = -O3 -march=native -mtune=native -mmmx -msse -msse2 -msse3 -pedantic -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor
+    QMAKE_CXXFLAGS_RELEASE = -O3 -march=native -mtune=native -mmmx -msse -msse2 -msse3 -pedantic -Wall -Wextra -Weffc++ -Wshadow -Wnon-virtual-dtor
 }
