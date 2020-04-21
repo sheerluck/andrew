@@ -1,0 +1,9 @@
+--- a/src/proto/uciprotocol.cpp	2020-02-04 10:49:10.000000000 +0300
++++ b/src/proto/uciprotocol.cpp	2020-04-21 14:54:11.634184457 +0300
+@@ -171,5 +171,6 @@
+ void UciProtocol::setDifficulty(int depth, int memory) {
+ 	mDifficulty = depth;
+ 	write ( QLatin1String("setoption name Hash value ") + QString::number ( memory ) );
++	write ( QLatin1String("setoption name Threads value 8") );
+ }
+ 
