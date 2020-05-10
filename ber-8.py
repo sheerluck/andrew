@@ -16,11 +16,14 @@ def ber(n):
     if b:
         nu, de = b.numerator, b.denominator
         try:
-            nude = nu/de
+            nude = str(nu/de)
         except OverflowError:
             nude = "inf"
-        a, b, c = n, f"{nu}/{de}", nude
-        print(f"B({a}) = {c} # {b}")
+        a, s, c = n, f"{nu}/{de}", nude
+        if b > 0:
+            c = " " + c
+            s = " " + s
+        print(f"B({a:>3}) = {c} # {s}")
 
 
 with Pool(processes=8) as pool:
