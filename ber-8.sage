@@ -6,10 +6,10 @@ for a in range(1000):
         s = str(b)
         if b > 0:
             c = " " + c
-            s = " " + s
         if "e" in c:
             p1, p2 = c.split("e")
             c = f"{p1[: 85 - 1 - len(p2) ]}e{p2}"
         else:
             c = c[:85]
+        if "/" in s: s = s.split("/")[1]
         print(f"B({a:>3}) = {c} # {s}")    
