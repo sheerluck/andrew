@@ -8,7 +8,8 @@ for a in range(1000):
             c = " " + c
         if "e" in c:
             p1, p2 = c.split("e")
-            c = f"{p1[: 85 - 1 - len(p2) ]}e{p2}"
+            e = "\033[1;31me\033[1;m"
+            c = f"{p1[: 85 - 1 - len(p2) ]}{e}{p2}"
         else:
             c = c[:85]
         if "/" in s: s = s.split("/")[1]
