@@ -1,0 +1,11 @@
+--- a/clementine-1.4.0/src/songinfo/ultimatelyricsprovider.cpp
++++ b/clementine-1.4.0/src/songinfo/ultimatelyricsprovider.cpp 
+@@ -154,6 +154,8 @@
+     data.title_ = tr("Lyrics from %1").arg(name_);
+     data.type_ = CollapsibleInfoPane::Data::Type_Lyrics;
+     data.relevance_ = relevance();
++    lyrics = QString::fromUtf8("<body bgcolor=\"#cccccc\">") +
++             lyrics + QString::fromUtf8("</body>");
+ 
+     if (QThread::currentThread() == QCoreApplication::instance()->thread()) {
+       SongInfoTextView* editor = new SongInfoTextView;
