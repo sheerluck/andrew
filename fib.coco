@@ -1,0 +1,18 @@
+def forever(acc):
+    while True:
+        yield acc
+        acc += 1
+
+
+def take(n, it):
+    for a, b in zip(range(n), it):
+        yield b
+
+
+@recursive_iterator
+def fib() = (0, 1) :: map((+), fib(), fib()$[1:])
+
+print(list(take(100, fib())))
+
+for a, b in zip(forever(0), fib()):
+    print(f"fib({a}) = {b}")
