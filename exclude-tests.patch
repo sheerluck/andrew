@@ -1,0 +1,11 @@
+--- a/setup.py	2020-06-30 13:54:52.744148221 +0300
++++ b/setup.py	2020-06-30 13:55:17.990147134 +0300
+@@ -9,7 +9,7 @@
+ 
+ setup(
+     name="monty",
+-    packages=find_packages(),
++    packages=find_packages(exclude=['tests*', 'docs']),
+     version="3.0.2",
+     extras_require={"yaml": ["ruamel.yaml"], },
+     package_data={},
