@@ -10,7 +10,7 @@ acct-user/man: 0 files, 0 non-files, 0
 acct-user/sshd: 1 files, 2 non-files, 0
 
 
-$ qlist -IRv | sed -e "s/::gentoo//" | xargs -n1 qsize | python sort-by-size.py
+$ qlist -IRv | sed -e "s/::.\+//" | xargs -n1 qsize | python sort-by-size.py
 sci-mathematics/pari-data:                  256.5M
 sys-devel/gcc:                              209.9M
 dev-texlive/texlive-fontsrecommended:       149.0M
