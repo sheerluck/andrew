@@ -183,11 +183,12 @@ def get_first_number() -> dict:
 
 
 #   main :: IO ()
-def main():
+def main() -> int:
     xs = get_all_numbers()
     oh = get_first_number()
     he = show(liftA2(cons)(oh)(xs))
     print(he)
+    return 0
 
 
 if __name__ == "__main__":
