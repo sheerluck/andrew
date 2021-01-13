@@ -126,9 +126,9 @@ def liftA2Fn(op):
 def liftA2Maybe(f):
     def inner(ma, mb):
         if ma["Nothing"]:
-            return mb
+            return Nothing()
         if mb["Nothing"]:
-            return ma
+            return Nothing()
         va = ma["Just"]
         vb = mb["Just"]
         v = curry(f)(va)(vb)
