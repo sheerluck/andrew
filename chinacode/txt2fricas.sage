@@ -29,7 +29,7 @@ def pretty(ints: list[int]) -> str:
     sub: list[str] = list()
     for int_ in ints:
         str_ = int2fricas(int_)
-        if 4 == len(sub):
+        if 3 == len(sub):
             line = sep.join(sub)
             txt.append(line)
             sub = []
