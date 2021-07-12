@@ -26,6 +26,9 @@ class Sepulka:
 def sepuling(level: int,
              sequence: list[tuple[int, str]]) -> list[Sepulka]:
     """sepuling."""
+    if 1 == len(sequence):
+        txt = sequence[0][1]
+        return [Sepulka(level, txt, [])]
     soquence = sequence[1:] + [(-1, "")]
     with_num = []
     for sa, sb, c in zip(sequence, soquence, count()):
