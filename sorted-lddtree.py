@@ -59,10 +59,11 @@ def sepuling(level: int,
 def main() -> int:
     """First line should be in imperative mood; try rephrasing."""
     lines = []
+    sepulka = Sepulka(0, "first line", [])
     for line in fileinput.input():
         f = line[0]
         if f != " ":
-            print(line, end="")
+            sepulka.txt = line[:-1]
             continue
         m = re.search('[^ ]', line)
         # make mypy happy
@@ -70,9 +71,8 @@ def main() -> int:
         o = m.regs[0][0]
         lines.append((o, line[o:-1]))
 
-    sepulkarium = sepuling(4, lines)
-    for sepulka in sorted(sepulkarium, key=lambda o: o.txt.lower()):
-        sepulka.sepuling()
+    sepulka.sepulkarium = sepuling(4, lines)
+    sepulka.sepuling()
     return 0
 
 
