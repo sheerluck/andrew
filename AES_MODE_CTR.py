@@ -21,18 +21,18 @@ pbkdf2_count = 3_222_111
 pbkdf2_dk_len = 32
 
 
-def encrypt_string(plaintext, key):
+def encrypt_string(plaintext: bytes, key: bytes):
     """."""
-    plaintext_obj = io.StringIO(plaintext)
-    ciphertext_obj = io.StringIO()
+    plaintext_obj = io.BytesIO(plaintext)
+    ciphertext_obj = io.BytesIO()
     encrypt_file(plaintext_obj, ciphertext_obj, key)
     return ciphertext_obj.getvalue()
 
 
-def decrypt_string(ciphertext, key):
+def decrypt_string(ciphertext: bytes, key: bytes):
     """."""
-    plaintext_obj = io.StringIO()
-    ciphertext_obj = io.StringIO(ciphertext)
+    plaintext_obj = io.BytesIO()
+    ciphertext_obj = io.BytesIO(ciphertext)
     decrypt_file(ciphertext_obj, plaintext_obj, key)
     return plaintext_obj.getvalue()
 
@@ -229,11 +229,18 @@ def encrypt_file(plaintext_file_obj,
 
 
 @click.command()
+@click.option('--test', default="False", help='try --test=True')
 @click.option('--file', default="/tmp/LOL.mp4", help='path to file')
 @click.option('--fkey', default="key-10Mb.dat", help='path to file')
 @click.option('--command', default="encrypt", help='encrypt/decrypt')
-def main(file: str, fkey: str, command: str) -> int:
+def main(test: str, file: str, fkey: str, command: str) -> int:
     """First line should be in imperative mood; try rephrasing."""
+    if test == "True":
+        key, plaintext = os.urandom(9_000), os.urandom(9_000)
+        ciphertext = encrypt_string(plaintext, key)
+        decryptedtext = decrypt_string(ciphertext, key)
+        print("it works!" if plaintext == decryptedtext else "wtf?")
+        return 0
     fres = f"{file}.{command}ed"
     with open(file, 'rb') as f, \
          open(fres, 'w+b') as w, \
