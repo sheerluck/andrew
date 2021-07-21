@@ -6,7 +6,7 @@
 import io
 import os
 import struct
-from typing import Final
+from typing import Final, Sequence
 
 from Crypto.Cipher import AES
 from Crypto.Hash import HMAC, SHA256
@@ -21,6 +21,23 @@ NONCE_LEN: Final = 8
 pbkdf2_count: Final = 3_222_111
 pbkdf2_dk_len: Final = 32
 HMAC_LEN: Final = 32
+header_format: Final = ''.join([">",
+                                f"{SALT_LEN}s",    # Password salt
+                                f"{NONCE_LEN}s",   # CTR nonce
+                                f"{SALT_LEN}s"])   # HMAC salt
+
+
+def get_hmac(key: bytes, salts: Sequence[bytes]) -> HMAC.HMAC:
+    """."""
+    hmac_password_derived = PBKDF2(password=key,
+                                   salt=salts[2],
+                                   dkLen=pbkdf2_dk_len,
+                                   count=pbkdf2_count,
+                                   hmac_hash_module=SHA256)
+    bytes_to_hmac = b''.join(salts)
+    return HMAC.new(key=hmac_password_derived,
+                    msg=bytes_to_hmac,
+                    digestmod=SHA256)
 
 
 def encrypt_string(plaintext: bytes, key: bytes):
@@ -48,26 +65,13 @@ def decrypt_file(ciphertext_file_obj,
     fsize = ciphertext_file_obj.tell()
     ciphertext_file_obj.seek(0, os.SEEK_SET)
     ciphertext_size = fsize - (SALT_LEN + NONCE_LEN + SALT_LEN + HMAC_LEN)
-    header_format = ''.join([">",
-                             f"{SALT_LEN}s",    # Password salt
-                             f"{NONCE_LEN}s",   # CTR nonce
-                             f"{SALT_LEN}s"])   # HMAC salt
     body_string = ciphertext_file_obj.read(SALT_LEN + NONCE_LEN + SALT_LEN)
     try:
         body = struct.unpack(header_format, body_string)
     except struct.error:
         raise ValueError("Start of body is invalid.")
     password_salt, nonce, hmac_salt = body
-    hmac_password_derived = PBKDF2(password=key,
-                                   salt=hmac_salt,
-                                   dkLen=pbkdf2_dk_len,
-                                   count=pbkdf2_count,
-                                   hmac_hash_module=SHA256)
-    elems_to_hmac = [password_salt, nonce, hmac_salt]
-    bytes_to_hmac = b''.join(elems_to_hmac)
-    hmac_object = HMAC.new(key=hmac_password_derived,
-                           msg=bytes_to_hmac,
-                           digestmod=SHA256)
+    hmac_object = get_hmac(key, body)
 
     # ------------------------------------------------------------------------
     #   First pass: stream in the ciphertext object into the HMAC object
@@ -154,21 +158,7 @@ def encrypt_file(plaintext_file_obj,
                          counter=ctr_counter)
 
     hmac_salt = os.urandom(SALT_LEN)
-    hmac_password_derived = PBKDF2(password=key,
-                                   salt=hmac_salt,
-                                   dkLen=pbkdf2_dk_len,
-                                   count=pbkdf2_count,
-                                   hmac_hash_module=SHA256)
-    elems_to_hmac = [password_salt, nonce, hmac_salt]
-    bytes_to_hmac = b''.join(elems_to_hmac)
-    hmac_object = HMAC.new(key=hmac_password_derived,
-                           msg=bytes_to_hmac,
-                           digestmod=SHA256)
-
-    header_format = ''.join([">",
-                             f"{SALT_LEN}s",    # Password salt
-                             f"{NONCE_LEN}s",   # CTR nonce
-                             f"{SALT_LEN}s"])   # HMAC salt
+    hmac_object = get_hmac(key, [password_salt, nonce, hmac_salt])
     header = struct.pack(header_format,
                          password_salt,
                          nonce,
