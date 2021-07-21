@@ -77,20 +77,31 @@ def decrypt_string(ciphertext: bytes, key: bytes):
     return plaintext_obj.getvalue()
 
 
+def get_size(file_obj) -> int:
+    """."""
+    file_obj.seek(0, os.SEEK_END)
+    fsize = file_obj.tell()
+    file_obj.seek(0, os.SEEK_SET)
+    return fsize - (SALT_LEN + NONCE_LEN + SALT_LEN + HMAC_LEN)
+
+
+def get_salts(file_obj) -> Sequence[bytes]:
+    """."""
+    salts_block = file_obj.read(SALT_LEN + NONCE_LEN + SALT_LEN)
+    try:
+        salts = struct.unpack(header_format, salts_block)
+    except struct.error:
+        raise ValueError("Start of body is invalid.")
+    return salts
+
+
 def decrypt_file(ciphertext_file_obj,
                  plaintext_file_obj,
                  key: bytes,
                  chunk_size=4096):
     """."""
-    ciphertext_file_obj.seek(0, os.SEEK_END)
-    fsize = ciphertext_file_obj.tell()
-    ciphertext_file_obj.seek(0, os.SEEK_SET)
-    ciphertext_size = fsize - (SALT_LEN + NONCE_LEN + SALT_LEN + HMAC_LEN)
-    salts_block = ciphertext_file_obj.read(SALT_LEN + NONCE_LEN + SALT_LEN)
-    try:
-        salts = struct.unpack(header_format, salts_block)
-    except struct.error:
-        raise ValueError("Start of body is invalid.")
+    ciphertext_size = get_size(ciphertext_file_obj)
+    salts = get_salts(ciphertext_file_obj)
     hmac_object = get_hmac(key, salts)
 
     # ------------------------------------------------------------------------
@@ -107,20 +118,10 @@ def decrypt_file(ciphertext_file_obj,
             break
         ciphertext_bytes_read += len(ciphertext_chunk)
         hmac_object.update(ciphertext_chunk)
-    if ciphertext_bytes_read != ciphertext_size:
-        msg = f"first pass {ciphertext_bytes_read=} != {ciphertext_size=}"
-        raise ValueError(msg)
-
-    # the rest of the file is the HMAC.
     hmac = ciphertext_file_obj.read()
-    if len(hmac) != HMAC_LEN:
-        msg = f"{len(hmac)=} != {HMAC_LEN=}"
-        raise ValueError(msg)
-
     hmac_calculated = hmac_object.digest()
     if hmac != hmac_calculated:
-        msg = f"{hmac=} != {hmac_calculated=}"
-        raise ValueError(msg)
+        raise ValueError(f"{hmac=} != {hmac_calculated=}")
 
     # ------------------------------------------------------------------------
     #   Second pass: stream in the ciphertext object and decrypt it into the
@@ -133,12 +134,11 @@ def decrypt_file(ciphertext_file_obj,
         bytes_remaining = ciphertext_size - ciphertext_bytes_read
         current_chunk_size = min(bytes_remaining, chunk_size)
         ciphertext_chunk = ciphertext_file_obj.read(current_chunk_size)
-        end_of_file = ciphertext_chunk == b''
+        if ciphertext_chunk == b'':
+            break
         ciphertext_bytes_read += len(ciphertext_chunk)
         plaintext_chunk = cipher_ctr.decrypt(ciphertext_chunk)
         plaintext_file_obj.write(plaintext_chunk)
-        if end_of_file:
-            break
     if ciphertext_bytes_read != ciphertext_size:
         msg = f"second pass {ciphertext_bytes_read=} != {ciphertext_size=}"
         raise ValueError(msg)
@@ -161,12 +161,11 @@ def encrypt_file(plaintext_file_obj,
     # ------------------------------------------------------------------------
     while True:
         plaintext_chunk = plaintext_file_obj.read(chunk_size)
-        end_of_file = plaintext_chunk == b''
+        if plaintext_chunk == b'':
+            break
         ciphertext_chunk = cipher_ctr.encrypt(plaintext_chunk)
         ciphertext_file_obj.write(ciphertext_chunk)
         hmac_object.update(ciphertext_chunk)
-        if end_of_file:
-            break
 
     # ------------------------------------------------------------------------
     #   Write the HMAC to the ciphertext file.
