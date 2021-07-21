@@ -11,16 +11,14 @@ from typing import Final, Sequence
 from Crypto.Cipher import AES
 from Crypto.Cipher._mode_ctr import CtrMode
 from Crypto.Hash import HMAC, SHA256
-from Crypto.Protocol.KDF import PBKDF2
 from Crypto.Util import Counter
 
+import argon2
 import click
 
 
 SALT_LEN: Final = 16
 NONCE_LEN: Final = 8
-pbkdf2_count: Final = 3_222_111
-pbkdf2_dk_len: Final = 32
 HMAC_LEN: Final = 32
 header_format: Final = ''.join([">",
                                 f"{SALT_LEN}s",    # Password salt
@@ -30,11 +28,9 @@ header_format: Final = ''.join([">",
 
 def get_hmac(key: bytes, salts: Sequence[bytes]) -> HMAC.HMAC:
     """."""
-    hmac_password_derived = PBKDF2(password=key,
-                                   salt=salts[2],  # hmac_salt
-                                   dkLen=pbkdf2_dk_len,
-                                   count=pbkdf2_count,
-                                   hmac_hash_module=SHA256)
+    hmac_password_derived = argon2.hash_password_raw(
+        hash_len=32, password=key, salt=salts[2],  # hmac_salt
+        type=argon2.low_level.Type.ID)
     bytes_to_hmac = b''.join(salts)
     return HMAC.new(key=hmac_password_derived,
                     msg=bytes_to_hmac,
@@ -43,16 +39,13 @@ def get_hmac(key: bytes, salts: Sequence[bytes]) -> HMAC.HMAC:
 
 def get_aes(key: bytes, salts: Sequence[bytes]) -> CtrMode:
     """."""
-    cipher_password_derived = PBKDF2(password=key,
-                                     salt=salts[0],  # password_salt
-                                     dkLen=pbkdf2_dk_len,
-                                     count=pbkdf2_count,
-                                     hmac_hash_module=SHA256)
+    cipher_password_derived = argon2.hash_password_raw(
+        hash_len=32, password=key, salt=salts[0],  # password_salt
+        type=argon2.low_level.Type.ID)
     ctr_counter = Counter.new(64,
                               prefix=salts[1],  # nonce
                               initial_value=2506025630791,
                               little_endian=True)
-    assert len(cipher_password_derived) == 32
     ctr = AES.new(key=cipher_password_derived,
                   mode=AES.MODE_CTR,
                   counter=ctr_counter)
