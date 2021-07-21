@@ -19,6 +19,7 @@ SALT_LEN = 16
 NONCE_LEN = 8
 pbkdf2_count = 3_222_111
 pbkdf2_dk_len = 32
+HMAC_LEN = 32
 
 
 def encrypt_string(plaintext: bytes, key: bytes):
@@ -42,16 +43,10 @@ def decrypt_file(ciphertext_file_obj,
                  key: bytes,
                  chunk_size=4096):
     """."""
-    header_format = ">QH"
-    header_size = struct.calcsize(header_format)
-    header_string = ciphertext_file_obj.read(header_size)
-    try:
-        header = struct.unpack(header_format, header_string)
-    except struct.error:
-        raise ValueError("Header is invalid.")
-    ciphertext_size = header[0]
-    hmac_size = header[1]
-
+    ciphertext_file_obj.seek(0, os.SEEK_END)
+    fsize = ciphertext_file_obj.tell()
+    ciphertext_file_obj.seek(0, os.SEEK_SET)
+    ciphertext_size = fsize - (SALT_LEN + NONCE_LEN + SALT_LEN + HMAC_LEN)
     encrypted_string_format = ''.join([">",
                                        "%ss" % (SALT_LEN, ),
                                        "%ss" % (NONCE_LEN, ),
@@ -97,8 +92,8 @@ def decrypt_file(ciphertext_file_obj,
 
     # the rest of the file is the HMAC.
     hmac = ciphertext_file_obj.read()
-    if len(hmac) != hmac_size:
-        msg = f"{len(hmac)=} != {hmac_size=}"
+    if len(hmac) != HMAC_LEN:
+        msg = f"{len(hmac)=} != {HMAC_LEN=}"
         raise ValueError(msg)
 
     hmac_calculated = hmac_object.digest()
@@ -174,14 +169,10 @@ def encrypt_file(plaintext_file_obj,
                            digestmod=SHA256)
 
     header_format = ''.join([">",
-                             "Q",               # Length of ciphertext
-                             "H",               # Length of HMAC
                              f"{SALT_LEN}s",    # Password salt
                              f"{NONCE_LEN}s",   # CTR nonce
                              f"{SALT_LEN}s"])   # HMAC salt
     header = struct.pack(header_format,
-                         0,        # This is the ciphertext size, wrong for now
-                         hmac_object.digest_size,
                          password_salt,
                          nonce,
                          hmac_salt)
@@ -191,12 +182,10 @@ def encrypt_file(plaintext_file_obj,
     #   Stream in the input file and stream out ciphertext into the
     #   ciphertext file.
     # ------------------------------------------------------------------------
-    ciphertext_size = 0
     while True:
         plaintext_chunk = plaintext_file_obj.read(chunk_size)
         end_of_file = plaintext_chunk == b''
         ciphertext_chunk = cipher_ctr.encrypt(plaintext_chunk)
-        ciphertext_size += len(ciphertext_chunk)
         ciphertext_file_obj.write(ciphertext_chunk)
         hmac_object.update(ciphertext_chunk)
         if end_of_file:
@@ -207,25 +196,6 @@ def encrypt_file(plaintext_file_obj,
     # ------------------------------------------------------------------------
     hmac = hmac_object.digest()
     ciphertext_file_obj.write(hmac)
-
-    # ------------------------------------------------------------------------
-    #   Go back to the header and update the ciphertext size.
-    # ------------------------------------------------------------------------
-
-    # Read in.
-    ciphertext_file_obj.seek(0, os.SEEK_SET)
-    header_format = ">Q"
-    header_size = struct.calcsize(header_format)
-    header = ciphertext_file_obj.read(header_size)
-
-    # Modify.
-    header_elems = list(struct.unpack(header_format, header))
-    header_elems[-1] = ciphertext_size
-
-    # Write out.
-    header = struct.pack(header_format, *header_elems)
-    ciphertext_file_obj.seek(0, os.SEEK_SET)
-    ciphertext_file_obj.write(header)
 
 
 @click.command()
