@@ -47,20 +47,16 @@ def decrypt_file(ciphertext_file_obj,
     fsize = ciphertext_file_obj.tell()
     ciphertext_file_obj.seek(0, os.SEEK_SET)
     ciphertext_size = fsize - (SALT_LEN + NONCE_LEN + SALT_LEN + HMAC_LEN)
-    encrypted_string_format = ''.join([">",
-                                       "%ss" % (SALT_LEN, ),
-                                       "%ss" % (NONCE_LEN, ),
-                                       "%ss" % (SALT_LEN, )])
-    encrypted_string_size = struct.calcsize(encrypted_string_format)
-    body_string = ciphertext_file_obj.read(encrypted_string_size)
+    header_format = ''.join([">",
+                             f"{SALT_LEN}s",    # Password salt
+                             f"{NONCE_LEN}s",   # CTR nonce
+                             f"{SALT_LEN}s"])   # HMAC salt
+    body_string = ciphertext_file_obj.read(SALT_LEN + NONCE_LEN + SALT_LEN)
     try:
-        body = struct.unpack(encrypted_string_format, body_string)
+        body = struct.unpack(header_format, body_string)
     except struct.error:
         raise ValueError("Start of body is invalid.")
-    password_salt = body[0]
-    nonce = body[1]
-    hmac_salt = body[2]
-
+    password_salt, nonce, hmac_salt = body  
     hmac_password_derived = PBKDF2(password=key,
                                    salt=hmac_salt,
                                    dkLen=pbkdf2_dk_len,
