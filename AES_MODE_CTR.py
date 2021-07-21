@@ -6,6 +6,7 @@
 import io
 import os
 import struct
+from typing import Final
 
 from Crypto.Cipher import AES
 from Crypto.Hash import HMAC, SHA256
@@ -15,11 +16,11 @@ from Crypto.Util import Counter
 import click
 
 
-SALT_LEN = 16
-NONCE_LEN = 8
-pbkdf2_count = 3_222_111
-pbkdf2_dk_len = 32
-HMAC_LEN = 32
+SALT_LEN: Final = 16
+NONCE_LEN: Final = 8
+pbkdf2_count: Final = 3_222_111
+pbkdf2_dk_len: Final = 32
+HMAC_LEN: Final = 32
 
 
 def encrypt_string(plaintext: bytes, key: bytes):
@@ -56,7 +57,7 @@ def decrypt_file(ciphertext_file_obj,
         body = struct.unpack(header_format, body_string)
     except struct.error:
         raise ValueError("Start of body is invalid.")
-    password_salt, nonce, hmac_salt = body  
+    password_salt, nonce, hmac_salt = body
     hmac_password_derived = PBKDF2(password=key,
                                    salt=hmac_salt,
                                    dkLen=pbkdf2_dk_len,
