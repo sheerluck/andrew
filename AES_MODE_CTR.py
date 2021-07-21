@@ -9,6 +9,7 @@ import struct
 from typing import Final, Sequence
 
 from Crypto.Cipher import AES
+from Crypto.Cipher._mode_ctr import CtrMode
 from Crypto.Hash import HMAC, SHA256
 from Crypto.Protocol.KDF import PBKDF2
 from Crypto.Util import Counter
@@ -30,7 +31,7 @@ header_format: Final = ''.join([">",
 def get_hmac(key: bytes, salts: Sequence[bytes]) -> HMAC.HMAC:
     """."""
     hmac_password_derived = PBKDF2(password=key,
-                                   salt=salts[2],
+                                   salt=salts[2],  # hmac_salt
                                    dkLen=pbkdf2_dk_len,
                                    count=pbkdf2_count,
                                    hmac_hash_module=SHA256)
@@ -38,6 +39,26 @@ def get_hmac(key: bytes, salts: Sequence[bytes]) -> HMAC.HMAC:
     return HMAC.new(key=hmac_password_derived,
                     msg=bytes_to_hmac,
                     digestmod=SHA256)
+
+
+def get_aes(key: bytes, salts: Sequence[bytes]) -> CtrMode:
+    """."""
+    cipher_password_derived = PBKDF2(password=key,
+                                     salt=salts[0],  # password_salt
+                                     dkLen=pbkdf2_dk_len,
+                                     count=pbkdf2_count,
+                                     hmac_hash_module=SHA256)
+    ctr_counter = Counter.new(64,
+                              prefix=salts[1],  # nonce
+                              initial_value=2506025630791,
+                              little_endian=True)
+    assert len(cipher_password_derived) == 32
+    ctr = AES.new(key=cipher_password_derived,
+                  mode=AES.MODE_CTR,
+                  counter=ctr_counter)
+    # make mypy happy
+    assert isinstance(ctr, CtrMode)
+    return ctr
 
 
 def encrypt_string(plaintext: bytes, key: bytes):
@@ -65,13 +86,12 @@ def decrypt_file(ciphertext_file_obj,
     fsize = ciphertext_file_obj.tell()
     ciphertext_file_obj.seek(0, os.SEEK_SET)
     ciphertext_size = fsize - (SALT_LEN + NONCE_LEN + SALT_LEN + HMAC_LEN)
-    body_string = ciphertext_file_obj.read(SALT_LEN + NONCE_LEN + SALT_LEN)
+    salts_block = ciphertext_file_obj.read(SALT_LEN + NONCE_LEN + SALT_LEN)
     try:
-        body = struct.unpack(header_format, body_string)
+        salts = struct.unpack(header_format, salts_block)
     except struct.error:
         raise ValueError("Start of body is invalid.")
-    password_salt, nonce, hmac_salt = body
-    hmac_object = get_hmac(key, body)
+    hmac_object = get_hmac(key, salts)
 
     # ------------------------------------------------------------------------
     #   First pass: stream in the ciphertext object into the HMAC object
@@ -106,19 +126,7 @@ def decrypt_file(ciphertext_file_obj,
     #   Second pass: stream in the ciphertext object and decrypt it into the
     #   plaintext object.
     # ------------------------------------------------------------------------
-    cipher_password_derived = PBKDF2(password=key,
-                                     salt=password_salt,
-                                     dkLen=pbkdf2_dk_len,
-                                     count=pbkdf2_count,
-                                     hmac_hash_module=SHA256)
-    ctr_counter = Counter.new(64,
-                              prefix=nonce,
-                              initial_value=2506025630791,
-                              little_endian=True)
-    assert len(cipher_password_derived) == 32
-    cipher_ctr = AES.new(key=cipher_password_derived,
-                         mode=AES.MODE_CTR,
-                         counter=ctr_counter)
+    cipher_ctr = get_aes(key, salts)
     ciphertext_file_obj.seek(ciphertext_file_pos, os.SEEK_SET)
     ciphertext_bytes_read = 0
     while True:
@@ -141,28 +149,10 @@ def encrypt_file(plaintext_file_obj,
                  key: bytes,
                  chunk_size=4096):
     """."""
-    password_salt = os.urandom(SALT_LEN)
-    cipher_password_derived = PBKDF2(password=key,
-                                     salt=password_salt,
-                                     dkLen=pbkdf2_dk_len,
-                                     count=pbkdf2_count,
-                                     hmac_hash_module=SHA256)
-    nonce = os.urandom(NONCE_LEN)
-    ctr_counter = Counter.new(64,
-                              prefix=nonce,
-                              initial_value=2506025630791,
-                              little_endian=True)
-    assert len(cipher_password_derived) == 32
-    cipher_ctr = AES.new(key=cipher_password_derived,
-                         mode=AES.MODE_CTR,
-                         counter=ctr_counter)
-
-    hmac_salt = os.urandom(SALT_LEN)
-    hmac_object = get_hmac(key, [password_salt, nonce, hmac_salt])
-    header = struct.pack(header_format,
-                         password_salt,
-                         nonce,
-                         hmac_salt)
+    salts = [os.urandom(x) for x in [SALT_LEN, NONCE_LEN, SALT_LEN]]
+    cipher_ctr = get_aes(key, salts)
+    hmac_object = get_hmac(key, salts)
+    header = struct.pack(header_format, *salts)
     ciphertext_file_obj.write(header)
 
     # ------------------------------------------------------------------------
