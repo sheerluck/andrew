@@ -44,7 +44,7 @@ def get_aes(key: bytes, salts: Sequence[bytes]) -> CtrMode:
         type=argon2.low_level.Type.ID)
     ctr_counter = Counter.new(64,
                               prefix=salts[1],  # nonce
-                              initial_value=2506025630791,
+                              initial_value=5988931115977,
                               little_endian=True)
     ctr = AES.new(key=cipher_password_derived,
                   mode=AES.MODE_CTR,
