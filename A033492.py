@@ -30,7 +30,13 @@ def flatten(a, b):
 def hailstone(n, m):
     nn = 3*n + 1 if n & 1 else n//2
     if nn not in m:
-        hailstone(nn, m)
+        rn = nn
+        while rn > 1:
+            k = 3*rn + 1 if rn & 1 else rn//2
+            if rn in m:
+                break
+            m[rn] = k
+            rn = k
     m[n] = nn
     return m[n]
 
