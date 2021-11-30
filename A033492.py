@@ -13,11 +13,9 @@ from colorama import Fore, init as colorama_init
 
 
 def hailstone(n, m, p):
-    future = 0
     i = n
-    if n in m:
-        return m[n], []
     seq = [n]
+    future = 0
     while n > 1:
         n = 3*n + 1 if n & 1 else n//2
         if not future:
@@ -25,7 +23,7 @@ def hailstone(n, m, p):
                 future = m[n] + len(seq)
                 if i not in m:
                     m[i] = future
-                if future < p:
+                if future <= p:
                     for L, e in zip(range(future - 1, 1, -1), seq[1:]):
                         if e in m:
                             break
@@ -45,6 +43,8 @@ memo = {}
 prev = 0
 incr = 1
 for n in count(1):
+    if n in memo:
+        continue
     L, flat = hailstone(n, memo, prev)
     if L > prev:
         print(Fore.RED + f"[{incr:>4}]", end=" ")
