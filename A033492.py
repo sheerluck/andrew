@@ -1,63 +1,54 @@
 # https://oeis.org/A033492/list
 # 54      686
 # 55      689
-# 57      692
-# 58      705
-# 59      706
-# 60      745
-# 61      950
+# 56      692
+# 57      705
+# 58      706
+# 59      745
+# 60      950
 
 
+from itertools import count
 from colorama import Fore, init as colorama_init
 
 
-def forever(acc):
-    while True:
-        yield acc
-        acc += 1
-
-
-def flatten(a, b):
-    tail, mem = b
-    flat = [a]
-    while tail:
-        t1 = mem[tail]
-        flat.append(tail)
-        tail = t1
-    return flat
-
-
-def hailstone(n, m):
+def hailstone(n, m, p):
+    future = 0
     i = n
+    if n in m:
+        return m[n], []
+    seq = [n]
     while n > 1:
-        nn = 3*n + 1 if n & 1 else n//2
-        if n in m:
+        n = 3*n + 1 if n & 1 else n//2
+        if not future:
+            if n in m:
+                future = m[n] + len(seq)
+                if i not in m:
+                    m[i] = future
+                if future < p:
+                    for L, e in zip(range(future - 1, 1, -1), seq[1:]):
+                        if e in m:
+                            break
+                        m[e] = L
+                    return m[n], []
+        seq.append(n)
+    ls = len(seq)
+    for L, e in zip(range(ls - 1, 1, -1), seq[1:]):
+        if e in m:
             break
-        m[n] = nn
-        n = nn
-    return m[i]
-
-
-class seq:
-    def __init__(self, a):
-        self.a = a
-        self.mem = {1: None, 2: 1}
-
-    def __iter__(self):
-        while True:
-            if self.a in self.mem:
-                h = self.mem[self.a]
-            else:
-                h = hailstone(self.a, self.mem)
-            yield h, self.mem
-            self.a += 1
-
+        m[e] = L
+    m[i] = ls
+    return ls, seq
 
 colorama_init(autoreset=True)
+memo = {}
 prev = 0
-for a, b in zip(forever(1), seq(1)):
-    flat = flatten(a, b)
-    if (c := len(flat)) > prev:
-        print(Fore.CYAN + f"[{c:>10}]", end=" ")
+incr = 1
+for n in count(1):
+    L, flat = hailstone(n, memo, prev)
+    if L > prev:
+        print(Fore.RED + f"[{incr:>4}]", end=" ")
+        print(Fore.CYAN + f"[{L:>10}]", end=" ")
         print(flat, end="\n\n")
-        prev = c
+        prev = L
+        incr += 1
