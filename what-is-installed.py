@@ -6,4 +6,4 @@ for a, _, u in walk(pth):
     if "/" in elem:
         res.append(elem)
 for pkg in sorted(res, key=lambda x: x.split("/")[1].lower()):
-    print(res[pkg])
+    print(pkg)
