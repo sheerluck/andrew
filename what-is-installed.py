@@ -1,10 +1,9 @@
 from os import walk
 pth, ext = "/var/db/pkg", ".ebuild"
-lex, res = len(ext), {}
+lex, res = len(ext), []
 for a, _, u in walk(pth):
-    try:
-        key = [x[:-lex] for x in u if x.endswith(ext)][0]
-        res[key.lower()] = a[lex+5:]
-    except Exception:
-        pass
-for  pkg  in sorted(res): print(res[pkg])
+    elem = a[lex+5:]
+    if "/" in elem:
+        res.append(elem)
+for pkg in sorted(res, key=lambda x: x.split("/")[1].lower()):
+    print(res[pkg])
