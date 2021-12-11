@@ -17,7 +17,7 @@ def hailstone(n, m, p):
     seq = [n]
     future = 0
     while n > 1:
-        n = 3*n + 1 if n & 1 else n//2
+        n = 3 * n + 1 if n & 1 else n // 2
         if not future:
             if n in m:
                 future = m[n] + len(seq)
@@ -37,6 +37,7 @@ def hailstone(n, m, p):
         m[e] = L
     m[i] = ls
     return ls, seq
+
 
 colorama_init(autoreset=True)
 memo = {}
