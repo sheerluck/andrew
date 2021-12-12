@@ -168,17 +168,22 @@ def encrypt_file(plaintext_file_obj,
 
 
 @click.command()
-@click.option('--test', default="False", help='try --test=True')
+@click.option('--test', default=False, help='try --test=True')
 @click.option('--file', default="/tmp/LOL.mp4", help='path to file')
 @click.option('--fkey', default="key-10Mb.dat", help='path to file')
 @click.option('--command', default="encrypt", help='encrypt/decrypt')
 def main(test: str, file: str, fkey: str, command: str) -> int:
     """First line should be in imperative mood; try rephrasing."""
-    if test == "True":
+    if test:
         key, plaintext = os.urandom(9_000), os.urandom(9_000)
         ciphertext = encrypt_string(plaintext, key)
         decryptedtext = decrypt_string(ciphertext, key)
         print("it works!" if plaintext == decryptedtext else "wtf?")
+        from binascii import hexlify
+        ahash = argon2.hash_password_raw(
+                hash_len=32, password=b"hop", salt=b"1234567812345678",
+                type=argon2.low_level.Type.ID)
+        print(hexlify(ahash))
         return 0
     fres = f"{file}.{command}ed"
     with open(file, 'rb') as f, \
