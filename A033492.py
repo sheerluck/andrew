@@ -21,8 +21,7 @@ def hailstone(n, m, p):
         if not future:
             if n in m:
                 future = m[n] + len(seq)
-                if i not in m:
-                    m[i] = future
+                m[i] = future
                 if future <= p:
                     for L, e in zip(range(future - 1, 1, -1), seq[1:]):
                         if e in m:
