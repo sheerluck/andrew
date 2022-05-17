@@ -1201,6 +1201,7 @@ w = [
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,      0,   0,   0,   0,   0,   0,   0,   0,   0,   0]];
 
 
+//////////////////////////////
 module sugar(x,y,h)
 {
   translate([2*x, -2*y, 0])
@@ -1208,6 +1209,7 @@ module sugar(x,y,h)
   cube(size = [2, 2, 2*h]);
 }
 
+//////////////////////////////
 module water(x,y,h)
 {
   if (h>0) {
@@ -1217,15 +1219,23 @@ module water(x,y,h)
   };
 };
 
-NN = 99;
 
-for ( y = [0:NN]) {
-    for ( x = [0:NN]) {
-        sugar(x,y, m[y][x]);
-    };
+//////////////////////////////
+module all(k)
+{
+  NN = 99;
+
+  for ( y = [0:NN]) {
+      for ( x = [0:NN]) {
+          sugar(x,y, m[y][x]);
+      };
+  };
+  for ( y = [0:NN]) {
+      for ( x = [0:NN]) {
+          water(x,y, w[y][x]);
+      };
+  };    
 };
-for ( y = [0:NN]) {
-    for ( x = [0:NN]) {
-        water(x,y, w[y][x]);
-    };
-};    
+
+
+all(50);

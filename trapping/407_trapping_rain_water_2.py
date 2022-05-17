@@ -749,3 +749,50 @@ import pytest
 )
 def test_answer(m, expected):
     assert trap_rain_water(m) == expected
+
+'''
+NN = 1
+
+from copy import deepcopy
+expected = 1592346
+for idr, r in enumerate(big):
+    for idx, x in enumerate(r):
+        q = deepcopy(x)
+        #print(f"{idr}, {idx}: {x}")
+        while True: # trap_rain_water(big) == expected and big[idr][idx] >= 2:
+            if big[idr][idx] - NN < 1:
+                break
+            big[idr][idx] -= NN
+            #rint(f"while {idr}, {idx}: {big[idr][idx]}")
+            if trap_rain_water(big) != expected:
+                big[idr][idx] += NN
+                break
+        if big[idr][idx] < q:
+            print(f"{idr}, {idx}: {big[idr][idx]} < {q}")
+
+def it(r):
+    q = []
+    while True:
+        q = r[:10]
+        if q:
+            yield q
+            del r[:10]
+        else:
+            break
+
+print("m = [  ")
+for r in big:
+    print("  [", end='')
+    even = True
+    for ind, ten in enumerate(it(r)):
+        for elem in ten:
+            print(f"{elem:>4}", end=',')
+        if (even := not even):
+            if 9 == ind:
+                print("],")
+            else:
+                print()
+        print("   ", end='')
+    print()
+print()
+'''
