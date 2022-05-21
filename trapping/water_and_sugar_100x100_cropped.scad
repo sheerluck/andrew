@@ -1201,6 +1201,8 @@ w = [
       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,      0,   0,   0,   0,   0,   0,   0,   0,   0,   0]];
 
 
+TR = 1.0;
+
 module flat(c, pp, k, x,y)
 {
     translate([2*x, -2*y, 2*pp/k]) 
@@ -1208,33 +1210,48 @@ module flat(c, pp, k, x,y)
     cube(size = [2, 2, 0.1]); 
 };
 
-module red(pp, k, x,y)
+module gold(pp, k, x,y)
 {
-    flat([0.7,0.1,0.1,0.6], pp, k, x,y);
-};
-
-module green(pp, k, x,y)
-{
-    flat([0.1,0.8,0.1,0.6], pp, k, x,y);
+    flat([0.9,0.7,0.0,TR], pp, k, x,y);
 };
 
 module purple(pp, k, x,y)
 {
-    flat([0.9,0.0,0.9,0.6], pp, k, x,y);
+    flat([0.9,0.0,0.9,TR], pp, k, x,y);
 };
 
-module gold(pp, k, x,y)
+module red(pp, k, x,y)
 {
-    flat([0.9,0.7,0.0,0.6], pp, k, x,y);
+    flat([0.7,0.1,0.1,TR], pp, k, x,y);
 };
+
+module green(pp, k, x,y)
+{
+    flat([0.1,0.8,0.1,TR], pp, k, x,y);
+};
+
+module bruh(pp, k, x,y)
+{
+    flat([0.3,0.3,0.9,TR], pp, k, x,y);
+};
+
 
 
 //////////////////////////////
 module sugar(k, x,y,h)
 {
-  translate([2*x, -2*y, 0])
-  color([1,1,1])
-  cube(size = [2, 2, 2*h/k]);
+  if (h < 600)
+  {
+    translate([2*x, -2*y, 0])
+    color([0.92,0.8,0.56])
+    cube(size = [2, 2, 2*h/k]);
+  }
+  else
+  {
+    translate([2*x, -2*y, 0])
+    color([1,1,1])
+    cube(size = [2, 2, 2*h/k]);
+  }
 }
 
 //////////////////////////////
@@ -1242,19 +1259,27 @@ module water(k, x,y,h)
 {
   if (h>0) {
     translate([2*x, -2*y, 2*m[y][x]/k]) 
-    color([0.1,0.1,0.7,0.3])
+    color([0.1,0.1,0.7,0.2])
     cube(size = [2, 2, 2*h/k]);
-    if (w[y][x] + m[y][x] == 622) {
-        red(622, k, x,y,h);
+
+    if (w[y][x] + m[y][x] == 604) {
+        gold(604, k, x,y,h);
     };
-    if (w[y][x] + m[y][x] == 628) {
-        green(628, k, x,y,h);
-    };
+
     if (w[y][x] + m[y][x] == 606) {
         purple(606, k, x,y,h);
     };
-    if (w[y][x] + m[y][x] == 604) {
-        gold(604, k, x,y,h);
+
+    if (w[y][x] + m[y][x] == 622) {
+        red(622, k, x,y,h);
+    };
+
+    if (w[y][x] + m[y][x] == 628) {
+        green(628, k, x,y,h);
+    };
+
+    if (w[y][x] + m[y][x] == 648) {
+        bruh(648, k, x,y,h);
     };
   };
 };
@@ -1264,16 +1289,15 @@ module water(k, x,y,h)
 module all(k)
 {
   NN = 99;
-
-  for ( y = [0:NN]) {
-      for ( x = [0:NN]) {
-          sugar(k, x,y, m[y][x]);
-      };
+  for (y = [0:NN]) {
+    for (x = [0:NN]) {
+      sugar(k, x,y, m[y][x]);
+    };
   };
-  for ( y = [0:NN]) {
-      for ( x = [0:NN]) {
-          water(k, x,y, w[y][x]);
-      };
+  for (y = [0:NN]) {
+    for (x = [0:NN]) {
+      water(k, x,y, w[y][x]);
+    };
   };    
 };
 
