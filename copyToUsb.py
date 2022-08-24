@@ -5,6 +5,7 @@ import math
 import os
 import sys
 import time
+import pretty_errors
 from datetime import date as dtdate
 from datetime import datetime, timedelta
 from typing import Dict, List
@@ -795,9 +796,12 @@ def copy_with_progress(fn, s, d):
     blocksize = 16 * 1024
     filesize = os.path.getsize(s)
     if filesize < blocksize:
-        return  # ^_^
-    numblocks = filesize / blocksize
-    math_ceil = math.ceil(numblocks)
+        numblocks = 1
+        math_ceil = 1
+    else:
+        numblocks = filesize / blocksize
+        math_ceil = math.ceil(numblocks)
+
     if math_ceil > 10:
         blocksize = (filesize + 2000) // 10
         numblocks = filesize / blocksize
