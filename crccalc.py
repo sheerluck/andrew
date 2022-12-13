@@ -120,3 +120,21 @@ hashlib.sha3_512         : f(b'1') = ca2c70bc13298c5109ee0cb342d014906e636524900
 hashlib.blake2s          : f(b'1') = 625851e3876e6e6da405c95ac24687ce4bb2cdd8fbd8459278f6f0ce803e13ee
 hashlib.blake2b          : f(b'1') = 1ced8f5be2db23a6513eba4d819c73806424748a7bc6fa0d792cc1c7d1775a9778e894aa91413f6eb79ad5ae2f871eafcc78797e4c82af6d1cbfb1a294a10d10
 """
+
+from blake3 import blake3
+
+def blake3_32(b):
+    return blake3(b).hexdigest(32)
+
+def blake3_64(b):
+    return blake3(b).hexdigest(64)
+
+fun = [(f"blake3.blake3_{8 * n}", eval(f"blake3_{n}")) for n in [32, 64]]
+
+for name, f in fun:
+    print(f"{name:<25}: f({data}) = {f(data)}")
+
+"""
+blake3.blake3_256        : f(b'1') = d63bd9a826af91c1fea371965a64e11ee20f13e46b5f52c59901136605b3a487
+blake3.blake3_512        : f(b'1') = d63bd9a826af91c1fea371965a64e11ee20f13e46b5f52c59901136605b3a487dfd5f9d0daf8dadaeabb1e57f6fc57c057579a87814ccb65d2bca30df7ca55a9
+"""
