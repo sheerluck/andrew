@@ -77,3 +77,46 @@ xxhash.xxh128            : f(b'1') = 296734076633237196744344171427223105880
 xxhash.xxh3_64           : f(b'1') = 7335560060985733464
 xxhash.xxh3_128          : f(b'1') = 296734076633237196744344171427223105880
 """
+
+def sort(p):
+    name, f = p
+    try:
+        key = f(data).hexdigest()
+    except Exception:
+        suf = int(name[-3:])
+        key = "k" * 32 + "*" * (suf // 100)
+    if "sha3_" in name:
+        key += "*" * 100
+    if "blake" in name:
+        key += "*" * 200
+    return len(key)
+
+
+import hashlib
+
+alg = hashlib.algorithms_guaranteed
+fun = [(f"hashlib.{f}", eval(f"hashlib.{f}")) for f in alg]
+for name, f in sorted(fun, key=sort):
+    try:
+        val = f(data).hexdigest()
+    except Exception:
+        suf = int(name[-3:])
+        val = f(data).hexdigest(suf//8)
+    print(f"{name:<25}: f({data}) = {val}")
+
+"""
+hashlib.md5              : f(b'1') = c4ca4238a0b923820dcc509a6f75849b
+hashlib.shake_128        : f(b'1') = ebaf5ccd6f37291d34bade1bbff539e7
+hashlib.shake_256        : f(b'1') = 2f169f9b4e6a1024752209cd5410ebb84959eee0ac73c29a04c23bd524c12f81
+hashlib.sha1             : f(b'1') = 356a192b7913b04c54574d18c28d46e6395428ab
+hashlib.sha224           : f(b'1') = e25388fde8290dc286a6164fa2d97e551b53498dcbf7bc378eb1f178
+hashlib.sha256           : f(b'1') = 6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b
+hashlib.sha384           : f(b'1') = 47f05d367b0c32e438fb63e6cf4a5f35c2aa2f90dc7543f8a41a0f95ce8a40a313ab5cf36134a2068c4c969cb50db776
+hashlib.sha512           : f(b'1') = 4dff4ea340f0a823f15d3f4f01ab62eae0e5da579ccb851f8db9dfe84c58b2b37b89903a740e1ee172da793a6e79d560e5f7f9bd058a12a280433ed6fa46510a
+hashlib.sha3_224         : f(b'1') = 300d01f3a910045fefa16d6a149f38167b2503dbc37c1b24fd6f751e
+hashlib.sha3_256         : f(b'1') = 67b176705b46206614219f47a05aee7ae6a3edbe850bbbe214c536b989aea4d2
+hashlib.sha3_384         : f(b'1') = f39de487a8aed2d19069ed7a7bcfc274e9f026bba97c8f059be6a2e5eed051d7ee437b93d80aa6163bf8039543b612dd
+hashlib.sha3_512         : f(b'1') = ca2c70bc13298c5109ee0cb342d014906e6365249005fd4beee6f01aee44edb531231e98b50bf6810de6cf687882b09320fdd5f6375d1f2debd966fbf8d03efa
+hashlib.blake2s          : f(b'1') = 625851e3876e6e6da405c95ac24687ce4bb2cdd8fbd8459278f6f0ce803e13ee
+hashlib.blake2b          : f(b'1') = 1ced8f5be2db23a6513eba4d819c73806424748a7bc6fa0d792cc1c7d1775a9778e894aa91413f6eb79ad5ae2f871eafcc78797e4c82af6d1cbfb1a294a10d10
+"""
