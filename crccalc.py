@@ -54,3 +54,26 @@ crc64.go_iso             : f(b'1') = 4836865999795912704
 crc64.we                 : f(b'1') = 8235833358291897690
 crc64.xz                 : f(b'1') = 3039664240384658157
 """
+
+def sort(p):
+    if "xxh3_" in p[0]:
+        key = p[0] + "*" * 100
+    else:
+        key = str(p[1](data))
+    return len(key)
+
+
+import xxhash
+
+alg = xxhash.algorithms_available
+fun = [(f"xxhash.{f}", eval(f"xxhash.{f}_intdigest")) for f in alg]
+for name, f in sorted(fun, key=sort):
+    print(f"{name:<25}: f({data}) = {f(data)}")
+
+"""
+xxhash.xxh32             : f(b'1') = 3068971186
+xxhash.xxh64             : f(b'1') = 13237225503670494420
+xxhash.xxh128            : f(b'1') = 296734076633237196744344171427223105880
+xxhash.xxh3_64           : f(b'1') = 7335560060985733464
+xxhash.xxh3_128          : f(b'1') = 296734076633237196744344171427223105880
+"""
