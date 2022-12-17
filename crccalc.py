@@ -35,7 +35,7 @@ for mod in ["crc16", "crc32", "crc64"]:
 fun = [f for (n, f) in sorted(itertools.chain.from_iterable(crc))]
 hsh = [str(f(data)) for f in fun]
 line = "".join(hsh)
-i = int(line, 16)
+i = int(line)
 name = "crc.combined"
 print(f"{name:<25}: f({data}) = {int2str(i)}")
 
@@ -85,7 +85,7 @@ crc64.ecma_182           : f(b'1') = 16768987096479742114
 crc64.go_iso             : f(b'1') = 4836865999795912704
 crc64.we                 : f(b'1') = 8235833358291897690
 crc64.xz                 : f(b'1') = 3039664240384658157
-crc.combined             : f(b'1') = 儢嫉懠賛驎狔殪鮾磋葯蠙耫粚帉鼰卍躆稷銘墑魧唬癱澮銤幰讽頓槛剂孤龭瘲綼额峯舓嶖垜晲堬楺燒駛坚称溏欋惥牥镼蠯噤淞磳郏竫羌覎勐濁鯃鹬港迍嵇現縻齝鮈镦隍劸膏槛阳齆夆贝鄟嘖堂呴迧诓聿脤慙蠗凧楓
+crc.combined             : f(b'1') = 謡鍫窴磷澐漟算尦屩泟廷玁隚胪驏籈潅緪嗌鬨舉儻沿猈陿郣啋犍覐唫衊濔彼汕苇笠瘍鱤敡枻曗妙巚踵覌橖熥皏蟁彶飱搳睵懓塑闦述謇髌绤荗磋牌蓼芹飶曘瑌癪酫肰衈莞鉌辕
 """
 
 
