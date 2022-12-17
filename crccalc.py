@@ -1,11 +1,43 @@
+import itertools
 from fastcrc import crc16, crc32, crc64
 
+
+def radix(val, base):
+    res = []
+    while True:
+        head, tail = divmod(val, base)
+        res.append(tail)
+        if head < base:
+            if head > 0:
+                res.append(head)
+            return res
+        val = head
+
+
+def int2str(x: int) -> str:
+    base = 20_180  # 40_940 - 20_760
+    shift = 20_760
+    bits = []
+    for mod in radix(x, base):
+        bits.append(chr(shift + mod))
+    return "".join(reversed(bits))
+
+
 data = b"1"
+crc = []
 for mod in ["crc16", "crc32", "crc64"]:
     alg = eval(f"{mod}.algorithms_available")
     fun = [(f"{mod}.{f}", eval(f"{mod}.{f}")) for f in alg]
+    crc.append(fun)
     for name, f in sorted(fun):
         print(f"{name:<25}: f({data}) = {f(data)}")
+
+fun = [f for (n, f) in sorted(itertools.chain.from_iterable(crc))]
+hsh = [str(f(data)) for f in fun]
+line = "".join(hsh)
+i = int(line, 16)
+name = "crc.combined"
+print(f"{name:<25}: f({data}) = {int2str(i)}")
 
 """
 crc16.arc                : f(b'1') = 54465
@@ -53,7 +85,9 @@ crc64.ecma_182           : f(b'1') = 16768987096479742114
 crc64.go_iso             : f(b'1') = 4836865999795912704
 crc64.we                 : f(b'1') = 8235833358291897690
 crc64.xz                 : f(b'1') = 3039664240384658157
+crc.combined             : f(b'1') = 儢嫉懠賛驎狔殪鮾磋葯蠙耫粚帉鼰卍躆稷銘墑魧唬癱澮銤幰讽頓槛剂孤龭瘲綼额峯舓嶖垜晲堬楺燒駛坚称溏欋惥牥镼蠯噤淞磳郏竫羌覎勐濁鯃鹬港迍嵇現縻齝鮈镦隍劸膏槛阳齆夆贝鄟嘖堂呴迧诓聿脤慙蠗凧楓
 """
+
 
 def sort(p):
     if "xxh3_" in p[0]:
@@ -78,6 +112,7 @@ xxhash.xxh3_64           : f(b'1') = 7335560060985733464
 xxhash.xxh3_128          : f(b'1') = 296734076633237196744344171427223105880
 """
 
+
 def sort(p):
     name, f = p
     try:
@@ -101,7 +136,7 @@ for name, f in sorted(fun, key=sort):
         val = f(data).hexdigest()
     except Exception:
         suf = int(name[-3:])
-        val = f(data).hexdigest(suf//8)
+        val = f(data).hexdigest(suf // 8)
     print(f"{name:<25}: f({data}) = {val}")
 
 """
@@ -123,11 +158,14 @@ hashlib.blake2b          : f(b'1') = 1ced8f5be2db23a6513eba4d819c73806424748a7bc
 
 from blake3 import blake3
 
+
 def blake3_32(b):
     return blake3(b).hexdigest(32)
 
+
 def blake3_64(b):
     return blake3(b).hexdigest(64)
+
 
 fun = [(f"blake3.blake3_{8 * n}", eval(f"blake3_{n}")) for n in [32, 64]]
 
