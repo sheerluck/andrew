@@ -38,9 +38,12 @@ def main() -> int:
             "external_downloader": {"default": "ffmpeg"},
             "external_downloader_args": {"save_stderr": True}}
         with contextlib.suppress(OSError): os.remove(fn)
-        ok, newfn = download(URLS, ydl_opts)
-        if ok:
-            fn = newfn
+        try:
+            ok, newfn = download(URLS, ydl_opts)
+            if ok:
+                fn = newfn
+        except Exception:
+            fn = parse(None)
     return 0
 
 
