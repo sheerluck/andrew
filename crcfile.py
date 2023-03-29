@@ -117,7 +117,7 @@ def one_file(fn) -> int:
 
 
 def main(flist=sys.argv[1:]) -> int:
-    for fn in flist:
+    for fn in sorted(flist):
         if os.path.isfile(fn):
             one_file(fn)
         if os.path.isdir(fn):
