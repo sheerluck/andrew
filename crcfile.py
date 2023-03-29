@@ -1,3 +1,4 @@
+import os
 import sys
 import itertools
 from fastcrc import crc16, crc32, crc64
@@ -41,8 +42,8 @@ def content(full: str) -> bytes:
         return f.read()
 
 
-def main() -> int:
-    fn = sys.argv[1]
+def one_file(fn) -> int:
+    print(f"\n\n\033[38;2;119;119;255m{fn}\033[0m")
     data = content(fn)
     crc = []
     for mod in ["crc16", "crc32", "crc64"]:
@@ -112,6 +113,16 @@ def main() -> int:
                         lambda x:  blake3(x).hexdigest(64),
                         lambda x:  CWhirlpool(x).hexdigest()]):
         print(f"{name:<25}: {f(data)}")
+    return 0
+
+
+def main(flist=sys.argv[1:]) -> int:
+    for fn in flist:
+        if os.path.isfile(fn):
+            one_file(fn)
+        if os.path.isdir(fn):
+            lifted = [os.path.join(fn, a) for a in os.listdir(fn)]
+            main(lifted)
     return 0
 
 
