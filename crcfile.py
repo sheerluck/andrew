@@ -5,6 +5,8 @@ import xxhash
 import hashlib
 from blake3 import blake3
 from portage.util.whirlpool import CWhirlpool
+from Crypto.Hash import MD4
+from Crypto.Hash import KangarooTwelve as K12
 
 
 def radix(val, base):
@@ -55,6 +57,10 @@ def main() -> int:
     name = "crc.combined"
     print(f"{name:<25}: {int2str(i)[-70:]}")
 
+    for (name, f) in sorted(itertools.chain.from_iterable(crc)):
+        if "iso_hdlc" in name or "xz" in name:
+            print(f"{name:<25}: {hex(f(data))[2:]}")
+
     def sort(p):
         if "xxh3_" in p[0]:
             key = p[0] + "*" * 100 
@@ -63,9 +69,15 @@ def main() -> int:
         return len(key)
 
     alg = xxhash.algorithms_available
-    fun = [(f"xxhash.{f}", eval(f"xxhash.{f}_intdigest")) for f in alg]
+    fun = [(f"xxhash.{f}", eval(f"xxhash.{f}_hexdigest")) for f in alg]
     for name, f in sorted(fun, key=sort):
+        if "xxh128" in name:
+            continue
         print(f"{name:<25}: {f(data)}")
+
+    h = MD4.new()
+    name, f = "md4", lambda x: (h.update(x), h.hexdigest())[-1]
+    print(f"{name:<25}: {f(data)}")
 
     def sort(p):
         name, f = p 
@@ -89,12 +101,17 @@ def main() -> int:
             suf = int(name[-3:])
             val = f(data).hexdigest(suf // 8)
         print(f"{name:<25}: {val}")
+        if "md5" in name:
+            h = hashlib.new("ripemd160")
+            name, f = "hashlib.ripemd160", lambda x: (h.update(x), h.hexdigest())[-1]
+            print(f"{name:<25}: {f(data)}")
 
-    name, f = f"blake3.blake3_{8 * 64}", lambda b: blake3(b).hexdigest(64)
-    print(f"{name:<25}: {f(data)}")
-    name, f = "Whirlpool", lambda x: CWhirlpool(x).hexdigest()
-    print(f"{name:<25}: {f(data)}")
-
+    h = K12.new()
+    for name, f in zip(["K12-512", "blake3-512", "Whirlpool"],
+                       [lambda x: (h.update(x), h.read(64).hex())[-1],
+                        lambda x:  blake3(x).hexdigest(64),
+                        lambda x:  CWhirlpool(x).hexdigest()]):
+        print(f"{name:<25}: {f(data)}")
     return 0
 
 
