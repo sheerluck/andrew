@@ -9,11 +9,14 @@ def init():
     # part 1: [A..Z]
     for n, a in enumerate(string.ascii_uppercase, start=10):
         m[n] = a
+    # part 1.5: [a..z]
+    for n, a in enumerate(string.ascii_lowercase, start=36):
+        m[n] = a
     # part 2: [🐀..🐽]
-    for n, a in enumerate(range(62), start=36):
+    for n, a in enumerate(range(62), start=62):
         m[n] = chr(a + 128000)
     # part 3: [🦀..🦭]
-    for n, a in enumerate(range(46), start=98):
+    for n, a in enumerate(range(46), start=124):
         m[n] = chr(a + 129408)
 
     return m
@@ -48,7 +51,7 @@ def convert(m: dict, base: int) -> str:
 def main() -> int:
     print("\n\n")
     m = init()
-    for base in range(2, 144):
+    for base in range(2, 171):
         val = convert(m, base)
         print(f"π in base {base:>3}: {val}\n")
     return 0
@@ -129,217 +132,271 @@ if __name__ == "__main__":
 
 π in base  36: 3.53I5AB8P5FSA5JHK72I8ASC47WWZLACLJJ9ZN98LTXM61VYMS1FRYTCI4U2QFRA2VJAW70CH6J153P3Z9ZL55UKZL0KAPWJYGJOU067IY9WNZDZ9N4JLTEDTIW2B65ACRPIL9LJ26ST5C8FX8S5LPS
 
-π in base  37: 3.58V3FWNJB6U483QXYKN7VP8HOSS1MO4WR🐀P71Y5HH🐀X2SHUG🐀VRS7🐀SG4A8TTL🐀DFUVEMSFWBNQX2C9P4S2RLPGYFJC7FTPZN66V3Z0KAGBCVMABU50AFYX1X🐀WDLRWQ13HMXMH7IOXJB9LV
+π in base  37: 3.58V3FWNJB6U483QXYKN7VP8HOSS1MO4WRaP71Y5HHaX2SHUGaVRS7aSG4A8TTLaDFUVEMSFWBNQX2C9P4S2RLPGYFJC7FTPZN66V3Z0KAGBCVMABU50AFYX1XaWDLRWQ13HMXMH7IOXJB9LV8GTW4G
 
-π in base  38: 3.5EHHZQF8IO9DZVFB6🐁I🐀XY31N5Y3K2KF0VA49SOTZFYJXRV9PBB6KBZNPLBARL🐀47JOM🐁VITOFA6F35Q🐀COZXQ8W8O3SBAHJDUH🐀EKIL0ZTEHOEU8DI5SZO2CL3V58🐁WFWE58CZ🐀8F0N6🐁
+π in base  38: 3.5EHHZQF8IO9DZVFB6bIaXY31N5Y3K2KF0VA49SOTZFYJXRV9PBB6KBZNPLBARLa47JOMbVITOFA6F35QaCOZXQ8W8O3SBAHJDUHaEKIL0ZTEHOEU8DI5SZO2CL3V58bWFWE58CZa8F0N6bWO4NGF1Q
 
-π in base  39: 3.5KE59TGIPGAF1AM8PNWQVUAFD6CKI4ZRW🐁A2UOCEAOH01IJAE7🐀LT7ZZGLPQ4RERHKS🐁P7🐁🐁NTFQF0JUMB99GH7🐀QKKAG3P🐀PKPAHX9011UQ8NFZDN🐁Y5LGEL2🐁JF🐁🐂🐁WCDR73P58U
+π in base  39: 3.5KE59TGIPGAF1AM8PNWQVUAFD6CKI4ZRWbA2UOCEAOH01IJAE7aLT7ZZGLPQ4RERHKSbP7bbNTFQF0JUMB99GH7aQKKAG3PaPKPAHX9011UQ8NFZDNbY5LGEL2bJFbcbWCDR73P58U11RJXQDGFMYY
 
-π in base  40: 3.5QL🐁7T462UD🐁13PQJMDO8CF98B🐀0D8Q6MIRD1YXO6U6C33RX4ES🐃2X1MYYOJ🐁TIBC05🐃AGYN65HUPJ93KSSJE🐀H🐂UPUC02EU🐃MXTQBBUMVAHRER🐁9SVIBCAKL2ZC5NZE8WPTSX1L5FFK
+π in base  40: 3.5QLb7T462UDb13PQJMDO8CF98Ba0D8Q6MIRD1YXO6U6C33RX4ESd2X1MYYOJbTIBC05dAGYN65HUPJ93KSSJEaHcUPUC02EUdMXTQBBUMVAHRERb9SVIBCAKL2ZC5NZE8WPTSX1L5FFKLC2GTK46G1
 
-π in base  41: 3.5X0S🐄🐂CVDL🐄W🐃🐂3Q2🐂AF957🐀🐄F61🐀2EX🐂AKGKJHT51SC3🐃I0ETXX2KJ🐄🐄7U18BO53OK🐀TOBSY4DM🐂BIC7🐄🐄VHQ1WSZC🐁🐀IQDXJ12HVBU8XWESF0F🐃9🐀U7X🐀CJ6TXVKAC
+π in base  41: 3.5X0SecCVDLeWdc3Q2cAF957aeF61a2EXcAKGKJHT51SC3dI0ETXX2KJee7U18BO53OKaTOBSY4DMcBIC7eeVHQ1WSZCbaIQDXJ12HVBU8XWESF0Fd9aU7XaCJ6TXVKAC6GFR24RB89VEJRETD12UV5
 
-π in base  42: 3.5🐃WDCEBH25BNIR6🐀F1QZI3🐁🐂G27BKUC🐃1DFIZVRHRW🐁LWK1🐂5950🐅V🐄EY81183VIW22RYP🐀NJ6CMDZ5WKIE🐃🐅MMFDI24I🐂EU🐂GI🐃LGE16FR52🐀4WA6WA30I🐅JEIN🐃X27🐅🐀
+π in base  42: 3.5dWDCEBH25BNIR6aF1QZI3bcG27BKUCd1DFIZVRHRWbLWK1c5950fVeEY81183VIW22RYPaNJ6CMDZ5WKIEdfMMFDI24IcEUcGIdLGE16FR52a4WA6WA30IfJEINdX27faXLJa3Lec3J0MFEJ7IINC
 
-π in base  43: 3.63YQ4NHVKY4D🐃RM40QNNFGCHQC🐁EORGPLA🐁W🐅8D6JYYD82🐃O289🐅Z9PDOO21BA34🐂🐀JL32P1WJ69HAN5QIWF0JKTG5CS🐁OSE6JT1CQ4CJG4🐃CAN🐃TX1🐅1🐁FH24OIHLLP9YEAVIFGB
+π in base  43: 3.63YQ4NHVKY4DdRM40QNNFGCHQCbEORGPLAbWf8D6JYYD82dO289fZ9PDOO21BA34caJL32P1WJ69HAN5QIWF0JKTG5CSbOSE6JT1CQ4CJG4dCANdTX1f1bFH24OIHLLP9YEAVIFGBS0A4Mdf54VbYP
 
-π in base  44: 3.6A5I🐁Y6T6🐆W🐅R2C8OE7🐁VK🐁M3U1WKRM3J8KG🐇2🐆🐅NKOFM🐃Y6IWW🐄U🐆FIS🐅🐁0KG🐀G8LLQRCCRBOIH7FQI4🐃XOUP🐁EA🐄F6TD🐆WTDLTZSBEOH1XFJ1🐀3A5🐀5UQ🐀M1IP🐄QQV
+π in base  44: 3.6A5IbY6T6gWfR2C8OE7bVKbM3U1WKRM3J8KGh2gfNKOFMdY6IWWeUgFISfb0KGaG8LLQRCCRBOIH7FQI4dXOUPbEAeF6TDgWTDLTZSBEOH1XFJ1a3A5a5UQaM1IPeQQVOUNh80NJ8FgCHOb2XMadP7
 
-π in base  45: 3.6GWSG🐃SIVRAMGVQ🐇HM🐅RYILUNFD🐇SE8C3OOXNWBMTOUEZON1YDUVQRZN🐅🐆PDH0O🐄PZVVO7U503X🐁9DHZQ1V🐀H🐇🐂7X7🐈V🐂HAT68T🐀KBI🐇EP7SGZI19🐃P48SWY🐂8BGKVCFADD🐆
+π in base  45: 3.6GWSGdSIVRAMGVQhHMfRYILUNFDhSE8C3OOXNWBMTOUEZON1YDUVQRZNfgPDH0OePZVVO7U503Xb9DHZQ1VaHhc7X7iVcHAT68TaKBIhEP7SGZI19dP48SWYc8BGKVCFADDgVS2MRHMINQDd4Gb6CB
 
-π in base  46: 3.6NS2🐄EIN0XA🐇O🐇NQL🐁S0DM🐃🐅TJT🐈MUVHW🐁🐈H2🐂85🐂J9🐂🐇0🐄692B1🐉CC🐄FFZOX🐆E61K1DH6🐆9PJVHDKWZD🐅EVM0🐀R6EE🐈ZPNX🐇VK🐂YQ2🐆2MOY🐉C2SKHNSM5YGFOK🐇
+π in base  46: 3.6NS2eEIN0XAhOhNQLbS0DMdfTJTiMUVHWbiH2c85cJ9ch0e692B1jCCeFFZOXgE61K1DH6g9PJVHDKWZDfEVM0aR6EEiZPNXhVKcYQ2g2MOYjC2SKHNSM5YGFOKhLiRUTfe3e7K0VUNJ5MPhaMeFVY
 
-π in base  47: 3.6U🐀Q🐊62D🐊N🐃FFE8🐉9M🐈8🐂85🐈EWAAJO9A5V🐁QQYXAVS🐄GZP🐂XO426LPE🐃5JZPWUHL🐄SUF6JNTMTDZ🐃🐆4EVDU9🐉4🐀X2HEQ8🐇WC🐅8SRUPOSA🐂CYWY26E🐄🐀🐄🐇🐊JP🐀W1
+π in base  47: 3.6UaQk62DkNdFFE8j9Mi8c85iEWAAJO9A5VbQQYXAVSeGZPcXO426LPEd5JZPWUHLeSUF6JNTMTDZdg4EVDU9j4aX2HEQ8hWCf8SRUPOSAcCYWY26EeaehkJPaW1ji2DShKejTaC3CUSe13N4C6hfj6
 
-π in base  48: 3.6🐂B0X🐊🐀🐄🐊IQY7🐊WKIL🐋S🐆🐆🐁E5🐁QO🐇JT3EB🐄TET🐁D5FU🐁66O5VU7B1MWZKCER🐄8QWAIP🐃H🐆🐈TL🐂SQ🐀🐋MK🐀BNX3BZ🐅AA9🐉🐄🐄VK🐊A8N7V4🐋🐊K🐇IJ🐉A🐆U2H6
+π in base  48: 3.6cB0XkaekIQY7kWKILlSggbE5bQOhJT3EBeTETbD5FUb66O5VU7B1MWZKCERe8QWAIPdHgiTLcSQalMKaBNX3BZfAA9jeeVKkA8N7V4lkKhIJjAgU2H6OaUPAGGIeNTKOiZSdjMjd0GiT26aXNb2Oc
 
-π in base  49: 3.6🐉🐋BN3🐇P82🐉SGW🐋GK🐊QE🐋2SC🐃VF🐃KV7JD8🐃🐅🐁E0KGV🐇3LBVHRM1A475Z47I9🐂🐁8🐋🐁7🐄RJC33MIII2🐇0V🐉5🐊🐂5KO2TN🐇SF0X0🐉S7W🐌🐁70QS0ST8O9CH🐂H🐃OXS🐊
+π in base  49: 3.6jlBN3hP82jSGWlGKkQEl2SCdVFdKV7JD8dfbE0KGVh3LBVHRM1A475Z47I9cb8lb7eRJC33MIII2h0Vj5kc5KO2TNhSF0X0jS7Wmb70QS0ST8O9CHcHdOXSkKY80JUOFZA8D8BcLZQTWE0bidMIBh
 
-π in base  50: 3.73🐍44CH1E🐉🐋929OH85🐄🐊C953🐃🐋FRM🐁V🐅8HY🐆PJ054A🐈T4JY🐄UNBB🐌MAM8🐊🐅🐋CQU17🐃🐅7JGJUYO🐁🐈P0🐄M2🐆9🐌027PJ🐊7NJDVINO🐆Q🐇🐁D30🐍🐇1🐀🐇🐉E🐁🐃YM
+π in base  50: 3.73n44CH1Ejl929OH85ekC953dlFRMbVf8HYgPJ054AiT4JYeUNBBmMAM8kflCQU17df7JGJUYObiP0eM2g9m027PJk7NJDVINOgQhbD30nh1ahjEbdYM99h01FDPNmSUdjcT2l9l1GKBNAQV2m0W8C
 
-π in base  51: 3.7BEK🐂🐇3🐁X06🐂🐋6F98🐄5ER8GLD🐀G83BC🐂9UE🐎ST🐅🐍🐊C🐈🐍4🐍7GDG🐃L2R2🐎JF4Q🐅9🐇LFWGF🐌OM🐆I🐉E08PDL🐀9PA8JRZ2YC05🐊BK4🐁XLOIS9KCX6🐁🐉CF🐌A4🐃4C🐀P
+π in base  51: 3.7BEKch3bX06cl6F98e5ER8GLDaG83BCc9UEoSTfnkCin4n7GDGdL2R2oJF4Qf9hLFWGFmOMgIjE08PDLa9PA8JRZ2YC05kBK4bXLOIS9KCX6bjCFmA4d4CaPLLoFUCe7ehI7bXjoDJPMOOZSiT8Ghb
 
-π in base  52: 3.7I🐉35🐅LQ🐇M🐍M0🐆3Q🐋QA1🐀🐉0🐌CWOKQH7🐊K1TP🐉66🐉J2BK6WKERM🐂DA🐈LK🐎IK🐅6🐎L🐄CZ🐎Q🐄2🐌MD🐁6V🐎🐏DG🐄7J8U🐎🐅LE🐎N7R🐃O43O7🐇KDJ3H🐏🐎🐉D4K🐅5MNC
+π in base  52: 3.7Ij35fLQhMnM0g3QlQA1aj0mCWOKQH7kK1TPj66jJ2BK6WKERMcDAiLKoIKf6oLeCZoQe2mMDb6VopDGe7J8UofLEoN7RdO43O7hKDJ3HpojD4Kf5MNCRjDc8L9U43IeTkM85KLKUZQFZi0UWQSRQl
 
-π in base  53: 3.7Q🐂🐋7UK0WG🐇🐉FOA🐌H🐎🐊🐋🐉VK6🐃H🐉🐏N🐍A🐂JLJ3🐇🐃AP🐏BQ3HPC🐐V🐈🐊🐃🐈F2🐈CC🐋9NL9KXN🐈🐊9🐎E🐎🐊5EK9L🐄M🐋Q🐏38P🐃2🐍L4O🐃O🐏N🐇7S🐇🐇2🐄K9🐂FK🐍
+π in base  53: 3.7Qcl7UK0WGhjFOAmHokljVK6dHjpNnAcJLJ3hdAPpBQ3HPCqVikdiF2iCCl9NL9KXNik9oEok5EK9LeMlQp38Pd2nL4OdOpNh7Shh2eK9cFKngohPg8HYMbZgRSqNpaEje8nE0c6I43RDgnXd8n049
 
-π in base  54: 3.7Y🐋🐄E9🐍🐌🐌🐐R1🐈7🐈K95🐉🐉A🐈F2W🐉🐁🐆FZOZ🐋2X🐂0AU3🐀F🐈WA🐂JB8C🐐4J🐉7J🐋🐐🐂4SL🐂SDOFKQ🐅U🐅🐂5T🐊🐐🐋KS🐋🐉NGU🐋62G🐍🐁7BWV🐅🐌65🐀91🐇BBOA🐊🐀
+π in base  54: 3.7YleE9nmmqR1i7iK95jjAiF2WjbgFZOZl2Xc0AU3aFiWAcJB8Cq4Jj7Jlqc4SLcSDOFKQfUfc5TkqlKSljNGUl62Gnb7BWVfm65a91hBBOAkaMY6O7ePQSnK7AargH2SGlm1pZIDh4eNnomPAcDHbO
 
-π in base  55: 3.7🐇HQF98🐅T26🐒90🐐0UH🐏WCL🐈🐋QIUL5A🐎U🐉🐇DO🐃🐂7🐁6QG6JEPVEGI🐐🐂🐃XJ🐄EL🐌H🐉PR🐈6A33M🐃🐋F🐈🐄🐍🐊8W13🐐JHE🐁XV🐃🐒JJ🐋🐑🐊ZC1W3C0🐍Q4NKE968OHNPV
+π in base  55: 3.7hHQF98fT26s90q0UHpWCLilQIUL5AoUjhDOdc7b6QG6JEPVEGIqcdXJeELmHjPRi6A33MdlFienk8W13qJHEbXVdsJJlrkZC1W3C0nQ4NKE968OHNPV2pRPbE9Sf2ihbgCiiGeW7jFjaq0MU4nFrG
 
-π in base  56: 3.7🐐1🐐LWR3🐅🐌🐊LKVM🐒SA🐒🐃S🐓JTZO8🐋35XRL🐉🐒🐓K49L56D🐁BTWO🐁🐇🐅KY5R0🐇BTW🐀Y3🐏HUFQG🐄4Z0🐅F🐅U🐅P🐑WCQVE54H31SWF48BUY🐁🐄🐑F1🐄🐍HNF🐀🐆PUBW🐌🐑
+π in base  56: 3.7q1qLWR3fmkLKVMsSAsdStJTZO8l35XRLjstK49L56DbBTWObhfKY5R0hBTWaY3pHUFQGe4Z0fFfUfPrWCQVE54H31SWF48BUYberF1enHNFagPUBWmrfqOKipUFZQk9LfA42IJe3mbTd4tU9ORLTi
 
-π in base  57: 3.841🐓A🐔🐃DBX3🐓🐃RX🐄30U0🐀🐋🐉P🐂T17SDPETUZI🐐E0🐇XBSD🐍2🐇T2VXUG🐅3🐍I🐑51RRE🐂🐂SEQ🐏🐄🐍2🐄🐉🐊B🐉6BTM🐒🐊QE🐄L6H🐉155P🐌K🐋🐂H🐉E🐒🐇D🐈M🐀IRD🐌
+π in base  57: 3.841tAudDBX3tdRXe30U0aljPcT17SDPETUZIqE0hXBSDn2hT2VXUGf3nIr51RREccSEQpen2ejkBj6BTMskQEeL6Hj155PmKlcHjEshDiMaIRDmHd5g6QStXJ30Ltk7S2eeiHbKeUq1ql3QYaVhp2g
 
-π in base  58: 3.8CIO🐄R🐕🐒OV4I54CV🐎X90P🐄0DB3🐌Q3Z57🐅🐐C🐇🐎G🐓🐉🐍ZI4🐁🐂I🐉I🐐🐁3ZR🐉NP5🐋T21🐎🐉69🐍2TF8PG46🐏🐃🐐🐉🐂🐎🐊GW🐍G5QJ🐔🐋🐓Q🐅A0🐅9🐑P🐇OA4IK🐔OYR🐋
+π in base  58: 3.8CIOeRvsOV4I54CVoX90Pe0DB3mQ3Z57fqChoGtjnZI4bcIjIqb3ZRjNP5lT21oj69n2TF8PG46pdqjcokGWnG5QJultQfA0f9rPhOA4IKuOYRl5kdFO2LokaZuZCo8hm49GiQ1aJJvsI0fljiUKgL
 
-π in base  59: 3.8K🐐9H🐀3🐅M3🐇7KRMUYP🐆🐁🐃EJ🐆E3N1HQ🐏F🐒7OYU🐄🐃2🐆HW🐑🐆F🐊6X🐑🐈🐕🐏🐇H6YR5E🐃3U🐏9A🐑🐐W🐊6QX🐏🐊4🐔KZ5F🐅6🐃UKQV🐆TT4JBI🐄DQ🐂ZPGF6X🐆3🐃J7EJZ7
+π in base  59: 3.8Kq9Ha3fM3h7KRMUYPgbdEJgE3N1HQpFs7OYUed2gHWrgFk6XrivphH6YR5Ed3Up9ArqWk6QXpk4uKZ5Ff6dUKQVgTT4JBIeDQcZPGF6Xg3dJ7EJZ7l3nGSll8lq1aTXVslwQRlW5uHNf0l128dCJs
 
-π in base  60: 3.8T🐈0🐋P🐑7O🐕🐀H🐇4T7A3🐅H🐐🐀CE🐀🐈🐏🐎FX7N🐗9D🐌MCL🐉M🐔🐋🐃🐈S🐁🐖NLB🐔XM🐄🐆V663🐊G🐐2🐌XO🐂XM101🐄T🐂68🐗D🐅2SG🐇🐔🐄7E🐕🐍🐖2FG1F🐕3O🐗IJD6🐋🐎
+π in base  60: 3.8Ti0lPr7OvaHh4T7A3fHqaCEaipoFX7Nx9DmMCLjMuldiSbwNLBuXMegV663kGq2mXOcXM101eTc68xDf2SGhue7Evnw2FG1Fv3OxIJD6loVBEdNt6DdDC6tLWWQoG1ivJZ1H0Cv5WqI30b8vfJGwn
 
-π in base  61: 3.8🐂🐐🐏MS🐇W4🐁6W🐇🐊🐒🐈22XR🐒🐘🐐O🐋V2🐏FXM🐁H🐍🐓🐄O0DUMZA4🐓39NSW🐋🐉🐌PE🐒3🐆🐈YM29R🐀🐐M🐏V🐔H🐓🐔GQO🐐BA🐓Q🐗C🐂BE🐂🐄L4🐅4🐘T🐅G🐂N5USY🐅0🐂🐃
+π in base  61: 3.8cqpMShW4b6Whksi22XRsyqOlV2pFXMbHnteO0DUMZA4t39NSWljmPEs3giYM29RaqMpVuHtuGQOqBAtQxCcBEceL4f4yTfGcN5USYf0cdrQTTGIwnBO4nxrtP3nBTnyDumZsDcNgUyFlKVIoAQZOW
 
-π in base  62: 3.8🐌HU🐂🐈🐑Z3🐆3🐀🐀X5B🐍156🐄B🐊🐅O🐗43HPG🐗8🐁🐀Q🐎X🐅O🐊🐎X6TVM🐋🐒🐕EFNG🐇🐗0OC2W🐁XIMW3Z8N🐘4🐗FML🐄K32I🐃E2ZJ🐗Y🐑🐌🐍🐂🐈Z🐗W7TDZNZK5H7🐐🐄WE🐔
+π in base  62: 3.8mHUcirZ3g3aaX5Bn156eBkfOx43HPGx8baQoXfOkoX6TVMlsvEFNGhx0OC2WbXIMW3Z8Ny4xFMLeK32IdE2ZJxYrmnciZxW7TDZNZK5H7qeWEuwN6Pnixsg3uTZm6IamrvGuPtwX5sOxpu9mGyV3k
 
-π in base  63: 3.8🐕🐙🐏Y🐄VT🐗🐏DEIT🐊🐄🐅🐕Y6🐒🐆1🐇🐅46🐅🐋🐊3XD🐗🐙🐊2🐎4🐊7🐀W🐙IZBE🐕🐖🐐🐀SL🐅🐅🐁🐊F🐎D🐁U🐐🐅8K🐗🐂5SHMX🐐🐊E🐑7🐃5A🐌🐂WB🐔🐘8W🐈RU87🐑RA4🐎U
+π in base  63: 3.8vzpYeVTxpDEITkefvY6sg1hf46flk3XDxzk2o4k7aWzIZBEvwqaSLffbkFoDbUqf8Kxc5SHMXqkEr7d5AmcWBuy8WiRU87rRA4oUz6cI1AzNJoDIl6jMq6zwltu4fRrlU0HTeJVrEygHvJOwyq4qF
 
-π in base  64: 3.93🐙🐆Y8MZ2DCJ6O🐄🐊0🐓1🐏HAG9E28🐅🐃🐏7G22🐗🐖🐂E🐍ER8🐁5A27🐂ED0JT🐗🐕KP🐈🐘🐐🐖G🐍🐈🐌A🐌🐅🐉🐘🐁🐘KD🐐🐛XDM🐑🐉KS95🐕8M🐑T🐂9UV🐈R🐐J4B🐅🐅ZV🐉Q🐌
+π in base  64: 3.93zgY8MZ2DCJ6Oek0t1pHAG9E28fdp7G22xwcEnER8b5A27cED0JTxvKPiyqwGnimAmfjybyKDq🐁XDMrjKS95v8MrTc9UViRqJ4BffZVjQml🐁NBRq1hVjxZXh🐀rg9dwMkdoGHV4iVvaaePb7iv5izm
 
-π in base  65: 3.9DE🐕NYPV🐌🐇E🐂🐕0🐆MM🐉🐈🐃🐌🐐H🐌🐁32🐁1🐇Z4🐛🐁Z9O🐖378W🐏🐓DJ🐃E🐉H🐔7G🐘V🐒VS4🐎N🐗🐕KO🐓85YG🐇🐖G🐅🐛R🐛🐃AT6🐖9H🐔🐍9🐍6🐓🐖🐙🐒🐙LM🐄RS🐄S🐌M
+π in base  65: 3.9DEvNYPVmhEcv0gMMjidmqHmb32b1hZ4🐁bZ9Ow378WptDJdEjHu7GyVsVS4oNxvKOt85YGhwGf🐁R🐁dAT6w9Hun9n6twzszLMeRSeSmMWS9ftIFuumkxBcF44j9bgGng🐀bfVW88kf4NtHcqf1p5BPPM
 
-π in base  66: 3.9M🐏LE🐄TID🐀H12EM🐍7🐚LJ🐛6Y🐅NWH🐕🐘54302🐏🐔🐙🐌🐇🐉🐛🐃UTM🐕🐆CS🐁🐔IC🐊F🐚2GD🐖LP🐑🐈🐀🐋🐏🐝🐊LIE🐓94🐛🐉🐉🐊W2🐖DT🐕🐅1T🐆🐌🐓C🐓🐆0🐌MVF3🐈XGQ
+π in base  66: 3.9MpLEeTIDaH12EMn7🐀LJ🐁6YfNWHvy54302puzmhj🐁dUTMvgCSbuICkF🐀2GDwLPrialp🐃kLIEt94🐁jjkW2wDTvf1TgmtCtg0mMVF3iXGQbnSIfGlwfsbCvMtH🐂W🐁zpHBwO🐃lbVMT4O🐀r3dwhFkfb🐀Nf
 
-π in base  67: 3.9W🐄🐓🐊🐂🐎9L🐛L🐓KLT🐞OY🐄B9🐃4O🐝🐉🐄🐑O2X4🐑🐅🐁🐝JGFM🐗E🐘🐍AK🐑🐝Z🐃🐍🐘🐕1🐋FYH🐗🐔🐊J🐒B6THB🐍🐗🐌7🐍🐑🐚🐖GC2🐆🐗5🐇🐉UA🐝A6🐍🐒🐓T🐗E🐆9🐆🐇
+π in base  67: 3.9Wetkco9L🐁LtKLT🐄OYeB9d4O🐃jerO2X4rfb🐃JGFMxEynAKr🐃Zdnyv1lFYHxukJsB6THBnxm7nr🐀wGC2gx5hjUA🐃A6nstTxEg9ghL0pUjAVvrKeejh7aK7ZpBKG6🐃8NMtaw5🐃4a1tbuPUa🐁CGEHB🐃u🐄
 
-π in base  68: 3.9🐆🐍H🐐2WK6ZJ🐘🐏M🐉B🐌MC54NB🐒W2R🐃🐑O🐑🐊🐘G1ZQ🐐G0🐓SZ🐍🐓🐑🐈2🐉🐐I🐜T🐇K🐁B5🐉🐟🐁G🐛XO🐓🐗X🐋3🐃🐋80🐓🐘🐔4🐎🐒1🐇🐔F8RS🐍QB🐜🐐🐘🐗🐙🐛7🐏🐁🐚
+π in base  68: 3.9gnHq2WK6ZJypMjBmMC54NBsW2RdrOrkyG1ZQqG0tSZntri2jqI🐂ThKbB5j🐅bG🐁XOtxXl3dl80tyu4os1huF8RSnQB🐂qyxz🐁7pb🐀SUR2nw9D2WiJa3u58Lwmfawqzcrsm6WBkQHEIPhEbetUmmipOm
 
-π in base  69: 3.9🐑8V🐔0C4U🐏G🐐🐚🐆NP🐇Q9N🐏F🐕Y🐏8🐍🐑Q🐉🐌🐟🐄🐉6🐈W🐑C🐔0🐃7🐎S🐞FV14🐀🐗🐚22ZN🐕🐐9🐗K3🐑🐖7🐗HS5🐑RI6🐝🐃G🐑3ZE🐖WAJXY🐒🐙8🐍🐂A🐍QZ🐝Y🐜🐕🐇E🐍
+π in base  69: 3.9r8Vu0C4UpGq🐀gNPhQ9NpFvYp8nrQjm🐅ej6iWrCu0d7oS🐄FV14ax🐀22ZNvq9xK3rw7xHS5rRI6🐃dGr3ZEwWAJXYsz8ncAnQZ🐃Y🐂vhEnoc🐆🐄UaxQf4owM4yCFzH🐀🐄adaWurIC5dVv5qTPWF5VWwOXBo
 
-π in base  70: 3.9🐛🐔J🐆🐚C🐡P🐂🐝JM🐙E🐎Z🐎A🐑5🐞🐑JJ🐛🐚🐂🐓8FV🐑O7PUW🐐TT0🐚N🐝FY🐠🐕🐐X🐆1🐑PW🐁🐍ON🐚RI🐘O🐆LKK🐏RLO🐌HP🐅🐡U🐋🐛🐟A🐙🐐🐂🐉5🐓🐏🐋🐋🐛62N🐔🐎🐉
+π in base  70: 3.9🐁uJg🐀C🐇Pc🐃JMzEoZoAr5🐄rJJ🐁🐀ct8FVrO7PUWqTT0🐀N🐃FY🐆vqXg1rPWbnON🐀RIyOgLKKpRLOmHPf🐇Ul🐁🐅Azqcj5tpll🐁62NuojxmemAmVjJdKuMaNp6Ja🐅GkAilhhOZ🐆H🐆🐁ZIndwpM4🐃MlCcYF7eb
 
-π in base  71: 3.A3🐒🐄OY🐡🐆🐒4SOF20🐛🐉🐉W🐑🐖🐡N🐉🐘HZ🐄🐎FI4🐢🐛🐐🐇F🐞🐈6🐎EP🐕6BG🐚🐖🐈🐍S🐊🐜🐌🐌SPW🐠6🐁🐛🐖🐖NV🐝🐉L73🐋I🐁🐠🐜2Y290YA🐔GL4🐁T8🐕🐃🐈🐀🐄Y🐖🐢
+π in base  71: 3.A3seOY🐇gs4SOF20🐁jjWrw🐇NjyHZeoFI4🐈🐁qhF🐄i6oEPv6BG🐀winSk🐂mmSPW🐆6b🐁wwNV🐃jL73lIb🐆🐂2Y290YAuGL4bT8vdiaeYw🐈skcc2ff8🐄iigFOkJK🐁🐁Qi3🐈NTZ🐀🐁D7🐄JvMi9🐁En7c🐇TQ1w414XF
 
-π in base  72: 3.AE1C🐅🐣XU🐌🐀X🐊Y🐄FD🐙🐂🐔L🐙🐢E🐋F8🐄N🐃L🐊🐠1M🐟T🐓RGY🐂🐆R🐋EY🐄🐑3C🐚S🐏🐘QDGT🐌T🐀CC2🐀IQ086🐏🐟U🐙7🐜🐚EM🐈🐉5🐝7S🐋🐢🐟7🐢7🐣🐉B🐞🐜🐎🐞🐆🐍F
+π in base  72: 3.AE1Cf🐉XUmaXkYeFDzcuLz🐈ElF8eNdLk🐆1M🐅TtRGYcgRlEYer3C🐀SpyQDGTmTaCC2aIQ086p🐅Uz7🐂🐀EMij5🐃7Sl🐈🐅7🐈7🐉jB🐄🐂o🐄gnFbyxn🐁A🐇m🐃EnJX🐇7WHh🐀VK74wwyd7oG6A🐂Gb54fbJlA9🐂KAjkL
 
-π in base  73: 3.AO🐃🐡L🐠F🐝V🐈🐚🐟C4🐐F🐓O🐖K🐝Q9KT🐔🐐🐝🐕RO🐃NI🐈🐄🐏🐢SL🐣🐋🐠G🐕🐂🐃🐈K🐤I🐣19🐈🐐🐣FJ🐆🐍NFN6🐛🐀🐃Q🐂A78O97🐀9🐘5🐌🐞🐜🐐9IBF🐄🐊🐐🐄🐏VY9🐟🐞5
+π in base  73: 3.AOd🐇L🐆F🐃Vi🐀🐅C4qFtOwK🐃Q9KTuq🐃vROdNIiep🐈SL🐉l🐆GvcdiK🐊I🐉19iq🐉FJgnNFN6🐁adQcA78O97a9y5m🐄🐂q9IBFekqepVY9🐅🐄5🐊aT3BK🐆kEuAQl🐃D🐇4CVEBfNBCRnM6🐄IJ7QHu🐊YWE🐈nQSDD6YJqF
 
-π in base  74: 3.AZQ🐒🐜G🐎🐕SLV🐂🐕LE🐍🐒A🐒🐜🐑IO🐡🐂5🐣🐄🐕96A🐅🐙🐞🐣🐆K🐀🐞🐍🐂🐃🐇🐒U🐛3VGGGFQ🐂🐡🐖🐎7JK1🐛🐑🐍O🐑🐥🐙L🐚VC97🐍N🐎N🐞C🐞🐆F🐔🐑🐙🐔🐑Y🐏🐌IY🐕🐀
+π in base  74: 3.AZQs🐂GovSLVcvLEnsAs🐂rIO🐇c5🐉ev96Afz🐄🐉gKa🐄ncdhsU🐁3VGGGFQc🐇wo7JK1🐁rnOr🐋zL🐀VC97nNoN🐄C🐄gFurzurYpmIYvaVat4🐃SP8LuxaFM7VP8🐉2zT🐊🐅6CFYXfNkXZFx9G🐇JZzs🐋UDlS🐆XLh0a
 
-π in base  75: 3.A🐊YU49N🐑🐖🐖🐠NN🐄9I🐘🐛🐒UP🐏🐆0N🐙J🐓B🐊4🐊L🐌🐕🐘🐐W🐏KH🐑🐄M🐑8🐝IC🐘🐥YJ3🐔DZS🐇0🐒🐟🐅🐚0QTE42🐉🐠🐌X1🐦🐋C🐅🐟9🐟🐆🐡🐕🐔🐔J🐒QV🐕🐡S🐚2🐗🐝C
+π in base  75: 3.AkYU49Nrww🐆NNe9Iy🐁sUPpg0NzJtBk4kLmvyqWpKHreMr8🐃ICy🐋YJ3uDZSh0s🐅f🐀0QTE42j🐆mX1🐌lCf🐅9🐅g🐇vuuJsQVv🐇S🐀2x🐃CCcOwsh🐇🐌XJ🐉fM8🐈MrVayed🐀xV🐉🐈soGYdh3ETXsQI4KV9M8NXkX🐄
 
-π in base  76: 3.A🐕🐛🐗2H🐌🐉🐆🐐VX🐑🐒K1🐐🐒🐝D5🐋🐛🐣🐅5🐐🐇🐍🐔7XJ🐡7W🐟🐇0🐓J🐜🐂🐂LW3🐠🐁J🐇🐚Q🐥🐛🐇C🐒2T🐣🐄Y🐘🐄E🐊5🐃V🐂U6🐓🐗W🐚QO🐄🐙OG69Y🐠🐋🐝C🐏8🐣S🐇0F
+π in base  76: 3.Av🐁x2HmjgqVXrsK1qs🐃D5l🐁🐉f5qhnu7XJ🐇7W🐅h0tJ🐂ccLW3🐆bJh🐀Q🐋🐁hCs2T🐉eYyeEk5dVcU6txW🐀QOezOG69Y🐆l🐃Cp8🐉Sh0F🐅x0ERZrkVCBOy🐂MuDANoah7xEvrCPOc4j🐋on🐋UHTodnjs🐄IyKxG🐊X
 
-π in base  77: 3.A🐡🐂🐓R🐁NJ🐅XE🐋🐏IT6P🐎🐃🐞8VFY🐕W🐚🐢🐓D93Q🐔K🐊X🐖🐃8🐣RH🐘2🐒GDKF🐕🐠🐒🐤🐙6O🐖ZOP🐌R🐀FG4🐄🐇🐗🐟🐛🐡E1🐡L🐀ZOF🐟🐧🐏🐅F🐘🐉🐚🐑1GQS🐃🐖R🐓🐊ZU
+π in base  77: 3.A🐇ctRbNJfXElpIT6Pod🐄8VFYvW🐀🐈tD93QuKkXwd8🐉RHy2sGDKFv🐆s🐊z6OwZOPmRaFG4ehx🐅🐁🐇E1🐇LaZOF🐅🐍pfFyj🐀r1GQSdwRtkZU🐈I🐁4🐉s🐈yT🐄VUK🐋BBBy🐌u🐁🐉🐍🐀JkeZOVEWQj3SIkw🐄🐃IihQG🐆hP
 
-π in base  78: 3.B3Z60B3G🐝🐆🐑V🐂F🐃VT🐔2🐅E5D81🐐YC04🐈R🐩🐀🐅🐉🐩K🐚GZ🐢2🐥🐖🐥🐖RA🐒🐣🐉🐝N🐍🐘Y🐎🐖D🐜🐒🐣🐝🐇9HQ0🐏🐤🐠🐌🐡🐈🐂🐈🐥JS🐡🐇🐂🐔🐏R🐂L🐥L🐞M🐆B🐗🐩G
+π in base  78: 3.B3Z60B3G🐃grVcFdVTu2fE5D81qYC04iR🐏afj🐏K🐀GZ🐈2🐋w🐋wRAs🐉j🐃NnyYowD🐂s🐉🐃h9HQ0p🐊🐆m🐇ici🐋JS🐇hcupRcL🐋L🐄MgBx🐏GU6🐆L04G93mMS🐂KxRZ40ThhowU🐏7E🐁Q🐉VwQs🐃eTx🐏yM32E🐅ejG🐈4Oe
 
-π in base  79: 3.BE🐑🐓P🐙🐌AD🐋🐏3LE🐩🐏🐉🐒4🐞5O🐑GK🐒🐂C🐀WC04🐔E8B🐠🐝1TM🐘M🐒🐢🐅🐢9🐆Z🐚🐨9🐥🐄6🐨2🐊H🐂FC🐔🐌🐃🐊🐙R🐜🐈25🐍🐇🐍M🐘ZA🐈🐡SW🐝C🐅P🐦🐣🐖T🐩🐍🐒🐄
+π in base  79: 3.BErtPzmADlp3LE🐏pjs4🐄5OrGKscCaWC04uE8B🐆🐃1TMyMs🐈f🐈9gZ🐀🐎9🐋e6🐎2kHcFCumdkzR🐂i25nhnMyZAi🐇SW🐃CfP🐌🐉wT🐏nseJjR🐈🐎Dc🐃LgzYiKmPD🐐qT2s6X9dfF🐄Ooo7u7hlFhYIWDxAZJ0🐏Hu🐎i
 
-π in base  80: 3.BQFZ7M🐏X🐐🐀🐃🐛🐕🐛J🐘🐐A🐫🐑48🐗🐍🐤🐗🐨0Y4🐁🐫5B🐙O🐝Y🐞VT🐅🐗🐤🐡2🐂WLK51🐙3🐋U3🐝FL🐫SR2XR🐤PHX🐚8🐘🐃Y0🐦🐅🐌🐩🐡E🐃BU🐁🐜🐏0🐁C🐫🐊🐡🐥N5🐋🐚
+π in base  80: 3.BQFZ7MpXqad🐁v🐁JyqA🐑r48xn🐊x🐎0Y4b🐑5BzO🐃Y🐄VTfx🐊🐇2cWLK51z3lU3🐃FL🐑SR2XR🐊PHX🐀8ydY0🐌fm🐏🐇EdBUb🐂p0bC🐑k🐇🐋N5l🐀gGTwBUlxrqvYzLouv🐂🐇l680🐄gk1idO0lZsJzcPn🐊L🐆8🐌EnfXEWz
 
-π in base  81: 3.B🐁🐬B🐀🐟🐂🐣🐪🐅G🐢🐓🐞9W🐦🐩F🐍🐌🐌🐆O🐋RAOTD🐉QZ🐖3🐃🐍FU38🐙🐥T🐣🐜🐑🐩X🐥X🐌🐪🐥🐚🐩G🐔D🐧1🐋🐓🐣C🐃🐑YT🐇🐩🐍🐫🐨N🐢UP🐙🐜S🐝SVZ🐦7🐄🐜L0🐖🐩🐕
+π in base  81: 3.Bb🐒Ba🐅c🐉🐐fG🐈t🐄9W🐌🐏FnmmgOlRAOTDjQZw3dnFU38z🐋T🐉🐂r🐏X🐋Xm🐐🐋🐀🐏GuD🐍1lt🐉CdrYTh🐏n🐑🐎N🐈UPz🐂S🐃SVZ🐌7e🐂L0w🐏vGc🐀pFIt5SE🐊QMM🐂🐎Hh🐀0eFAe🐊Jqf🐋BieP🐑🐂u🐍🐏palPj6flI0🐀🐍NuVWE🐈
 
-π in base  82: 3.B🐎5🐑🐫🐥🐧🐞🐆🐓970O🐨🐤I3🐁GS🐉🐦🐎🐜🐔🐥🐁🐜🐚🐞🐜W🐙🐊3🐩🐌R🐏3🐒🐊🐂U🐒🐢🐢🐫🐕🐕🐩🐂🐤🐒🐭XE4🐘🐝I🐭🐞🐤0🐗8🐡🐬🐒🐦Y8🐦🐆A🐔🐋🐧7🐘V0🐪W🐗🐑🐊
+π in base  82: 3.Bo5r🐑🐋🐍🐄gt970O🐎🐊I3bGSj🐌o🐂u🐋b🐂🐀🐄🐂Wzk3🐏mRp3skcUs🐈🐈🐑vv🐏c🐊s🐓XE4y🐃I🐓🐄🐊0x8🐇🐒s🐌Y8🐌gAul🐍7yV0🐐WxrkZL🐀Ak🐎pAfAC🐂🐇🐅w9RG7ZoM🐋JY2W1DTuR🐉31m8j🐏NMF🐂7D42BQqf🐏🐅DAL7peyI
 
-π in base  83: 3.B🐚Z🐡🐎J🐫IX🐮🐦N🐗H3IT🐋ZB🐒9🐔PNB🐑NG🐮6🐮RS🐈EY🐔V🐁0🐧S1🐒🐈🐄6🐩6🐭🐟CF2🐀🐍🐋🐫🐑Q🐗🐏🐝🐪🐏6S🐭G🐑🐗🐭🐜🐧Y4🐎WB🐇🐎🐞6🐙🐪36P🐫🐓🐑F🐋🐬🐫🐢
+π in base  83: 3.B🐀Z🐇oJ🐑IX🐔🐌NxH3ITlZBs9uPNBrNG🐔6🐔RSiEYuVb0🐍S1sie6🐏6🐓🐅CF2anl🐑rQxp🐃🐐p6S🐓Grx🐓🐂🐍Y4oWBho🐄6z🐐36P🐑trFl🐒🐑🐈fe🐄🐁lLiae🐍🐔9🐂4CHUZNyAU1🐊🐒🐋4OFKKfS07🐊Xpl🐐cUKXEP🐇QM🐎🐍Ct
 
-π in base  84: 3.B🐧6🐈🐖🐥V🐬🐬P🐟E🐆EMI🐏S🐨D🐎🐨QDN🐫🐎🐕🐪🐝🐣🐆🐌🐝E🐚🐩🐛🐚🐤T🐢5🐃🐒🐈Y🐍29🐪🐓🐋🐥🐫🐨🐪🐚🐙Y🐫🐧🐜🐊🐔🐖🐮🐫2🐥🐆O🐇T🐣🐒🐔🐃🐓🐭M🐭LLZ🐥🐔🐤
+π in base  84: 3.B🐍6iw🐋V🐒🐒P🐅EgEMIpS🐎Do🐎QDN🐑ov🐐🐃🐉gm🐃E🐀🐏🐁🐀🐊T🐈5dsiYn29🐐tl🐋🐑🐎🐐🐀zY🐑🐍🐂kuw🐔🐑2🐋gOhT🐉sudt🐓M🐓LLZ🐋u🐊otzYY🐌0j9🐄🐎brV🐒Bd🐁U2hd🐇🐔WZYGEe🐎rjBL🐆R🐑🐃aEa🐄🐃it🐈🐓m🐇cpnO🐒N🐌7K3uY
 
-π in base  85: 3.C30🐎17🐂D🐌🐒IW🐬A🐝5M6🐝🐢O🐋🐤9F🐯🐰🐍WAZ🐍N🐝T🐥🐉🐡3N🐫N🐩K🐪JR🐈EHUY🐬L9JZN🐑4🐂🐈Z🐕🐆🐌0G2🐧A🐜🐋N🐢🐍J🐗🐭🐑Z🐠🐤🐗🐡KI🐚🐯0🐰O🐢G🐣HLQXF🐮L
+π in base  85: 3.C30o17cDmsIW🐒A🐃5M6🐃🐈Ol🐊9F🐕🐖nWAZnN🐃T🐋j🐇3N🐑N🐏K🐐JRiEHUY🐒L9JZNr4ciZvgm0G2🐍A🐂lN🐈nJx🐓rZ🐆🐊x🐇KI🐀🐕0🐖O🐈G🐉HLQXF🐔L🐇TL8tPsz🐅LlzWexQZD🐃🐉FNjl🐐5🐌hQRIt🐉C🐉a🐉Ex4Dtn🐋gS🐑6
 
-π in base  86: 3.CFI🐥🐗🐀X🐙🐠2🐯5🐫🐘7A🐭🐞9🐡🐔🐕🐫🐤PV4🐏🐞NAZNE🐏🐨9🐉9🐐DJWN🐱🐇M🐇🐨🐒E🐖12🐧🐦1V🐆🐌🐉🐟🐘B8🐖🐌21🐑7🐁🐧🐬🐧🐨P🐪ZLQ🐊🐢VW🐈🐞🐬🐠🐔AA8A🐂🐆🐡
+π in base  86: 3.CFI🐋xaXz🐆2🐕5🐑y7A🐓🐄9🐇uv🐑🐊PV4p🐄NAZNEp🐎9j9qDJWN🐗hMh🐎sEw12🐍🐌1Vgmj🐅yB8wm21r7b🐍🐒🐍🐎P🐐ZLQk🐈VWi🐄🐒🐆uAA8Acg🐇🐒hS5🐎9m🐀0b0iM🐔R🐗UXm4🐒🐊ckA8a3OsaH🐔🐊0🐉COed8EY🐍D🐂🐒RO🐆cgF
 
-π in base  87: 3.CR🐚GO🐕🐬🐈M🐭🐢🐀🐂G🐅🐯U🐂P9🐂🐃PY🐡🐈🐒🐮🐆3🐗🐢🐰🐄D🐉🐬Z🐒🐓🐯🐣8🐱🐙🐚🐥🐙🐌GM🐚🐭BU🐖QEUX🐕🐢🐡🐗🐖🐂3🐕A🐩🐮🐛Q🐖🐏🐮MGN🐜Z0🐅🐙J🐯🐇🐱🐮O🐏
+π in base  87: 3.CR🐀GOv🐒iM🐓🐈acGf🐕UcP9cdPY🐇is🐔g3x🐈🐖eDj🐒Zst🐕🐉8🐗z🐀🐋zmGM🐀🐓BUwQEUXv🐈🐇xwc3vA🐏🐔🐁Qwp🐔MGN🐂Z0fzJ🐕h🐗🐔OpE🐈F1j🐑🐂y🐃34ASF🐉L🐔mgUEQu🐄3O2KaS🐕Sr5🐕dbbb🐓🐑UQB🐏e65eU🐒5🐂7🐋an9r
 
-π in base  88: 3.C🐄🐇🐁🐜🐥🐘🐤🐍🐂🐜🐲N🐰🐝🐆🐨🐗🐍🐳🐆🐄L4🐫N🐈M8🐋ATMX🐭🐓🐱A🐉🐞🐰WM🐯🐆🐬🐭🐪8Q🐊8🐋L🐫🐳🐠Y14🐪🐲JF🐦3H8🐈Z1🐏J🐌X🐗🐎🐖🐎🐇🐯🐈🐥O4🐜1🐞🐠O🐱
+π in base  88: 3.Cehb🐂🐋y🐊nc🐂🐘N🐖🐃g🐎xn🐙geL4🐑NiM8lATMX🐓t🐗Aj🐄🐖WM🐕g🐒🐓🐐8Qk8lL🐑🐙🐆Y14🐐🐘JF🐌3H8iZ1pJmXxowoh🐕i🐋O4🐂1🐄🐆O🐗zDxLE🐁zef32O🐀DN🐇Pi0G89jxH🐌12j0rV6j🐉9pm🐊🐗ZveK🐎H🐃b🐑🐗🐐🐁🐍dB🐓🐈U🐍
 
-π in base  89: 3.C🐑🐍🐂ZG🐕🐠🐔🐖🐘🐎🐯🐣🐐🐠🐐FE🐀🐖🐌J🐪🐊🐄🐞🐒O🐨🐑TZV2🐢M4LR🐯🐣🐋B🐃A4PR🐕A🐊F🐈I🐨🐇F🐘🐣🐝🐧6E6🐉🐩🐅🐣🐏🐊07🐝8🐳🐋M🐴U🐣TR🐇🐁XH🐰🐦🐮🐐🐱
+π in base  89: 3.CrncZGv🐆uwyo🐕🐉q🐆qFEawmJ🐐ke🐄sO🐎rTZV2🐈M4LR🐕🐉lBdA4PRvAkFiI🐎hFy🐉🐃🐍6E6j🐏f🐉pk07🐃8🐙lM🐚U🐉TRhbXH🐖🐌🐔q🐗F🐃PlVnphaUNp🐆YeWM0🐏🐊CoLSGzz🐈GkvhBAFxXWEmrnR3🐘🐐s3h8D🐉I🐆X🐗wc
 
-π in base  90: 3.C🐞🐭40G🐁H🐣🐨🐪CO🐅W🐳🐳Y🐍🐵🐍🐀0🐡DF🐎🐭6🐛🐠🐙🐳8🐃JSO🐣X🐧🐪🐑S🐍JPE🐭P🐴V4🐫🐴🐢🐇UY5🐒R🐏A🐂🐞9F3🐛N🐣🐅B🐮B🐪X🐜🐟🐚🐩8🐰A4🐕🐑B🐏AHJO🐱E🐴
+π in base  90: 3.C🐄🐓40GbH🐉🐎🐐COfW🐙🐙Yn🐛na0🐇DFo🐓6🐁🐆z🐙8dJSO🐉X🐍🐐rSnJPE🐓P🐚V4🐑🐚🐈hUY5sRpAc🐄9F3🐁N🐉fB🐔B🐐X🐂🐅🐀🐏8🐖A4vrBpAHJO🐗E🐚C🐐6🐃zSGBt🐍uVMzImX9nBsYbhzT3eFVFIL🐅🐑Aw🐂X🐓🐌iY6xokfs🐙🐏pV
 
-π in base  91: 3.C🐬🐌A🐛🐉🐌🐥98🐙🐜🐍🐕T🐖🐲2H🐅🐵🐇EH🐑93🐃8🐡🐤Z🐦RN🐄🐕🐳🐩🐤7🐅🐤🐡6🐢Y🐃6🐥🐫🐞THI4🐕🐍🐴8🐋EP🐙0🐊🐶8🐄Q🐎52D🐀🐶🐁8🐐🐴M4C🐂9🐰4🐦🐚🐪1🐶X🐗
+π in base  91: 3.C🐒mA🐁jm🐋98z🐂nvTw🐘2Hf🐛hEHr93d8🐇🐊Z🐌RNev🐙🐏🐊7f🐊🐇6🐈Yd6🐋🐑🐄THI4vn🐚8lEPz0k🐜8eQo52Da🐜b8q🐚M4Cc9🐖4🐌🐀🐐1🐜Xx🐃Z36z🐗yKAD🐛H🐛j🐕oF6🐀R🐌🐚🐂h🐏UEr🐅a🐈S🐍tbLcoagFQofq3Hu🐖S🐎pIniU
 
-π in base  92: 3.D2🐄🐊21🐠41🐳🐚🐑P0🐶🐯🐂QOK🐓🐉🐷B🐬G🐁G🐤🐈🐁O🐥🐭🐞🐑🐘PY🐠🐓1🐒🐫9U🐓🐏M🐔X🐖F🐳TCF🐯🐔W🐥V🐇🐠🐪A🐧V🐅🐐GEMQ🐔🐜🐆🐳EY🐜P🐒🐋🐗🐴🐍WJ🐣🐇🐴🐴
+π in base  92: 3.D2ek21🐆41🐙🐀rP0🐜🐕cQOKtj🐝B🐒GbG🐊ibO🐋🐓🐄ryPY🐆t1s🐑9UtpMuXwF🐙TCF🐕uW🐋Vh🐆🐐A🐍VfqGEMQu🐂g🐙EY🐂Pslx🐚nWJ🐉h🐚🐚mqInWT🐎🐁🐊R🐚6bCm🐎DZ🐍🐇k4a2Z🐃C🐉🐉bMt4xOZUR🐚mSL🐋d3u🐁🐐t7tFcoj🐂R
 
-π in base  93: 3.DF🐗3🐰🐧8🐇YMWO🐞7🐧S🐏F🐖🐀UN🐂YA0C🐍🐑🐳🐔🐖R🐊🐄🐞Z🐞🐔🐛🐸🐘HV🐮0D🐎🐢🐋C🐎🐁🐐🐴L🐓🐤🐔🐈🐱🐋🐸🐑GY🐬Z🐅🐬🐬🐠DU🐱🐦🐛🐚🐲EB🐙K🐭S🐟🐤N🐐🐖🐶
+π in base  93: 3.DFx3🐖🐍8hYMWO🐄7🐍SpFwaUNcYA0Cnr🐙uwRke🐄Z🐄u🐁🐞yHV🐔0Do🐈lCobq🐚Lt🐊ui🐗l🐞rGY🐒Zf🐒🐒🐆DU🐗🐌🐁🐀🐘EBzK🐓S🐅🐊Nqw🐜t🐒n🐘4🐗🐄XzwW🐖QWi🐖ul🐖frt🐛u🐃VIdK🐝🐋🐑🐉🐒ZIH🐇X8🐞2🐙BlQvrA🐃Dbh🐍🐔H2🐒W
 
-π in base  94: 3.DTA🐓🐞BC9T🐚🐧🐧🐏🐂2Y2🐡E🐎V🐶C🐒V🐏B🐅BT🐚🐦🐑53🐣🐟🐝0🐅27🐄🐞🐗J🐥E🐴🐗I🐓56🐗UB🐀U🐝🐀🐘🐟🐩🐙O0🐄🐏🐤1🐍5PU🐁🐌🐩🐳🐨🐶4F🐬🐵🐌🐐🐘D🐞G🐜🐀L
+π in base  94: 3.DTAt🐄BC9T🐀🐍🐍pc2Y2🐇EoV🐜CsVpBfBT🐀🐌r53🐉🐅🐃0f27e🐄xJ🐋E🐚xIt56xUBaU🐃ay🐅🐏zO0ep🐊1n5PUbm🐏🐙🐎🐜4F🐒🐛mqyD🐄G🐂aLH🐂🐉kD🐄🐜🐛JMmq🐊xjd🐎FEW🐏1🐜Mc🐖lkE🐅eti🐜D🐄E🐟🐛s🐀U0BlVMYl5HvqZ🐗f
 
-π in base  95: 3.D🐆🐯0CZ🐴🐍🐏I🐓0🐛🐄🐭🐞🐳H🐸🐔🐑🐰I🐡U🐠🐝Y🐄NZP4M🐥🐳G🐬🐔Y🐖🐊🐂PE6D🐭K🐪🐫🐌W🐎🐷G🐅XD🐁🐷🐁🐘PY🐶K🐟T🐂11🐹🐨🐞🐺N🐟🐎🐨M🐁🐲K🐞I🐡🐖KN🐱1🐐
+π in base  95: 3.Dg🐕0CZ🐚npIt0🐁e🐓🐄🐙H🐞ur🐖I🐇U🐆🐃YeNZP4M🐋🐙G🐒uYwkcPE6D🐓K🐐🐑mWo🐝GfXDb🐝byPY🐜K🐅Tc11🐟🐎🐄🐠N🐅o🐎Mb🐘K🐄I🐇wKN🐗1qDXd🐃🐅🐒6a🐇MuPS5🐊UqN4E🐋🐗X🐕N🐁b🐀🐄🐗🐁Z🐐🐈🐂X🐋🐎o🐟P🐒ET🐓🐙M5GWxKA19v🐓
 
-π in base  96: 3.D🐔🐴BVHDN🐁🐵🐭🐤T🐷🐗🐭🐐2A🐨P🐺🐮J🐇QL🐋0🐮🐙S🐥5🐙🐠P23🐡0🐎B🐫S🐦🐋N3🐏🐄🐕🐩🐎5🐂3L🐏🐌🐣O🐸🐩T🐣🐫6🐢FVR2C🐙K🐐🐝9U🐂🐣🐦🐎🐔🐱GJ5D🐵🐙R🐊4🐒
+π in base  96: 3.Du🐚BVHDNb🐛🐓🐊T🐝x🐓q2A🐎P🐠🐔JhQLl0🐔zS🐋5z🐆P23🐇0oB🐑S🐌lN3pev🐏o5c3Lpm🐉O🐞🐏T🐉🐑6🐈FVR2CzKq🐃9Uc🐉🐌ou🐗GJ5D🐛zRk4shoKaPwjL🐌7🐋🐚🐕🐙🐅sBG🐄🐛🐗r2T🐋🐘iIYUVe🐇F🐇oH🐗zIVu🐕S🐛se8🐎eUi🐟0
 
-π in base  97: 3.D🐣N🐨🐫P🐴2C🐟🐶L🐌H🐐🐆🐒V🐩🐏ZA17🐵🐪🐊🐟0🐶🐰🐃J0🐟P🐝I🐠6🐵Y🐒Z🐥🐂🐻🐲🐬S🐭🐉🐩BPO🐗🐳🐓🐄LY4🐪B🐤🐕🐇7🐊W🐄🐋🐠🐸7🐥🐬1FS🐸🐥C🐆4🐷I🐪L🐡🐻🐖
+π in base  97: 3.D🐉N🐎🐑P🐚2C🐅🐜LmHqgsV🐏pZA17🐛🐐k🐅0🐜🐖dJ0🐅P🐃I🐆6🐛YsZ🐋c🐡🐘🐒S🐓j🐏BPOx🐙teLY4🐐B🐊vh7kWel🐆🐞7🐋🐒1FS🐞🐋Cg4🐝I🐐L🐇🐡wq🐘Y7ZbT🐚5j🐐a🐚🐋Q🐉🐉KkY🐕🐕ZsMn4jS0dT🐃DrycW🐜X🐍xk5h🐒M1M🐀🐠mXb🐓wX
 
-π in base  98: 3.D🐱🐯🐱🐐🐐🐭🐤A🐘🐌🐍🐡🐁Z🐝🐙KJ8U🐹A🐇🐗J🐖8X🐶🐷🐏🐠U🐐5🐪🐰🐜MR4🐌🐱🐸🐝🐟🐕🐒A🐓🐼🐜🐹E🐆🐚🐲X🐜M7Z🐡🐞🐸🐟🐵🐘🐃X🐰🐱🐳🐍I4Z🐈🐢3🐐U🐂9G🐅🐙🐏
+π in base  98: 3.D🐗🐕🐗qq🐓🐊Aymn🐇bZ🐃zKJ8U🐟AhxJw8X🐜🐝p🐆Uq5🐐🐖🐂MR4m🐗🐞🐃🐅vsAt🐢🐂🐟Eg🐀🐘X🐂M7Z🐇🐄🐞🐅🐛ydX🐖🐗🐙nI4Zi🐈3qUc9Gfzpc🐓XJI7🐘a🐔rt🐔uLzmAz🐒OL🐠🐂🐚2🐣E🐍QtZ1ye🐒🐋P🐛Z🐘56🐠ZrYh🐡4T🐕P6🐜🐞2z0H🐒7
 
-π in base  99: 3.E1🐦K🐬2🐫🐉5🐨🐕🐨🐭🐇O7T🐆🐗🐫T🐜F🐞🐼🐡C🐤L🐁B🐗🐋R🐯🐅🐟🐬🐸1🐍8🐝🐒XW🐵🐈G🐛🐯🐃L🐶🐛P8L9FQ🐅🐆T8U🐨🐨IES🐌🐀🐩🐩🐕4G🐅🐇E🐚🐃T1V🐧🐯A🐐🐊🐲ZJ🐔
+π in base  99: 3.E1🐌K🐒2🐑j5🐎v🐎🐓hO7Tgx🐑T🐂F🐄🐢🐇C🐊LbBxlR🐕f🐅🐒🐞1n8🐃sXW🐛iG🐁🐕dL🐜🐁P8L9FQfgT8U🐎🐎IESma🐏🐏v4GfhE🐀dT1V🐍🐕Aqk🐘ZJu🐊AiFKT5AjcQjPrde🐈🐆f🐗🐏🐍Su🐟🐌🐣🐈F🐈6🐁r🐓5🐍6🐔tkrRM🐉9🐋🐖🐌🐛🐄🐐90vR
 
-π in base 100: 3.EF🐸🐝Z🐵🐫W🐂🐊Q🐇🐂W🐫🐎S🐰J🐣🐡🐃🐹🐧A🐖K🐽🐍🐈🐗N7🐭🐜6S🐚8🦁🐲S3🐌PYLH6🐫🐮E🐬🐲🐏W🐮U🐞🐋9🐂🐈🐘🐻🐎🐖MV🐤🐑🐗🐄🐭S🐌BH🐉2🐰AR1🐹🐱LA🐓🐗🐜🐊M
+π in base 100: 3.EF🐞🐃Z🐛🐑WckQhcW🐑oS🐖J🐉🐇d🐟🐍AwK🐣nixN7🐓🐂6S🐀8🐥🐘S3mPYLH6🐑🐔E🐒🐘pW🐔U🐄l9ciy🐡owMV🐊rxe🐓SmBHj2🐖AR1🐟🐗LAtx🐂kM🐠🐛s🐟3🐓🐢iS🐓9🐍🐄xXizSlumNb🐘🐐V🐃RC1🐜🐝j🐂🐗🐄🐞YyY🐘AjhQ🐂🐔Dda7Q2nEC🐋
 
-π in base 101: 3.EU🐃5V🐇🐛🐵🐔🐆G🐘🐎JF🐝🦂🐊🐺🐰🐔🐻🐀M🐓🐞S🐆🐞F🦀P7🐶🐻P🐤🐗B🐥🐙🐴🐭🐭W🐫Z🐋🐗🐯🐻🐃🦂H🐞🐏🐌Z🐺🦀🐴🐡🐁V🐻2🐀X8F🐭🐆8ER🐉🐇🐽🐈🐰S🐕S🐋🐤3🐊🐦31
+π in base 101: 3.EUd5Vh🐁🐛ugGyoJF🐃🐦k🐠🐖u🐡aMt🐄Sg🐄F🐤P7🐜🐡P🐊xB🐋z🐚🐓🐓W🐑Zlx🐕🐡d🐦H🐄pmZ🐠🐤🐚🐇bV🐡2aX8F🐓g8ERjh🐣i🐖SvSl🐊3k🐌31U🐇4AP🐠🐖🐥6🐞C🐜🐈jb99c🐢🐜Oi🐇🐜🐝nI🐘Jh🐎🐤2i🐆🐤gc🐦X🐥v🐈🐅🐖Uf🐤F🐖🐡29🐞🐖🐊pY🐐🐈
 
-π in base 102: 3.E🐉DQJ2🐢🐍🐟X🐭6🐟🐖🐙S🐛🐷7🐑🐃🐳🐢N🐌🐇🦃H🐎🐙🐬🐙F🐮8🐙M🐳5🐢🐂🐞🐖🐉🐌I🐏🐜Y🐢RB🐥🐩🐐🐣🐫🐬🦀🐰🐔🐶🐬🐯🐐🐎2🐣ZG9🐣L🐪T🐺🦀🐼🐒🐚🦁2🦂🐥🐠🐀🐫
+π in base 102: 3.EjDQJ2🐈n🐅X🐓6🐅wzS🐁🐝7rd🐙🐈Nmh🐧Hoz🐒zF🐔8zM🐙5🐈c🐄wjmIp🐂Y🐈RB🐋🐏q🐉🐑🐒🐤🐖u🐜🐒🐕qo2🐉ZG9🐉L🐐T🐠🐤🐢s🐀🐥2🐦🐋🐆a🐑0k🐡🐑f🐊vb🐣🐋🐓🐖MzL🐝🐝5🐉J🐆S🐄jm🐔🐅B🐡🐟🐈u🐙R🐊🐂🐞F🐢🐃0🐕🐔rc🐘oX6W🐝🐏f🐠0🐐Fv🐑p🐤hX
 
-π in base 103: 3.E🐘GB🐹I🐒🐁E4🐅E🐆CG🐣V🐧2U🐚🐗🐜Z🐅🐵Y🐁V🐽75🦀🐔W🐼🐶🐽🐹🐎🐜A🐱🐒🐧9🐘🐭🐸DD🦄SRCWW🐢🐋V🐤9🐬🐈🐩🐽🐂🐱7🐓🐈DO🐮S🐳L🐱🐡8W🐶🐲🐪W🐅P🐡Y🐨🐅N🐂D🐦
+π in base 103: 3.EyGB🐟IsbE4fEgCG🐉V🐍2U🐀x🐂Zf🐛YbV🐣75🐤uW🐢🐜🐣🐟o🐂A🐗s🐍9y🐓🐞DD🐨SRCWW🐈lV🐊9🐒i🐏🐣c🐗7tiDO🐔S🐙L🐗🐇8W🐜🐘🐐WfP🐇Y🐎fNcD🐌r🐚W3IokfR7🐘4🐒6🐞🐢🐞oQlR🐈🐨🐧🐎4iuH🐈🐢jx🐄vNx2🐙Qo🐄i🐈c🐇X🐡6B🐎a🐑O🐘
 
-π in base 104: 3.E🐧🐌🐍🐭🐎🐎5🐵🦃R7🐧SV🐡UX🦄🐎🐖🐛🐣A🐷N🐮🐇🐟🐉K🐑🐱🐲🐁🐪J🐆🐇🐌H🐀OP🦄I🦃8B🐇JB🐇🐤8🐃🐄🐐🦅🐞🐯AHB🐪8🐘🐘ZHB🐅6🐏🐆🐊🐰🐖🐆9🐹M🐏0🐠3🐑GX🐠U5🐶
+π in base 104: 3.E🐍mn🐓oo5🐛🐧R7🐍SV🐇UX🐨ow🐁🐉A🐝N🐔h🐅jKr🐗🐘b🐐JghmHaOP🐨I🐧8BhJBh🐊8deq🐩🐄🐕AHB🐐8yyZHBf6pgk🐖wg9🐟Mp0🐆3rGX🐆U5🐜V🐗🐒🐩🐏4sEu🐙🐘🐡🐗W🐗🐞🐜7🐓BB🐥🐧🐨Z🐚m🐓🐥v🐍3🐌🐣🐕🐩MyJe🐎🐈y🐈🐖GHVA🐗🐑hda🐇c🐍
 
-π in base 105: 3.E🐷6K🐔🐝L🐰🐝🐬🐊🐬🐳🦄🐰Y🐝🐛🐬J🦃C🦃🐗🐴U🦁🐇🐓🐖🐻🐱R🐐C🐳🐍🐕🐱JAI🐑🐐🐴8🐎🐔NL🐩🐊🐎🐜Y0🐸🐵🐅🐍5🐽🐛FY🐣O🐑WF🐑🐓4🐀🐚🐉🐱🐹BRL🐱🦆F🦂M🐛🐂🐘
+π in base 105: 3.E🐝6Ku🐃L🐖🐃🐒k🐒🐙🐨🐖Y🐃🐁🐒J🐧C🐧x🐚U🐥htw🐡🐗RqC🐙nv🐗JAIrq🐚8ouNL🐏ko🐂Y0🐞🐛fn5🐣🐁FY🐉OrWFrt4a🐀j🐗🐟BRL🐗🐪F🐦M🐁cyrg🐄D🐏8c3l🐚🐛cgPbYU🐕3ywGB🐓🐝NkY🐁🐍a🐟🐅PIV🐦rej6🐞🐙t🐍🐆🐉🐪🐘🐏8🐓Uo🐤🐐cg🐕TV
 
-π in base 106: 3.F0🦁CU🐀H🐎A🐗WE🐕🐇SKH🐅🐢MI🐧🐍🐌🐆🐑🦀3🐔🐲G🐛J🦁🐆G🐴🐚P🐢🐄Q🐚T🐶🐥3V0🦄🐍🦀🐪🐽🐧🐌🐛7🐂🐚🐞🐅🐇ESD🐣🦄🐚🐟JF🐭N🐈3🐔AS🐅NM🦀🐫8🐶🐆🐒🐸🐩🐺🐣C
+π in base 106: 3.F0🐥CUaHoAxWEvhSKHf🐈MI🐍nmgr🐤3u🐘G🐁J🐥gG🐚🐀P🐈eQ🐀T🐜🐋3V0🐨n🐤🐐🐣🐍m🐁7c🐀🐄fhESD🐉🐨🐀🐅JF🐓Ni3uASfNM🐤🐑8🐜gs🐞🐏🐠🐉C🐙KSHs🐅ONn🐦🐑EO🐃JtA6Gs🐄🐉🐔k2Zu🐋V🐖Pv🐒oH🐩🐩🐞🐛🐃🐂🐁Rr🐌🐧R🐄R🐧Ur🐉rSz🐥
 
-π in base 107: 3.FGA9🐕🐎4🐧🐓🦈1🐤🐛99N🐉🐝🦀🐸🐐N🐙1🐺🐙🦇🐸🐩🐮🐃🐘KV7🐠9🐸7🐘L🐱U🐅🐣🐅🐅🐝🐄🐠D🐠🦅🐲HU🐌M🦅🦄🐟Q🐦QQBLK🦀🐁🐥🐍🐛🦆X🐳🐊🐛9ZW🐻🐤🐗🐌1🐝🐤🐽6🐷
+π in base 107: 3.FGA9vo4🐍t🐬1🐊🐁99Nj🐃🐤🐞qNz1🐠z🐫🐞🐏🐔dyKV7🐆9🐞7yL🐗Uf🐉ff🐃e🐆D🐆🐩🐘HUmM🐩🐨🐅Q🐌QQBLK🐤b🐋n🐁🐪X🐙k🐁9ZW🐡🐊xm1🐃🐊🐣6🐝🐊🐏k🐆🐀3🐝🐇gHIqf🐋UwtpMo🐝wW🐔7🐀Yk🐝a🐢ra🐁5z🐒mXMoJG🐝🐥j🐂CX🐧🐅🐕4XS04vm
 
-π in base 108: 3.FV🐕🦆L🐻F🦂H🐰🐠🦂🐎🐛Q🐢C🐠🐰798B🐳P🐜🐜🦂🐜🐖🦄H🐓4🐚I6🐬🐣🐙MO🐞🐺🐸🐣R🐥4🐒🐕🐬T🐪Q🐃🐺🐏🐎🐰🐉🐪🐢🦂🦇🐣A🐏6🦂🦅🦅🐣🐒4🐲🐬5G🐷PSGP🐟🐣🐙🐱🐑Q
+π in base 108: 3.FVv🐪L🐡F🐦H🐖🐆🐦o🐁Q🐈C🐆🐖798B🐙P🐂🐂🐦🐂w🐨Ht4🐀I6🐒🐉zMO🐄🐠🐞🐉R🐋4sv🐒T🐐Qd🐠po🐖j🐐🐈🐦🐫🐉Ap6🐦🐩🐩🐉s4🐘🐒5G🐝PSGP🐅🐉z🐗rQ🐥UAx🐂🐞sxD1🐄e🐠eJOZq2z🐊🐞🐇6🐣🐥🐡w1L🐜S🐦🐁n🐒🐔🐛🐈🐞🐧🐚🐛pi4🐁tcv🐣🐄JQ🐈G🐝Xhs
 
-π in base 109: 3.F🐋S🐜🐜🐓🐩🐰🐯🐩🐨🐃🐹5🐨🐨4🦆🦂POCN🐻🐵🐋🐬E🐤ZI5HY🐽🐖🐧R9🐂🐈🐗🐧🐏🐦🦃C🐘🐮🐨🐞🐋🐩🐂🐸🐺🐃47JA1353🐡🐒🐊🐞2🦁🐉🐂6IL🐂P0🐡🐟🐢E🐵0🐈🐙1🐷8🐆🐍
+π in base 109: 3.FlS🐂🐂t🐏🐖🐕🐏🐎d🐟5🐎🐎4🐪🐦POCN🐡🐛l🐒E🐊ZI5HY🐣w🐍R9cix🐍p🐌🐧Cy🐔🐎🐄l🐏c🐞🐠d47JA1353🐇sk🐄2🐥jc6ILcP0🐇🐅🐈E🐛0iz1🐝8gnwXHd🐧e🐫mKmb🐌KX🐚F🐚odUnAoY6E🐉🐆6El🐜🐛oqTpL🐒🐮V🐊hE🐜iD🐞1H🐌🐓🐂v🐅Rv🐙
 
-π in base 110: 3.F🐛T🐶🐉🐀K🐣H🐴4🐻🐖🐹Y🐓🐖🐃🐞🐺🐁S🐺🐦🐴3🐓F🐒🦅3RG🐅1🐭O🐜🐃🐢🐜KYV8KH9🐓🐵🐏I🦆🐗🐜🐣P🐁🐈🐂2G🐺🦀🐵🦆🐴🐦🐒🦆🐱🐓🐖🐆🐠🐃🐏W4🐻🐀🐉LU🐭🐫🐉🦄Y
+π in base 110: 3.F🐁T🐜jaK🐉H🐚4🐡w🐟Ytwd🐄🐠bS🐠🐌🐚3tFs🐩3RGf1🐓O🐂d🐈🐂KYV8KH9t🐛pI🐪x🐂🐉Pbic2G🐠🐤🐛🐪🐚🐌s🐪🐗twg🐆dpW4🐡ajLU🐓🐑j🐨Y🐑🐕🐯🐏🐗🐡🐜J🐐🐕🐅🐘🐔s🐦vM🐐xA🐑sBkJ🐍S🐌V🐒A🐒7lAK5🐪🐕🐥r🐈W183🐧🐒🐛h🐍R🐈🐁za🐯f🐁eh
 
-π in base 111: 3.F🐫🐚🐓🐱🐁🐌🦄O🐵🐘SH🐹🐭🐑YZ🐭🐡🐉L6🦆🐘O🐔🦆🐪P🐘🐖Z🐉🐢🐠🐝🦃🐓3🐯🐱🐶🐝🐺6🐇🐲🐒🐱🐀W🐆J🐩I7🦅🐒🐮🐬4🐄🐐🦆🐨🐊M🐝🐖🐕M🐧🐺🐺🐚🐤🐅R🐱🦋8🐅4DL🐞
+π in base 111: 3.F🐑🐀t🐗bm🐨O🐛ySH🐟🐓rYZ🐓🐇jL6🐪yOu🐪🐐PywZj🐈🐆🐃🐧t3🐕🐗🐜🐃🐠6h🐘s🐗aWgJ🐏I7🐩s🐔🐒4eq🐪🐎kM🐃wvM🐍🐠🐠🐀🐊fR🐗🐯8f4DL🐄Zp🐃🐓Sr🐓🐏P🐀🐐🐗Z🐬yjPX🐨NJk🐬🐘vO🐉au🐟f🐇🐫🐧8🐍0v🐮🐙t5🐟🐯🐡🐤🐙V🐩🐮PY🐒🐧🐂J🐖v🐖🐇C🐕d
 
-π in base 112: 3.F🐼F🐒I🐚🦆🐛🐊🐌D🐋🦀🐽🐀🐁🐈L7🐖🐶🐨T🐅🐟🐢HI🐅🐯🐙DW9🐺🐡🦅R🐷🐞🦇V🐤🐊D🐊T🐩7GJ🦈A🐍🦅3🐎🐫S🦄G🐰8🐑🐶🐑🐖🐡D🐷🦄🐃F🐥🐚GK🦋W🐞🐬🐹🐻🐭B🐅🐞7🦅G
+π in base 112: 3.F🐢FsI🐀🐪🐁kmDl🐤🐣abiL7w🐜🐎Tf🐅🐈HIf🐕zDW9🐠🐇🐩R🐝🐄🐫V🐊kDkT🐏7GJ🐬An🐩3o🐑S🐨G🐖8r🐜rw🐇D🐝🐨dF🐋🐀GK🐯W🐄🐒🐟🐡🐓Bf🐄7🐩GIo🐱🐗🐍DOXH🐪🐌K🐕CF🐥🐠🐋w🐰🐠D🐆2G🐆🐰🐧b🐠🐖kU🐀🐚E🐞m🐫🐊TE🐗🐙🐒vec🐎🐛🐂🐀CeT🐩🐮Y🐃v
 
-π in base 113: 3.F🦎🦎🐡🐕4🐹🐩DD🐐Q🐴🐑🦍M🦇🐒B1🐼🐯🦊🐡🐧MP🐝🐣🐆F🐮U0🦉🦎🐥M🐛O3🐠W🦎🦀🐆🐵🐁🐛🦁🐄1🐲🐣S🐰🐦🐫🐧🦎G🐘🐗🐤QB🐡I🐜🐆🐃🐔🐫🐜🐔TBNS🦇🐎O🐖ECH🐀🐪🐹🐯
+π in base 113: 3.F🐲🐲🐇v4🐟🐏DDqQ🐚r🐱M🐫sB1🐢🐕🐮🐇🐍MP🐃🐉gF🐔U0🐭🐲🐋M🐁O3🐆W🐲🐤g🐛b🐁🐥e1🐘🐉S🐖🐌🐑🐍🐲Gyx🐊QB🐇I🐂gdu🐑🐂uTBNS🐫oOwECHa🐐🐟🐕Dl🐁g4q🐮🐘rP🐦3U4s🐧🐎Dku2🐌🐣h4🐀🐜w🐆🐇9🐢2UE🐓RE🐦🐮c🐫w🐮🐱d🐫l🐅🐊u🐠GVOAwJ0q
 
-π in base 114: 3.GGF🐱9🐺5🐦15🐏3Z🐉🐏🐍🦂🐮🐨🐠🐛🐴🐠🦅🐤🐷4🦇🐴🐈🦏N🐊A🐜F🐪5🐬🦆🐰🐴🐒🦊SJ🐺MF🐒Y🐑A🐠🦄🐏35🦌🦂🐫🐕🐈🦏🐤🐎🦈🐆🦊🐞🐵🐕🦏A🐂🐢🦆UD🐺🐩🐕UW🐥🐡🐥🦎
+π in base 114: 3.GGF🐗9🐠5🐌15p3Zjpn🐦🐔🐎🐆🐁🐚🐆🐩🐊🐝4🐫🐚i🐳NkA🐂F🐐5🐒🐪🐖🐚s🐮SJ🐠MFsYrA🐆🐨p35🐰🐦🐑vi🐳🐊o🐬g🐮🐄🐛v🐳Ac🐈🐪UD🐠🐏vUW🐋🐇🐋🐲YSX🐕i🐜fIQq1🐟MT🐰🐁f7🐅BI🐭Z3🐉ZP🐒E🐋🐭🐓jfG🐁Q🐯MNGrdDShxt🐑5dku🐔g🐍🐄🐏🐤UNw
 
-π in base 115: 3.GW🐜🐯🐡🦋W🐔🐳🐛🦏U🐎🐉🐅🐤🦇🐇N🐧🦐🐩🦐🐝M🐹🐬🐁R🐝🐨🐀🐘🐨🐛1🐬R🐊🐔K🐑🐋7🐏🐮6J🦂🐼🐠🐝🐶H🐛🦀🦊🐶🐨🐒🦅🐯🐀🐍🐡🐤🐀🐋🐉🦊🐯C🐠🦍HJ🐍D🐠🦋🦀🐙🦄
+π in base 115: 3.GW🐂🐕🐇🐯Wu🐙🐁🐳Uojf🐊🐫hN🐍🐴🐏🐴🐃M🐟🐒bR🐃🐎ay🐎🐁1🐒RkuKrl7p🐔6J🐦🐢🐆🐃🐜H🐁🐤🐮🐜🐎s🐩🐕an🐇🐊alj🐮🐕C🐆🐱HJnD🐆🐯🐤z🐨🐜🐉🐎🐇🐑🐙🐛d🐄1🐙🐛dn🐖🐒🐍Xh54UdDQ🐇Hc3🐐yQw🐕🐇4Ro🐊30🐫h🐗lju🐮i🐏H🐥🐌🐯aRNbtGvB🐚Zjc🐴
 
-π in base 116: 3.G🐍V🐋J🐏🦊CY🐀E🐪R🐙2🐚🐒🐌3🐹🐽🐖🐜L🐫J🐏🦆🐜🐂🦄L🐦🐦C🐠🐃V🐙🐌🐆Q🐬DV7🐎🐕🦈🐡🐬🐤H🐚🐁🐭🐌V🦁3🐣🐃🐰🐗🦑🐳🐸🐮🦇🦈🐬🐍0🐂🐡🦑🐶🦅🦋H🐅🐡🐁O🐰🦀
+π in base 116: 3.GnVlJp🐮CYaE🐐Rz2🐀sm3🐟🐣w🐂L🐑Jp🐪🐂c🐨L🐌🐌C🐆dVzmgQ🐒DV7ov🐬🐇🐒🐊H🐀b🐓mV🐥3🐉d🐖x🐵🐙🐞🐔🐫🐬🐒n0c🐇🐵🐜🐩🐯Hf🐇bO🐖🐤🐘🐖🐯O🐰TqDb🐨SB🐇Uihu🐘🐤🐵fzm🐇🐢K2🐋🐡r🐲🐅🐦🐰🐦10S6🐞🐓USu🐫u🐩🐯LBLS🐳m🐡RQp🐐🐃pv🐄🐐
 
-π in base 117: 3.G🐞U🐦U🐂1🦊🦋🐓🐇🐕🐹🦒D🐏ZA🐎9🐴3R🐆🐌P🦌🦍🐡🐲🦀🐶🐷🦑E1🐈04🐽🐢B🦈🐛🐠🐤🐊L🐈🐭🦊🐙🦉🐺X🐯🐽🐕L🐕🐟🐫I🐡🐕D1🐨🐕🐯2🐛🦁8F🐧🐢🐡🐖🦏D5🐋🦅🐟🐹🐲🐎
+π in base 117: 3.G🐄U🐌Uc1🐮🐯thv🐟🐶DpZAo9🐚3RgmP🐰🐱🐇🐘🐤🐜🐝🐵E1i04🐣🐈B🐬🐁🐆🐊kLi🐓🐮z🐭🐠X🐕🐣vLv🐅🐑I🐇vD1🐎v🐕2🐁🐥8F🐍🐈🐇w🐳D5l🐩🐅🐟🐘o🐠HFzSN🐠🐴🐠🐭🐈🐝🐜oBI🐲🐌Q🐭L🐬🐙🐜0🐜k🐬r🐎🐄🐐l🐫q🐈🐃🐤🐟🐩tF🐛JY🐃uXuI🐓🐈kx🐝🐇🐃obI🐔🐛
 
-π in base 118: 3.G🐯🐛U🐷🐞1🐵🐲🐈🐓2🐭🦅R🦂🐸🐓🐏🐂🐇V🐙🐗🦉🐆🦂🦊🐅🦊🐺🐱🦒🐊🐕🐸🐌🐼🐽H🦃NX🐎🐶🐟🦈🐪🦎F🐷🦇🐠🐹🐲🐏🐤S🐷A🦐🐲🐤🐫I🦂L🐅7🦁🦃🐌🐢DC🐪R🐅🐝Q1🐪🐮🦆
+π in base 118: 3.G🐕🐁U🐝🐄1🐛🐘it2🐓🐩R🐦🐞tpchVzx🐭g🐦🐮f🐮🐠🐗🐶kv🐞m🐢🐣H🐧NXo🐜🐅🐬🐐🐲F🐝🐫🐆🐟🐘p🐊S🐝A🐴🐘🐊🐑I🐦Lf7🐥🐧m🐈DC🐐Rf🐃Q1🐐🐔🐪🐃🐏🐪🐦🐠zu🐤AI🐬B🐡🐩🐵s🐦🐞Ks🐩R🐗Gwx🐈🐆y🐫n🐈6🐥🐍🐃🐙zd🐎KxL4🐖🐲🐎🐡hQ🐋🐈🐌🐠🐵c🐜7🐨A🐖4🐏🐘k9
 
-π in base 119: 3.G🦃BG1A🐪UZ🐠F🐓🐤🐧🐒🦊🦄🦉🦃🦓92🐫🐧🐖🐽🐣🦓DC🦃🐚7C🦅03🦓🐫W🦎0G🦈8🐉🐸🦋🐶🐋🐜🐭🐅🐉🐪🦊🐱8🐠9GD🐵🐀L🐈🐌🐱🦇🐑SK🐰🐐V🐽5🐘ZI🐅🐪E🦉P🦆🐱🐝🦐🦈🦋
+π in base 119: 3.G🐧BG1A🐐UZ🐆Ft🐊🐍s🐮🐨🐭🐧🐷92🐑🐍w🐣🐉🐷DC🐧🐀7C🐩03🐷🐑W🐲0G🐬8j🐞🐯🐜l🐂🐓fj🐐🐮🐗8🐆9GD🐛aLim🐗🐫rSK🐖qV🐣5yZIf🐐E🐭P🐪🐗🐃🐴🐬🐯🐗4🐢🐏tS🐄🐝🐫eNv🐬🐢e🐕i🐝o🐨🐋b🐧U🐓🐌S🐪🐈🐧🐘🐠D🐧xOp🐮🐴2🐫9jco🐞🐸m🐳🐨🐩q🐵ZEhk🐐🐚
 
-π in base 120: 3.G🦔🦎C🐩🐼🐫🦀🐗🐟🐐🐸🐠🐋🐞🐙🐽P🐕N7🐡🐞Y🐽🐍🐽🐂🐒🐛🦔H🐁🐩🐸🐕🐳🐏🐙🐪🦆🐭🐍SX🐌🐲🐓🐌J0🐳🐸GG🐖🦎34🐖🦋🐘🐚🐫N🐧🦕🐲🐦🐒🐱🐔🦄E🐆🦅🐵🐲🦓Y🦆🐖🐷P
+π in base 120: 3.G🐸🐲C🐏🐢🐑🐤x🐅q🐞🐆l🐄z🐣PvN7🐇🐄Y🐣n🐣cs🐁🐸Hb🐏🐞v🐙pz🐐🐪🐓nSXm🐘tmJ0🐙🐞GGw🐲34w🐯y🐀🐑N🐍🐹🐘🐌s🐗u🐨Eg🐩🐛🐘🐷Y🐪w🐝Px🐎s🐹🐡0c🐶c🐮🐩l🐑8Q🐋nU🐭🐖🐥pg🐵f🐥y🐀xy🐤S🐟🐪R🐍🐄🐆🐭🐥🐫r🐸s🐄🐫46K🐨🐢ww7🐓Z🐜W🐖🐇F🐟hA1w
 
-π in base 121: 3.HG72🐺🐝🐐🐕🐂N🐕🐜🐰🐮V🐉🐷🐺🐦🐸🐼🐖H🐇L🐗NX4🐣🐴🐣O🐬🐓🐖🐄GTI🐵🦒🐙🐄G🐱E🐁🦃🐼🐹UKD🦊M🐡🐊🐕🐩🐱D🐮🐗🐶🐧T🐧🐱J6🐈🐅🐟🐻7🦆🦁🐮Q🐗🐣🦋🐼🐯🦎🦃🐻
+π in base 121: 3.HG72🐠🐃qvcNv🐂🐖🐔Vj🐝🐠🐌🐞🐢wHhLxNX4🐉🐚🐉O🐒tweGTI🐛🐶zeG🐗Eb🐧🐢🐟UKD🐮M🐇kv🐏🐗D🐔x🐜🐍T🐍🐗J6if🐅🐡7🐪🐥🐔Qx🐉🐯🐢🐕🐲🐧🐡S🐙🐹🐀xHpxUm🐔🐷J🐵🐫6🐷u🐷ubD🐙5R🐺🐓71f🐆k🐧🐲xWY🐋🐧Gty6O2🐭d🐅Tb🐍🐤8🐲y🐊2🐦🐎w🐀F
 
-π in base 122: 3.HX🐔🐵🦋7🐭🐁🐅🐓🐴🐒🦔5🐷🦍🐥🦕X7🐮🐞🦍🦑🦌🐔🦇🐗🦑🐽🐜🐔🦔🦖🦖🐍🐇🦃🐈🦐🐪B🦒🐌🐼🐀🦎🐜5🐅🐍R🐎YZC4J🐧🐶🐤🐷🦔🐵🐒O🐡5H🐳🦒🦓KK0HQ🐫🐒5🐶🐃🐩🐆🐓E
+π in base 122: 3.HXu🐛🐯7🐓bft🐚s🐸5🐝🐱🐋🐹X7🐔🐄🐱🐵🐰u🐫x🐵🐣🐂u🐸🐺🐺nh🐧i🐴🐐B🐶m🐢a🐲🐂5fnRoYZC4J🐍🐜🐊🐝🐸🐛sO🐇5H🐙🐶🐷KK0HQ🐑s5🐜d🐏gtEZ🐓🐋🐆🐏🐱🐀J🐒G🐌C🐯🐶b🐕v🐈🐠🐚5S🐥v🐇🐯rX🐢🐦C2WQSsz🐲G🐪oMb🐄🐓🐷WK3🐐🐧d🐜Wzs0v🐑🐧🐲🐨🐚T
 
-π in base 123: 3.H🐏JB🦉7🦓OK🐃7🦈🐨🐩🦗🐺🐈K🦍M🐟🦓2🦄Q🦖🐽🐷🐍NU🐒🐑🦁X🐛🦀🐣B🐝🐰8🐤XP🦈🦂🐘🐥N🦒🐰🐀X🦕🐣🦖3🐺RS🐍🐫OR7🐊🐊B🐰🐕NQ🐶L🐒🐱🐂🦀🦆🐲2🦓🐛H6🦌🐢🐹🐩🐈
+π in base 123: 3.HpJB🐭7🐷OKd7🐬🐎🐏🐻🐠iK🐱M🐅🐷2🐨Q🐺🐣🐝nNUsr🐥X🐁🐤🐉B🐃🐖8🐊XP🐬🐦y🐋N🐶🐖aX🐹🐉🐺3🐠RSn🐑OR7kkB🐖vNQ🐜Ls🐗c🐤🐪🐘2🐷🐁H6🐰🐈🐟🐏i🐖f🐌mlJxI🐳T🐪JU🐷🐘Kv🐪5🐁M🐹🐓E4ir🐛M🐝ep🐧🐻P1🐒Xr🐣🐙ktbyEi🐗🐋🐸🐇H🐉🐚LO🐔Y🐷
 
-π in base 124: 3.H🐡F🦓🦙J🐀🐋N🐃🐀🐩🐣🐃🐟🐝4Q36🐣🐮🐒🐚O🐜65🦎Q🐵🐟🐽🐶🐲🐦O3K🐖🐱🐵🐂F🦂F18🦐N1🐚🐭🐟🐀🐳HZ🐵🐊🐈🐃S🐫5🦘🐓F🐢🐁🐧🐂🦆🐍🦍🐚4E🦏🐀🦈🐓🐋🐻🐮🐏5D🐮N
+π in base 124: 3.H🐇F🐷🐽JalNda🐏🐉d🐅🐃4Q36🐉🐔s🐀O🐂65🐲Q🐛🐅🐣🐜🐘🐌O3Kw🐗🐛cF🐦F18🐴N1🐀🐓🐅a🐙HZ🐛kidS🐑5🐼tF🐈b🐍c🐪n🐱🐀4E🐳a🐬tl🐡🐔p5D🐔N🐭🐋X🐣🐞🐦🐫🐜🐄C🐰🐭Mi🐤G0vH142🐷2🐖🐫🐠a🐞🐯CP🐻KS🐅k🐠🐔🐑w9🐽🐦u🐳🐼🐺🐵🐢F🐝🐊🐮🐌CvI🐻0
 
-π in base 125: 3.H🐳🐌I🦓🦈🐣🐜L🦄🐰🐔🐌A🐬C3🦚🐆🐔5🦅🐲🦁4🐵🦖🐍T🐠🦊🐨🐆🐮🐽T🐏X🐓🐔🦌S🐱🦐🐮B🐀🦊W🐓🐘FA🦆I🐜T🐫8🦔🦔🐦🦘🐌B5🐞🐜🦑🐥🐜E39🦀🐞Z🐺Q🐧🐶W🐸F🐴🐌🦋🐔🐡
+π in base 125: 3.H🐙mI🐷🐬🐉🐂L🐨🐖umA🐒C3🦀gu5🐩🐘🐥4🐛🐺nT🐆🐮🐎g🐔🐣TpXtu🐰S🐗🐴🐔Ba🐮WtyFA🐪I🐂T🐑8🐸🐸🐌🐼mB5🐄🐂🐵🐋🐂E39🐤🐄Z🐠Q🐍🐜W🐞F🐚m🐯u🐇cySRtQ🐵s🐨cw🐪7A🐃X3🐳🐄🐻QY🐮z🐨🐪tT🐳🐊vH🐞🐟I4J🐱6🐜nt🐊🐰kn🐒Ie🐕E🐟🐩I2🐶🐷h🐤hQ
 
-π in base 126: 3.H🦇🦒🐠🦂🐣🦘🦉6M🦚🐬🦙O🦁E🐟🐊H🐘🐣🦆2🐌🦖🐕G🐭🐤🐪7🐂🐑SH🦉🐌🦍🐎🐁🐲🐑🐭🦕🦅🐐🦚🐋🐂T🦏🐯🐝🐝🐭🦎X🐡N🐓🦁🐽🦒P🐒🦎A🦅🦙V6🐪4🐥🦊FO🦔🐱🐓🐵Y🐖🦗🦉🐙
+π in base 126: 3.H🐫🐶🐆🐦🐉🐼🐭6M🦀🐒🐽O🐥E🐅kHy🐉🐪2m🐺vG🐓🐊🐐7crSH🐭m🐱ob🐘r🐓🐹🐩q🦀lcT🐳🐕🐃🐃🐓🐲X🐇Nt🐥🐣🐶Ps🐲A🐩🐽V6🐐4🐋🐮FO🐸🐗t🐛Yw🐻🐭z🐢9Qn🐛X🐜Ko🐬dy7Zi🐼🐠🐞zk🐝Bc🐲B🦀f🐛🐀🦁xT8🦁🐁🐗Pyf🐟🐤🐵🐄Hc🐨🦁4PP2v🐇🐹🐘8🐝6🐄🐍74🦀5
 
-π in base 127: 3.H🦚🐺🦛4🐪🐉L🐈🐞🦛HC🦅🐓🐟🐝🐬🦙🦕Z🐙🐪T🐙🐨🦊H🦁6🐟🐤🐣🐻1A🦘🐅🦑🐄🐝🐟🐐🐝🐺🐄8X🐽🦗🐈1🐅🦏🐪🦌🦚🐞M🦏🦅🐒🦜5🐧🐴🐼🦙🦇T🦜S🦙🦃🐄🐵🐟🦌🦉🐮🐆🐃🐡W
+π in base 127: 3.H🦀🐠🦁4🐐jLi🐄🦁HC🐩t🐅🐃🐒🐽🐹Zz🐐Tz🐎🐮H🐥6🐅🐊🐉🐡1A🐼f🐵e🐃🐅q🐃🐠e8X🐣🐻i1f🐳🐐🐰🦀🐄M🐳🐩s🦂5🐍🐚🐢🐽🐫T🦂S🐽🐧e🐛🐅🐰🐭🐔gd🐇WN🐩🐹🐴🐮🐅🐦9🐣🐪🐡🐚🐼🐍S🐻🐢🐛O0🐞Jx🐽q🐠pIs🐎y🐑OTQS🐝🐉🐥🐻vS🐰🐇🐳S🐬k🐀m🐛🐻🐊🐌KB🐠🐦S🐘🐫Fn🐃Go
 
-π in base 128: 3.IF🦋🐄🐠M🐢8🦇🐠🦁O🐭🐔6🦎🐕🐭K🐜🐥🐼🐠🐅🐫🐨🐖0🐝🐗🦓O🦔J🐩🐤🐦K🐬X🦑EQ1R🐺🦚🐰🐏🐏🦄🐪🐤🐍🐵🐜🐲A🐒🦚🐧🦏X🐹V🐽Q🐷🐉🐱E9B🦂🐞🦋🐊🦄I🦗🦛🐢🦘J8🐊🐩O
+π in base 128: 3.IF🐯e🐆M🐈8🐫🐆🐥O🐓u6🐲v🐓K🐂🐋🐢🐆f🐑🐎w0🐃x🐷O🐸J🐏🐊🐌K🐒X🐵EQ1R🐠🦀🐖pp🐨🐐🐊n🐛🐂🐘As🦀🐍🐳X🐟V🐣Q🐝j🐗E9B🐦🐄🐯k🐨I🐻🦁🐈🐼J8k🐏O🐱🐯r🐄🦃🐷🐧🐝🐪6🐝🐽z🐥🐅l🐸🐜🐆🐩🐶🐜🐶🦀🐊H🐀I🐥🦂oa🐒🐨e🐽S🐇🐛🐹40🐀kKMT🦀BO🐯I6🐣🐤🐙dQq🐇🐉🐼
 
-π in base 129: 3.IYV🐎🐤🐃🐬Y🐭🐆🐠🦊🐱🦅🐷L🦓🐅🐇🦑🦝N🐡🐨🦒R🐠🐫🦅🐟🦊EB🐳🐪Z🦛🐌🐇🐑🐴🦊T5🐃O🦅53🐒🐦HA🦉2🐊🦜LM🦘🦄🐍Z🦞🦆C🐮🐐🦀🦕LN🐲🦙N🐪N🐞🐍J🦚🐓🐵🐟🐕🦁B🐇8
+π in base 129: 3.IYVo🐊d🐒Y🐓g🐆🐮🐗🐩🐝L🐷fh🐵🦃N🐇🐎🐶R🐆🐑🐩🐅🐮EB🐙🐐Z🦁mhr🐚🐮T5dO🐩53s🐌HA🐭2k🦂LM🐼🐨nZ🦄🐪C🐔q🐤🐹LN🐘🐽N🐐N🐄nJ🦀t🐛🐅v🐥Bh8u🐁xg🐋Q3S🐈PBU🐘🐨🐺y1🐠9E🐹🐉🐌Am🐣AI🐧🐐🐴🐛w🐇p🐤🐟l9mBvV3🐚🐫J🐻🐈🐱xFr🐹🐉Y🐧🐦8y🐔
 
-π in base 130: 3.I🐐🦕7🦄🦗C🐟🐲🐙🦜🦖🐞DW🦄AH🐷0🐊🐼🦑🐧🐋🐽DUC🐉🐀R🐶🦀🐔🦉🐀🐡🐈3H🦈🐔6🐔🐇🐊E3🐄🐬V🐴W🦗🐦🐽🐗🐅F🐞🦃🦄QE🦜🐱N🦀PA🐦🦟E🐴🦚🐡X🐉4🐮🦈C🦍🐘🐖E🦜Y🐤
+π in base 130: 3.Iq🐹7🐨🐻C🐅🐘z🦂🐺🐄DW🐨AH🐝0k🐢🐵🐍l🐣DUCjaR🐜🐤u🐭a🐇i3H🐬u6uhkE3e🐒V🐚W🐻🐌🐣xfF🐄🐧🐨QE🦂🐗N🐤PA🐌🦅E🐚🦀🐇Xj4🐔🐬C🐱ywE🦂Y🐊G🐻Y🐀🐶z🐺lHm🐝🐗🐛g🐴🐜Q🐒🐕🐊O🐎🐅🐬V🐢🦅RzS🐝y🐦🐘5🦀4AC🐗🐨🐧🐕🐢🦅🐡🐫🐁l🦅🦁🐑🐲🐪LuX8fR
 
-π in base 131: 3.I🐣🦐M🐂🦊A🦅🐟U🦠🐔🦇🐵🦆🦗F🦒🐢🐀🦋🦏0🐲S🐟🐕🐃🦠Q🐭V🦈🐗EC🐙🐑IQI02🐑🐭K🦒🐃🐦R🦛🐕🦉🐡🦄🐢🦁O🦐Q🦕🦝🐒🦑🦑🦋🐪🐺🦐🐮🦁🦖🐌🐓🐈🐹🐓🐧J🦅🐒🐯Q🐆🦃
+π in base 131: 3.I🐉🐴Mc🐮A🐩🐅U🦆u🐫🐛🐪🐻F🐶🐈a🐯🐳0🐘S🐅vd🦆Q🐓V🐬xECzrIQI02r🐓K🐶d🐌R🦁v🐭🐇🐨🐈🐥O🐴Q🐹🦃s🐵🐵🐯🐐🐠🐴🐔🐥🐺mti🐟t🐍J🐩s🐕Qg🐧🐵🦂🐝7M🐨🐼🐪A🦂🐦🐢zP🐓V🐅h🐢🐰🐌u🐂🦃🐡🐕uS🐷🐮🐇3U🐱🐶dNvh🐱🐺🐒N7🦆JS3s🐐v🦁🐞3🐜8o🐅E🐗NVeH2
 
-π in base 132: 3.I🐷E🐧🐣🐬🐏🐄🐥🐀09🐬🐚B🐠🐕U🐑🦞8🦈🦉5🐖2Q🐗🐜🐫🐅🦗🐡🐱🐯T🦑🐯🦇I🐀N🐵🦂🐚🐗🐺🦑W🐧🐍🦋🦇🐘🐖🐧🦚O🦏🦎🦀🐜🐶I🐈🦛🐂🐏🐨🦝🦄🐓🦂🦍I🐦E🦝🐨🐣🐚🦅D🐟
+π in base 132: 3.I🐝E🐍🐉🐒pe🐋a09🐒🐀B🐆vUr🦄8🐬🐭5w2Qx🐂🐑f🐻🐇🐗🐕T🐵🐕🐫IaN🐛🐦🐀x🐠🐵W🐍n🐯🐫yw🐍🦀O🐳🐲🐤🐂🐜Ii🦁cp🐎🦃🐨t🐦🐱I🐌E🦃🐎🐉🐀🐩D🐅🐞RglLmt🐰🐌naE🦂🐸E🐵Bsx🐫3🦂🐌🦃🐨🐛qN🐭🐇M🐘🐘🐁🐯🐏Q🐔zVH🐻🐭2CU3🐭🐓Xn🐏🦂🐌🐜QmjlB🐱d🦄g🦂🐚
 
-π in base 133: 3.I🦌🐰F🐐🦀🐧G🦅🐚🐁XX🦙Y🦟🐙🐺🐰🦀G🐸BK🐞🦈🐵🦢🐥🐳🐌🐙🦞XP🐼XH🦇8K🐺🦁🐆🐅J🐲🐣N3🦜🦇T0🐩IZ🦟🦍🐣🐒🦆🐷🐘🦇🐯🦆🐆🐙🐱🐅🦑🦑K6N🐅🐡🐔🐩🦉C🐦🦉🐰🐈🦕
+π in base 133: 3.I🐰🐖Fq🐤🐍G🐩🐀bXX🐽Y🦅z🐠🐖🐤G🐞BK🐄🐬🐛🦈🐋🐙mz🦄XP🐢XH🐫8K🐠🐥gfJ🐘🐉N3🦂🐫T0🐏IZ🦅🐱🐉s🐪🐝y🐫🐕🐪gz🐗f🐵🐵K6Nf🐇u🐏🐭C🐌🐭🐖i🐹w🐆🐜🐍🦀A🦇3🐀qJ3🦃🐯🐧🐸🐉🐼🦅K🐸X🐻Ev🐬w🐲🐳OT🦈🦇m🐞🐋T4e🐜🐵🐊nuy3🐖🐟🦇🐙9fLc62F🐅🐅🐍g🐉d
 
-π in base 134: 3.I🦠🐖🐳G🐟🦕🦋🦏🦙🐨🐚Y🐍🦉🦔🐺🦜🐬🐎🐵K🐬🐂🐨U🦙🐌M🦗🐃🦅🐧B🐅🦐R🐺🐉K🦙V🐉M🐓🦒K🦣🐛Q🦟J06🐢DK🐅GPH3U🐊🐅🦔🐁🐺🐄🐈🐑🐑🐽🦐🦉🐅🐊2🐠🐲🐍3🐕🦃M🐟🦡
+π in base 134: 3.I🦆w🐙G🐅🐹🐯🐳🐽🐎🐀Yn🐭🐸🐠🦂🐒o🐛K🐒c🐎U🐽mM🐻d🐩🐍Bf🐴R🐠jK🐽VjMt🐶K🦉🐁Q🦅J06🐈DKfGPH3Ukf🐸b🐠eirr🐣🐴🐭fk2🐆🐘n3v🐧M🐅🦇🐝🐂Pi🐣1🐋🐟🐤wc🦇🐏🦅0🐯🐑Q🦀P🐳C🐋🐫Dp🐽p🐭p🐈Do🐑🦉🐖🐞🐨🐫🦁1e🦅🐭🐎🐆🐇f🦂pK🦆g🐠🐝AQ4eNe🐥Y
 
-π in base 135: 3.JF🐣3🐐1🐈🦜4🦎🐊🐅🐹🦑🐡🐬S🦟🦉🐬🐅🦈🐬🐎B🐃🦗🦅🐮ZU🦀7🐵2🐈🐓🦍🐃🦐T6R4🐈🐼34Z🦇7🐷Y🐀🦛🐙🐥🦟2🦙🐪🐯N🐭🐚🐚4🐤VG🐱A7🐵🐂🦘🦖🦙🐆🐑🦋P🦂🦖🐣🦜C7🐰
+π in base 135: 3.JF🐉3q1i🦂4🐲kf🐟🐵🐇🐒S🦅🐭🐒f🐬🐒oBd🐻🐩🐔ZU🐤7🐛2it🐱d🐴T6R4i🐢34Z🐫7🐝Ya🦁z🐋🦅2🐽🐐🐕N🐓🐀🐀4🐊VG🐗A7🐛c🐼🐺🐽gr🐯P🐦🐺🐉🦂C7🐖6🐘🐛🐵P🐩🐼5🐢🐩🐯🐣🐏zM🐖🐧m🦊dO🦃🐰T🐍D🐞🐶🐝3🐰🐏v🐊T🐡WSY🐰🐧V4F🐨a🦃🐕🐓h🐹🐮🦊🐏🦀🐺🐒🐼S🦄🦈
 
-π in base 136: 3.JY🦘CXM🐑🦎🐥🦁🐩🦊A🐏🦑N3🦙🦈🦅🦡3🐮🐜🦚🐍🐛🐗🐲🐥🦙H🐤🐵🦆V🐸🐳🐃🐬O🦋3🐺🦝🐎🐆ZB🐂🐏🐹B🦣🐍H🐀G🐊🦕🦤🐧🦝I🐷🐍🐕🦍🐚🦉1🦗2🐏🐓M🦑🦙A🐮🦃🦊F🐘U5🐆
+π in base 136: 3.JY🐼CXMr🐲🐋🐥🐏🐮Ap🐵N3🐽🐬🐩🦇3🐔🐂🦀n🐁x🐘🐋🐽H🐊🐛🐪V🐞🐙d🐒O🐯3🐠🦃ogZBcp🐟B🦉nHaGk🐹🦊🐍🦃I🐝nv🐱🐀🐭1🐻2ptM🐵🐽A🐔🐧🐮FyU5g🐻🐣CX🐅🐮🐅🐻D🐋🐝Al🐤🐽🐡🐜🐁🐧j🐌🐺u🐙🐝🐄V🐯6🐉🦊Pnwk🐭🦉m🐬🐊9🐄🐸zRkfq🐵🐇🐣gP🐱🐨🐮🐴🐊E9dq🐰
 
-π in base 137: 3.J🐒🐧🐻L🐹🦥🐤🦚🐚🐈🐟🐆🦜🐐🦓🐵🐹B🦍🐅BA🦋🦤B🦔D🦤🦅🦕X🐏🦅🐂🐧🦙🦠🦑🐒🐵🦥🐖L🦥🦌🦎🐃🦒V🐩🐇🐐🐃Z🦢🐨🦙🐏🐠P🐒🐪🦌V🦃🦎🐖🐴🐷🐡3JB🐘🐕🐕🦋🐽🦐🦀🐳
+π in base 137: 3.Js🐍🐡L🐟🦋🐊🦀🐀i🐅g🦂q🐷🐛🐟B🐱fBA🐯🦊B🐸D🦊🐩🐹Xp🐩c🐍🐽🦆🐵s🐛🦋wL🦋🐰🐲d🐶V🐏hqdZ🦈🐎🐽p🐆Ps🐐🐰V🐧🐲w🐚🐝🐇3JByvv🐯🐣🐴🐤🐙🐙🐗🦂🐃🐒mY🐪🐉🦋f🦂Qp🐓🐽6D🐷6🐸🐻🐄🐀cF🦇y🐂630bbaI8z🐗y🐭🐷🐥🐼🐯🐉🐫3🦂🐢🦈gd🦅K🐽4M🦁AxOaDfc2L
 
-π in base 138: 3.J🐦🐟🐺🦦BQY8W🦐🐌🦘🐵🐥34🐻🦤H🐲9🐰🦆2🐱🐶K5🐋🦥H🐡🦈🐝🐣🦝Y3🐅🐷I3🦓🦗🐔🦏🦟1Q🐷🦧🦍🦥U🦢🐛🐽🐘8🦉🦤🦉🦡40🦆HS🦙O🦀🐯🐰🦤🐱🦒🦣P🐜6🐶ZC🦛🐣🐳🐃🐪🦇
+π in base 138: 3.J🐌🐅🐠🦌BQY8W🐴m🐼🐛🐋34🐡🦊H🐘9🐖🐪2🐗🐜K5l🦋H🐇🐬🐃🐉🦃Y3f🐝I3🐷🐻u🐳🦅1Q🐝🦍🐱🦋U🦈🐁🐣y8🐭🦊🐭🦇40🐪HS🐽O🐤🐕🐖🦊🐗🐶🦉P🐂6🐜ZC🦁🐉🐙d🐐🐫Wm🐚Q🐫🦂🐔🐣7q🐌🐵🐊B🐷🐚U🦍Y🦀Y2🐳Y🐍6🦋c🐱ExR🐂K🐝🐅🐨🦈a🐤2H🦉🐙S🐗🦈🐥🐪a🐣E🐎7🐮🐢🦃NA🦀
 
-π in base 139: 3.J🐺🦀🦝🦦🐴🦥E🐸🐬OU🐻🐊🦠🦓🐅🐶5🐧UW🦝🐣🐊M🐂TX🦟K🐭🐒🐥O🐋🐉🐥Q🦌🐒L🦇W4🐯🐱🐧9🐟🐈🐶🐽🐕🦀🦣🐟🐹🦜🐛G🐺9🐝🐎H🐏🦇🐵🦢🦓🦢🐞🐠🐔J🦂🦋6🐎🐤🐘U🐲🐡🦇
+π in base 139: 3.J🐠🐤🦃🦌🐚🦋E🐞🐒OU🐡k🦆🐷f🐜5🐍UW🦃🐉kMcTX🦅K🐓s🐋Olj🐋Q🐰sL🐫W4🐕🐗🐍9🐅i🐜🐣v🐤🦉🐅🐟🦂🐁G🐠9🐃oHp🐫🐛🦈🐷🦈🐄🐆uJ🐦🐯6o🐊yU🐘🐇🐫🐐C🦇🐄wQDs🐅IA🐒🐖🦀🐚🦇🦁🐭🐔Q🐷🦋🦇2🐞z🐧🐅🦄us🐍🦁d🦍🦎🐝🐙Aea🐹🐷🐆🦁🦁🐑🦎5🐠🐪P🐷🐦🐖🐞L🐊x🐉p🦂🦈🐊
 
-π in base 140: 3.J🦑UX🦎🐗🦘🦓🐜🦈🦛🐚🐟🐍🐼🐪🦌🐵H🦢🦒I🐙🦈🐩🐣🐢🐼🦎🐽🐼🦘🐷🐥🐚W🐜🐝🦢CV🦎🦛🦌🐠🐀🐗A🦑5🐉🦝🐏🐫🦝🐪🦨🐂🐧🐝🐴🦞🐟G🦓E🐏🐥O🦤🐨🐳🐸0🦔🐩🐧🦥🐥6🦡🐋
+π in base 140: 3.J🐵UX🐲x🐼🐷🐂🐬🦁🐀🐅n🐢🐐🐰🐛H🦈🐶Iz🐬🐏🐉🐈🐢🐲🐣🐢🐼🐝🐋🐀W🐂🐃🦈CV🐲🦁🐰🐆axA🐵5j🦃p🐑🦃🐐🦎c🐍🐃🐚🦄🐅G🐷Ep🐋O🦊🐎🐙🐞0🐸🐏🐍🦋🐋6🦇lk🐬🐋EW🐱Ai3🐴🐚t🐆K🐇🐓s🦄🐬🦅G🐵w🐈🐄r🐜🐅🦊🦃9T9Xta🐠d🐶🐬🐇🐍S🐐🦆OY🐵T🦃gf🐗🐞🐷V🐅🐻🐄🐷🐲3P🐮🐨🐹7🐀
 
-π in base 141: 3.J🦦0🐢🐢🐂🐵🦥S🐤🦋🐒🦑🦊🐌🐮🐐🐁🐱🦜🐹🦚L🐻🐑🐄🐝🐮7🐲🦏🐡A🐏🦒🐋Q🐂🦕VA2🐙🐠🐸🐫6🦄🐦R7🐢🦡🐮🐝🐀9🦜ZZK🐠🦩🐬🐼🐪🦗L🐬🦪🦠🐜🦄🐭🐕🦏🦍🦂I🦡🦒🦪🦎Q
+π in base 141: 3.J🦌0🐈🐈c🐛🦋S🐊🐯s🐵🐮m🐔qb🐗🦂🐟🦀L🐡re🐃🐔7🐘🐳🐇Ap🐶lQc🐹VA2z🐆🐞🐑6🐨🐌R7🐈🦇🐔🐃a9🦂ZZK🐆🦏🐒🐢🐐🐻L🐒🦐🦆🐂🐨🐓v🐳🐱🐦I🦇🐶🦐🐲Q🐟🐃i🐶🐣🐔D🐰🐔🐐y🦇P🦎🐙nwrM🦍🦊🐻9🦄n🦉🦉🐼8🐲🦀🐅Wn🦌J🦃e🐔Kj🐪🦅🦄🐐BQYE🐈🦄h🐣🐗🐰a🦃w🐭p2🐎🐹0🐈🦏
 
-π in base 142: 3.KFA🐩🐥🦊🦇C🦡🦄🦈🐒🦪U🦖🐣🦡🐪🦅🦉K🐑🦢JG🦌E🦔🦫🦋E🐂🦄🐄🐩9🐊A🐑🐬🦋🦘🐬🐄🦖L🦐V🦚K🐗🦒🐄🐱7🐍🐯🐔🐋🦨🐣🐒9🐙L🐵🦡🐫🐜🐈Q🐸🐕🦛🐫🐀2🐏🐩🐣🦇🐘🦍🦛
+π in base 142: 3.KFA🐏🐋🐮🐫C🦇🐨🐬s🦐U🐺🐉🦇🐐🐩🐭Kr🦈JG🐰E🐸🦑🐯Ec🐨e🐏9kAr🐒🐯🐼🐒e🐺L🐴V🦀Kx🐶e🐗7n🐕ul🦎🐉s9zL🐛🦇🐑🐂iQ🐞v🦁🐑a2p🐏🐉🐫y🐱🦁fu🐩1whAu🐺🐳🐏🐁i🦈🐜v🐯🐤r🦇21🐰9🐎ZzvLok🐀O🦊🦅🐈f🐸8🦊r🐙🐞🦈4QFY🐟V4C0E🐰3🦆🐺B6n🐐🐷🐝🦉4
 
-π in base 143: 3.KZ🐙W🦄X🦤C🐂CRI🐚🐒4R6🐺🦇🦇🦐🐆🦐🦛4🦉I🐆🦇🐍🐔🦞🦠O4🦕🐡🐞🦇🐚9🐜🦗🦪🐪🦨🦖🦔🦊🦚🦓🦬🐞JN8🦃🦝🐘🦚🐚🐔Z🦊L3CD52🦥🦀🦇🦋🐨🐺07🐬🦣🦢🦪🦅🐎🦏🐊🐑🐝
+π in base 143: 3.KZzW🐨X🦊CcCRI🐀s4R6🐠🐫🐫🐴g🐴🦁4🐭Ig🐫nu🦄🦆O4🐹🐇🐄🐫🐀9🐂🐻🦐🐐🦎🐺🐸🐮🦀🐷🦒🐄JN8🐧🦃y🦀🐀uZ🐮L3CD52🦋🐤🐫🐯🐎🐠07🐒🦉🦈🦐🐩o🐳kr🐃🐄🐨🐧🐫🐷L🐐🐼🐟q🐜🐫2k🐶🦒S🐟🐯G🐖🐴Fe🐞🐕b🐼FjLQ🦇XyB2🐆G🐪🦈🐛IDSgv🐽n🐫🐔🐅I🐎🐼🦀🐝🐣🐀🦋🐰🐼
+
+π in base 144: 3.Ku9vl🐯🐨🐎🐅k🐌D🦓HHz🐺🐅XXA🐞9🦀🐰🐚Pm🦂A🐃T🐔6🐋🐺h🐁🐽🦆🐂🐢🐄s🐪1🐣🐽🐒a🐥VZ🦓🐺🐽🐖🦉Q🐏🐀🐸🐤🐫3🦌🦊🐄🦐mh🐇🦃IU🦐🦁s🐩🐌Kv🦐v🦄Q🐄I🦌o🐟🐔b🐙🐡Q🐹R🐯u🐶🐁🐲l🐩🐍🐘🐄Iq🐘g🦈V🦀P🦆J🐽🐭🐀🐻🐬🐥🐭1zwzGwRb🐈a9🦄🐮🐕🐋🦐🦌🐬🐌Tk🐪🦁Ap
+
+π in base 145: 3.K🐎🦒🦇2K🐤g🦈🐥🐀1vr🐱🐍🐞F🐄🦓rY🦂🐠wz🦀🐠🐛🦔🐘🐦🐢🐴🐙🐐4🦂u🐤🐔5🦐🦄🐘🐶🐄🐟🐦🐀k🐟e🐐🐚🦌1R🐄🦊y🦂I🐳🐑k🐇🐎🐝🐜🐅🐔k🐘b🐐🦋u🐰🐹🐌🐌🐫X🐂🐴VTrf2🐞🦋W🦃🐔🐻h🐔t🦏Wa0c0🦄🐍IHb🐏🐏🦂c🐗C🦂s64Y🐘🐙🐄Q🐖🐷🐈fiH🐠h🦀🐳🦀🐖🐒O🐴🐹🦓🐂y6XR🐩🐴
+
+π in base 146: 3.K🐤R🐘🐷🦇🦌🐬🦂🐠🐚i🦍LZ🐁x🐲🐤🐪🐐🐦🐄E🦊cj🐯🐛🐋p41🐰8🦋🐟t🐪🐺🐴🐖r🐷🐬🐈X🐂zz🐽vA2c🐹🐈Zv🐏🐐🐮🐊m🐇A🦃🦏🐹W🐰🐊X🦊🐬wE🦋🐅🐹3🐌🐥🦄🐌🐖B🦀🦊🦊v🐚3uU🐊h🐳HU🐹🐍🐺hHQ🐳B🐇🦆F🦐e🐎u🐊S🦍🐲🦑3🦀🐍🐄🦎🦀🦐🐔d5yI🐳oA🦔🐴🐤🦓🦌w🐚🦇4bWIh🐴N
+
+π in base 147: 3.K🐹🐥lMftNS4🐢🦔🐌i🐢🐜🐚🐟C🐸T🦆Ur🦏xX🦈🐐r🐡1🐟🐽🦁🐂🐊🦅🐐🐴B🐍🦌🐢🐋🐥🐆TuU1🐵🐔🐀t5🐌a🐂🦈🦓🐈RP🐸E🐱S🐓vJ🐔7🐻o🐻🐂e🦌🦐jLL🐎🐑L🐇eti🐒x7🐮🦖🦉🐂🐨🐁🐒G🐐M🦅x🐑p🦆🦒kxo🐢dG🐄🐂0p🐞🐔e3🐁y2🐣Z🐏🐵🐳🐉🐋F🐎🐝🦉w🐪z🦄R🐮y🐴🐚🐅0🐵🐴
+
+π in base 148: 3.K🦑🐃🦍🦇V🦋b🦄aXE🦆🐪🐇🐮H🦈🐊szJ5qtD🦓🐵🐞🦎wKdU🐲FMGDOE🦌🐜Hl🐛e🐖🐡D🐁🦓🐴🦍Gv🐻🦓🦖🐰🐪🦒e🐍🐒LS🐪v🐘jk5🐰🐐🦋🐂u🐋R🐶B🐛🐂🐊Gi🐄🐹F🐎🦌🐁pme🐔O🐊🐋🐍q🦋CgitC🐃hs🐵sY🦔HR🐬🐓🐽🐂o🐡j🦈🐗j🐙🐊🐽0🦗🐶d🐴🦋🐶J🐮LD🐲q🐪🐜ro🦎🐅🐮
+
+π in base 149: 3.LE🐌fbo🐪1A🦐q🐮l🐩Y6🦂🦎🐲t🐏lA🦕weG🦐🐇🦀bu🐯z🐮🦖🦐jvIPO9🐏i🐭1🐆i🐮M69🦇🦕h🐧🐹p🐮🐢H🐙🐱🐯🐂4🐸sSqYpQyGEn🐓dz🦔O🐈🦗X🐩V🐘🦍6🦈🐵🦐K🐻🐤🦈X🐈🐃F🐕🦄🦖🐪🐓e🐺6N🐱🐀o🐆7🐡Zj🐧TyB🐲🐌🐘J🐠🐎🐍CN🐥cYc🦆🦀U🐍bx1gK5W🐷🦒🐹
+
+π in base 150: 3.LZ🦁U🦇🦖Z🐸🐤O🐦🐟m🐒🦆🐹cT🐱🐄🐽🐧4bodeu🦏AR🦉🐬🐋🦎🐇🐛G🐍🐠🐽U🐴🦇🐏🐃🐴K🐧TA🦂🐻🐱🐽C🐢🐞🦁vF🐽xaB🐴zFbgY🐹🐛🐖Q6R🐠🦑🐓🐱🐶🐘fBU🦙🐰nDt🦁🐸f🐫🐀🐉🐊🐓W🐧Y🐕🦍🐉Yf🦐🐴zjF🐇🐼PZ🐥9🐀oyh🐕🐖🐞🐛LrT🐳🐺🐭B🦔🦘🐧🐢🐆🐧🐁🐃🐭🐔🐘🐱L🦗H🦕o
+
+π in base 151: 3.Lv🐆🐗🐼H🐍f🐺🦍5🐭U🦇🐚An🦕🦄mN🐰🐌🐛Y🐕🐇🐔🐼1🐍1jT🐷4🐔🐧🦃cV🐃🐁🐑3🐧🦆🦅Bk🐅4🦂🦔🐘🐸🐇h🐯🐕🐌🐅g1🦎🐙SM🦐🦑8vNf🦆🐛y9🐰🐆zGa🐲🐐🐺🦔I8Y🦃21E🦗A🐦🐢🦂Q🦃A🐃1y🐏🐄🐵🦘PNQ🦚HNd🐵t🐏7🐦🐜🦎🐵🐹🦚🦃🐪q🦊🐚🐈uq4q🦒🐬🦘🐶q5🦀🐒🦓🐀🐽LF7
+
+π in base 152: 3.L🐑sW🐉🐂🦐🐱🐻F🐦k🦍4wc🦅3🐉🦂w🐹J🦃CH🐇🐢S🐢🐮🐌z🐔🐞🐧🦚y🦙🐲58🦒5🐐🐮🐙🦕🐍n🐷MRd🦒🐮h🐣🐔t0🦈🐤🐴N🐲mdq🐫3🦌Ct🦚🐋Y🐇🐘p🐅GECj🐲🦂🦙🦑🐁🐏🦃🐀🐆9u🦔🐹hd🦗🦈y🐂zE🐖d4u🦉🐢🦅I🐐🐞🐓🐑🦐r🐁Rr🦘🐰🐇🐙🐰🦁🦎🦈🐰🐕3v🦉🐢UwW🐙🦈🐘s🐍8🦌z🐕🐁
+
+π in base 153: 3.L🐧🐔🦛🐬Z🐄y🐫R🐟pFK🐈🐜🐋m🦒R🦃🐋3🦖🦅🐯🐶iJ🐄KZr🐠zv🦈3🐋🐂🦎4🐪🦎🐱🦚🐋🦛O🐃Cxf🐃🐞🐔🦒🦄D🦛🦐🐦🐷🐬02🦆🦈🦙🐸🦂w🦊q🐘🦁D🦎xd🐉🦌🐬🦉y🦚dE🐂🐗🐼🦋🦄🦃4🦇o🐦🐤🐬🐴🐽🦋🦇🐝🐺🐆🐊u🦊4🦗Fu8🦗🐐q🦈t🐥🐝🐪🦈🦛🦗O🐰🦌🦇🐡🦐🐃🦑q🦍Pn🐻7🦅nm🐈Fv🐯h6🦔
+
+π in base 154: 3.L🦀1🐵🐯🐏o🐋🐴🐬🐁🐹🐣UFMm🦅Q🦘🦙YL🐷🐵🐺🦛X🦃🐬🐀WID48W🐩Z🦆Kik🐹🦓4kN🐛u4wBIk🐋D🐞🐫🐣🐤🦄🐎🐴🦍5n🦔🐛🐈🐃🦇e🐰Ziq🐍🦀MsCkJ🐋S🐹🦌🐲🦝🦀k🦈🐹🦆🦚🐐🐧🦖🦖🐐A🐘🐜🐞🦗🐁🦆🐢🐁🐆u🐨🐻I🐥s🐱🐂6e🐟🐒🐗9🦑🐶TCv0N🐓🐏4🐞🐽🦈🐺t🐙🐣🐬🦜3🦌🐈ez🐤
+
+π in base 155: 3.L🦖🐸rM🦈R🐒🐢🦕🦉🦑🐟ZW5🐱🦕xc🐓🐒140🐐8vUc🐽🦃N🐬🦇🦞n3i🐭L🐤🐃g🦌pJ🐙r🐜🐀🐞S4🐛M🐪0🐻F2🐞🐚a🐘g🐈🦜🐽Q🦂I🦛🐁🐚H🐢🐱🦀SN🐧🐅🐪9🦑🦀🐑Z🐘🐈🐇🦛p🦌kV🐘🦔vPRzeh🦆qt🐁🐟🦀🐱🐋S🐈🐨H7E🐏🐢🦂🐱🐸🦔I🦘🦛H83🐤🐗🦈Op🐟1🐅🦓D5q🦓🐇🐆🐳🦈mS
+
+π in base 156: 3.MD🦀🐢4🐔🐥🐥KTE🦁🦔🐆🐑b🐓🐅🦟🐆🐧u🐥🐼🦞🐄🐧🐀c🐗🦄🦂i🐯🐸y🐯3D🐈w🐭H🐳🐲5🦞A🦍🐞🐘KtgQ🐍P🦉8🐘🦗🦃🐝🐵w🐐🐤s🐀🐓W🦚🦛x🐄0🐕🐂MPZ🦏IQrf🦈X🐢1🦒kt🐌🐐🐊v🦃Sh🐳4🐋🐄🐛🐈🦏Oun🐉🐨🦘X🐯🦙x🐻V🐹7🐀OC🐲Bd7yr🦙🦐🦍🦞🐕f🐪🐔5🐧🐵u🦈Ig🐐🐢Af🐔
+
+π in base 157: 3.MaI🐃🐼🐁Yp🐍🐭🐟Q🐩Bj🦎zq🐬W🐅🐕🦅🐶dR🐟🐕uusl🐢G5QwIK🐕🦊🦆xQa🐂🐟🐠🦘🐑🦚EFO🐠h🦑🐁🐏CJ🐕🦎🦂A🦙g🐉z🐪🐞6x🐟1D🐊🐪🦠🐔pT🐀T🐟🦖Z🐸🐴🦅🦙G🦜🐞🦘q🦂JU🦄🐽🐵Kdsa🐽🦉N🐬m🐳🦃🦜tY🐆🐦k🦙🐏🐛🐅e🐲C🐢🐺🦊m🦚🐴X🦗e🦍🐹H🐻vE🦝🐺8🐧🦋🐔n🦖🐏
+
+π in base 158: 3.Mw🐳🐡Y🦚🦠🐎C🦁🐠🐴🐧🐬🐣🦐pER5AL9🦅C7s🐕eF🦁2🐏🐈🦝b🐣🦠🐋G🐕T🐒🦆hi🐰🐶🦘PB6🐃🐌🐀🐖66🐃🐠T🐃🦊M🐁🦋🦋🦍🦙🐔f🐐N🦄h🦅N🐇🦏Co🦁🐎🐵R🐖🦗🦛🦊🦄B🐙N🐲🐼🦘e🦚Do1R🐐🦚🐺🐺🦃🐝k🐗6bHzGC🐑V🦙🦃🦅🐍🦍m🦄🐩🐈S🐊🐻6🐇🦛🐁E🐯F6🐚🐎tk🐮🦉rM🦘🐴I🐓
+
+π in base 159: 3.M🐓🐢2🐝ieP🐫q🐼🐠🐁25H8🐦🐊🐬KFG🐵🦍🐝i🦈🐥🐑J🐘🐂Ie7🐜🐤🐚🦂🐝🐮TR🐑Y🐊🦁Kl🐤🦏🦟k🦏🐇🐎🐵🦇🦞🦝🦠q🐑🦟🐳🦒🦖mB🐤🐉c🦜ND🐙🦏7🐚🐽k🐙🦘v🐠QG🦇sR🦛🐹🦖hS🐎🐵b3h🦙🐫D🦞x🐒k🦢Xe🐰🦖0l🦡🦍🦟p🐱🐡k🐙🐁🦛🦞🦓bG🐜🐅yS🐈hx7fBsPJ🦘🐏g🐺🦊🐶🐈🐩
+
+π in base 160: 3.M🐪🐽🐓🐋9L🦋🦍🐟🐁k🦐🐐🐌🦚🦣🐒T🐇🐦🐹🦄🐋🦔y🐞🐷🐽🐖🐉🐼🐎🐋6o🐱t53🐴🐊🐁🐔k🦋🐊Em🐹🦀u🐟🐚🦘E🐽w🦘K🐩🐄🐁l🐨bj4🐸9🐼🦈🐅y🐵k🦘Lu🐷🦒🦞l🦒🦛🐨U🐋Yf🐸r🦟nh🐞🐁🐑j76🐊v🐹🐌🐸O3🦚🐯s🐒hav🐨Fd🐚🦄🐊j🦒🐚🐝🦁🐡🦌🦢🦅Uq34🐥🐵🐤🦃🦆🦜g🦆🐛🐋🐹🦒Z🐛e🐩
+
+π in base 161: 3.M🦄Z🦙🦒🐝P🐹M🐯l🦄🐊🦆i🦆🐥2🦗h🐣🐍🦣🦈d🦢🐥E🐊U🐱s🐕🐖🦍🐓🐉v30🦠c🐢T🐋🦚🦁D🐬a4J🐔🐑🐱🐈🐢🐖🦅QfEHO🐟🦎ZY8🐼🐛🐁🐸🦆🐒🐝🐏D🦔🦕i🐂B🦘🐙🐗🦓🦠aaaX🦂K0🐢k🐎🦐🦞X🦝🦎🐘🐵🐤🦁🐆🦀🐏O🦒🐶🐪F🦔🐖🐌7🐑j🐍g🐧🐭🐛QI🐹J🦇🦃🐻🐗🦄🦆g🐉🦝n🐆🦠x🦟1🦜p🐴🐎🐮
+
+π in base 162: 3.M🦛🦟Li🐬🐷🐸K🐏nm🐔🐴🐭🐷🐋W🦝🐅S🐢🐛🦉4🦢🦚x🐐🐫🦥🦝🐢🐞🐷DA🦟🦂ia🐋🦓🐇🐧🦆🐼🐵🐀🐦tiq🐢🦑q🦄🐏iRW🐱🦥e🐹Kiv🐅🦋6vKy🐉🐋🐌🐝🦣🦈🐢🦥🐹Q🐰🐨🐲🦔🐗yZ🐲🦈nl🐕🐢🐣🐒🦌🐄🐩🦚x🐷G🐸🐣bI🐰🐬V🐙🦜o🐒em🐹🐙🦗PsW55B🐛3🐤🐬ItSA🦒🦃🐃🐷uM🦛🦣🐶n🐬🦤P🐻
+
+π in base 163: 3.NC🦢🦠🐉🐽🐟🐶o🐻Qg🐍🐔🐛u🐜🐈w🐡🐍🐃🐏🦁🐎GP🦈🦆0p🦢🐳r🐥p🐖🐦🐞🦛🦚🐠P🦝a🦣🦣nq🐧🦉t🐽🐈🐪y🐫🦛XlR🦍y🐳🐌🐃🐏c🦞Tsr🦘🦋OAG🐇s1🦤8🦉qp🐥🐹🦣O🦢🐇A🐶🦖🐢2🦏🐒🐥🐯🦀🐆🐙🐵🐼🦄🐓🐵🦊🐃mWQ🦊🐲cZ🦠🐒🐡🐕5🦐🐎V1X🦏Z🐖1a🦛🐑W🐊v🦚Z🦛I🐸🐔🦂V🐹🐠🐟🐀🦥
+
+π in base 164: 3.Najh🐢🦏R🦍aH🐌🦛VrN🦋🐦🐋🦎🦥🦅S🦆🐐🐻🦂iL🦋🦐🐹🐅9🐠v🐚🐈🦍s🦇kK🦡XRw🦞🐏🐨🐰🐷JQ🐤🐊🐃🦆k🐉🐎5o🐏🐥🦈🐰🐇🦌🦏I🦗🦠🐵🐜🦆🐳jK9🐏🐬🐹J🐒🐤🐷🐵B🦠X🦦UcRis🐬🦝🦇🦣🐸🦙🦋K🦗7jeWa🦤🐪🐈LW🐦🐅🐰QKU7🐢J7🦇cK🦏🦡cv🐔🦉🦕d🐆Pd🦆1🐻🦜🦂🦁🦆C🐑🐼🐢
+
+π in base 165: 3.Nx🦑🦘t🐏7o8W1XX🦌🐥gC🦋🐴🐑🐙0V🦎🐛🦋cFa🐌🐔🦘🦗d🦋🦊🐭a🦚🦅🦁🦎kTN1qI🐫🐷2🦔🦟🦚k1🦤🦇K🐌🐸🐳🦨v🐖g🦀🐜🦗🦔🐂HTF🐠🦅x7Ng🐫🦘z🐋a🐔zW🐳7🦧l7q🦤🐍🐻N🐧🦘🐄d🐳i🐟🐤🦉lF1🐃🦂🐃🐮Qh🐴🐦🦎🐫Ek🐞🦥l🐄🦁🐛Ls🐐🐎🐐🐫🐙🦄I🦦🐔🐃🦂g🦓🐐🐆🐟🐔g8🦐
+
+π in base 166: 3.N🐕🐺🐷🐳🐵E🐂🦓w🐓J🐽🐷🦐🦥iE6🐕ak🐨🐪xL🐊🦈🐹🐐Toq🦦🐃🐬mYF🐚🐓o🦈eGoO🐎🐭🦞o🦇I🐖🐶🐀LB🦞cM🐽🐙3🦒🐷Y🐶🐜🦎🐺🐐IVb🐯L🐷🐋🐲🦆🐴s🐘🦊n🐊g🐑6🐳🐙OT🦒l🦣q🦘🦑🐎3R2a🦥R🐤🐕nQz🐓M🐏🦀🐙1🐑🦍🐴🐙6M🦝🐭🦀lP6🐤🦟🐽🐲🐪Q🐐🦇🦈VqJ3🦉IFvV🐨r
+
+π in base 167: 3.N🐭🦖🐝7N🦅l🐈🐛🐓ufXG🐖🦨🦊🐥🦧🦔k🐴j🐵🐲🐹🦊🦑🐒q🐚🦋🦈q🐉c🦃L🐲X🦃🐥h🐱d🐤🐚🦚🦂🐷F🐩4Y🐯🦙D🦥n🐗🐑🐯🐈🦤M🐐x🦝Y🦇DH🐚s🦇🐯🐊J4W🐵🦂🦒0🐟🐧🦜Y🐤🐦🦁b🐯y🐔🐩d🐣F🦤🐱🐤🦕7🦘🐔🦅Iu🐄M🐤U🐝🐣qg🐷🐴🐪🦤🐱🐋O🐵1x🐍4G🐺8R🐦🐄🐹SJ🐛j🐟e🦃2🦃N7🐍🦑
+
+π in base 168: 3.N🦈qhZ🦤xy🦁g🦕🐢lMiQX🐍🐄🐖🦑🦒3🐆🐖🐻🐨🦌🐧🦄🦐q🦒UR🦀🐉🐏🐣🐥F🦠🐷jVSWuIvTT🐗🦧🐻🐑🦊🦑🐷🦪3🦙z🦂🐵X🐒🦙P🐏S🐓🐙🐫🐆🐊Ui🦨🐂Z🐢🦄🦙🦦YE🐥🐙🐺bv🦩🐠E🦢🐷🦦🐵q8🐳🐖🐊🦖🦠🐼🦜🦃a0ide5w🐤🦘🐞🦛t🦢2z5🐘🦙🦠atm🦛🐑Lelzu🐋🐖🦖🦄🐆🐪8Ervir
+
+π in base 169: 3.N🦡4🐷🐅🦈🦧🐠🐙🦠🦞🐳🦬🦁🐭X🐬🦁i🐵k1🐐d🐑g🦪🐍🦫🦋🐣H🦙🐎r0Q🦢b🐂🐞v🐧🐼🐍🐄🐈🦓🐀🐜🦙🦬czyt🦎🦞🦞🦏🦆m🦚🐨h🦫C3🐜🦒🐣EZ🦖J🐵🐵🦑🐰1h🦤M🐥🐩🐸LF🦁🐉w🦧🦐🦉2🐎🦐E🐵n🦛W🐏🦖x🐯Q🐕🐖🐟🐸yRv🐜🐆hx🦟🐆🦋WR🐤🦩🦁🐇🐈🦣🐼🐒🐐🐸🦈🦬eW🦖🐼🦩O🐕🦙🐇🦇🐪sWM🐢
+
+π in base 170: 3.OC4🐺Y🦌🦀🐌🐔🐣🐙🐽R🐜🦗🐳🐺vx2🦐4O🐴🐭🐲🦤🦂🦪🦬🐕🦁🐣🐆🦁xj🦟🐗🐮🐀🐦🦋🦏9🐩🦧🐲🐌🦫e🐔🐗ox🐩🐬🐀🐴🦞L🐳🐖L🦄🦀🦕t🐽🐯🐨🦭🦇4🐸u🦅🐇🐢🦉🦝q🦊🦣🦊W🦔P🦭Lj🐧Qj🐲🐣🐽L🐖Z🐃🦆🦗🦖🐱🦜🐔fU🐋🐫🐴🦎🐮🦨🐤7iB🐸🐈🦃Z🐸🦡🦐🐇x🐼🦑🦘q🦚🦁j🦔🐽u🦫f🐏r🐬🐈🐳🦠🐗🦎4🦉
 """
