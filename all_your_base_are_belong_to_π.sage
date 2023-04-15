@@ -44,10 +44,10 @@ def frac(m: dict, base: int) -> str:
 
 def convert(m: dict, base: int) -> str:
     suf = frac(m, base)
-    match str(base):
-        case "2":
+    match base:
+        case 2r:
             return "11." + suf[:-1]
-        case "3":
+        case 3r:
             return "10." + suf[:-1]
     return "3." + suf
 
