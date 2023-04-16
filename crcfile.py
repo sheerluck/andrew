@@ -121,8 +121,11 @@ def main(flist=sys.argv[1:]) -> int:
         if os.path.isfile(fn):
             one_file(fn)
         if os.path.isdir(fn):
-            lifted = [os.path.join(fn, a) for a in os.listdir(fn)]
-            main(lifted)
+            try:
+                lifted = [os.path.join(fn, a) for a in os.listdir(fn)]
+                main(lifted)
+            except PermissionError:
+                pass
     return 0
 
 
