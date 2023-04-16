@@ -56,11 +56,11 @@ def one_file(fn) -> int:
     line = "".join(hsh)
     i = int(line)
     name = "crc.combined"
-    print(f"{name:<25}: {int2str(i)[-70:]}")
+    print(f"{name:<17}: {int2str(i)[-77:]}")
 
     for (name, f) in sorted(itertools.chain.from_iterable(crc)):
         if "iso_hdlc" in name or "xz" in name:
-            print(f"{name:<25}: {hex(f(data))[2:]}")
+            print(f"{name:<17}: {hex(f(data))[2:]}")
 
     def sort(p):
         if "xxh3_" in p[0]:
@@ -74,11 +74,11 @@ def one_file(fn) -> int:
     for name, f in sorted(fun, key=sort):
         if "xxh128" in name:
             continue
-        print(f"{name:<25}: {f(data)}")
+        print(f"{name:<17}: {f(data)}")
 
     h = MD4.new()
     name, f = "md4", lambda x: (h.update(x), h.hexdigest())[-1]
-    print(f"{name:<25}: {f(data)}")
+    print(f"{name:<17}: {f(data)}")
 
     def sort(p):
         name, f = p 
@@ -101,18 +101,18 @@ def one_file(fn) -> int:
         except Exception:
             suf = int(name[-3:])
             val = f(data).hexdigest(suf // 8)
-        print(f"{name:<25}: {val}")
+        print(f"{name:<17}: {val}")
         if "md5" in name:
             h = hashlib.new("ripemd160")
             name, f = "hashlib.ripemd160", lambda x: (h.update(x), h.hexdigest())[-1]
-            print(f"{name:<25}: {f(data)}")
+            print(f"{name:<17}: {f(data)}")
 
     h = K12.new()
     for name, f in zip(["K12-512", "blake3-512", "Whirlpool"],
                        [lambda x: (h.update(x), h.read(64).hex())[-1],
                         lambda x:  blake3(x).hexdigest(64),
                         lambda x:  CWhirlpool(x).hexdigest()]):
-        print(f"{name:<25}: {f(data)}")
+        print(f"{name:<17}: {f(data)}")
     return 0
 
 
