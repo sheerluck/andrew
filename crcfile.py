@@ -56,7 +56,7 @@ def one_file(fn) -> int:
     line = "".join(hsh)
     i = int(line)
     name = "crc.combined"
-    print(f"{name:<17}: {int2str(i)[-77:]}")
+    print(f"{name:<17}: {int2str(i)[-64:]}")
 
     for (name, f) in sorted(itertools.chain.from_iterable(crc)):
         if "iso_hdlc" in name or "xz" in name:
