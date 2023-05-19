@@ -4,6 +4,7 @@ import itertools
 from fastcrc import crc16, crc32, crc64
 import xxhash
 import hashlib
+import tlsh
 from blake3 import blake3
 from portage.util.whirlpool import CWhirlpool
 from Crypto.Hash import MD4
@@ -108,10 +109,11 @@ def one_file(fn) -> int:
             print(f"{name:<17}: {f(data)}")
 
     h = K12.new()
-    for name, f in zip(["K12-512", "blake3-512", "Whirlpool"],
+    for name, f in zip(["K12-512", "blake3-512", "Whirlpool", "TLSH"],
                        [lambda x: (h.update(x), h.read(64).hex())[-1],
                         lambda x:  blake3(x).hexdigest(64),
-                        lambda x:  CWhirlpool(x).hexdigest()]):
+                        lambda x:  CWhirlpool(x).hexdigest(),
+                        lambda x:  tlsh.hash(x)]):
         print(f"{name:<17}: {f(data)}")
     return 0
 
