@@ -8,6 +8,7 @@ import galois
 import struct
 from math import ceil
 from rich import print
+from tqdm import tqdm
 from datetime import datetime
 from typing import Any, Final, TypeAlias, Generator
 
@@ -146,7 +147,15 @@ def encode(bch: galois.BCH, fn: str) -> None:
     leb = int4bytes(fsize)
     B32 = to_32(bch, b"".join([leb, leb]))
     C32 = [to_32(bch, b8) for b8 in blice(bfn)]
-    D32 = [to_32(bch, b8) for b8 in blice(content(fn))]
+
+    D32 = []
+    fs = fsize * 4
+    progress = tqdm(total=fs, unit="B", unit_scale=True)
+    for b8 in blice(content(fn)):
+        D32.append(to_32(bch, b8))
+        progress.update(32)
+    progress.close()
+
     to_write = [A32, B32, C32, D32]
     nibs = [nib for nib in flatten(to_write)]
     print(f"✅ we got [red]{len(nibs)}[/red] nibbles")
@@ -205,15 +214,22 @@ def extract_content(bch: galois.BCH,
                     nibs: list[Nibble | int]) -> None:
     print(f"✅ we got [red]{len(nibs)}[/red] nibbles")
     with open(fn, "wb") as f:
-        while nibs:
-            ch = nibs[:32]
-            nibs = nibs[32:]
+        fs = len(nibs) / 4
+        progress = tqdm(total=fs, unit="B", unit_scale=True)
+        ch = []
+        for nib in nibs:
+            ch.append(nib)
+            if len(ch) < 32:
+                continue
             raw = from_32(bch, ch)
             buf = b"".join(raw)
             f.write(buf)
+            progress.update(len(buf))
+            ch = []
 
         f.seek(n)
         f.truncate()
+        progress.close()
 
 
 def decode(bch: galois.BCH) -> None:
