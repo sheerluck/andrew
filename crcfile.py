@@ -9,6 +9,7 @@ from blake3 import blake3
 from portage.util.whirlpool import CWhirlpool
 from Crypto.Hash import MD4
 from Crypto.Hash import KangarooTwelve as K12
+import kerukuro_digestpp
 
 
 def radix(val, base):
@@ -115,6 +116,16 @@ def one_file(fn) -> int:
                         lambda x:  CWhirlpool(x).hexdigest(),
                         lambda x:  tlsh.hash(x)]):
         print(f"{name:<17}: {f(data)}")
+
+    exotic = ["echo", "esch", "groestl", "jh", "kupyna", "skein"]
+    fun = []
+    for f in exotic:
+        for q in ["256", "512"]:
+            pair = f"{f}{q}", eval(f"kerukuro_digestpp.{f}{q}")
+            fun.append(pair)
+    for name, f in fun:
+        print(f"{name:<17}: {f(fn)}")
+
     return 0
 
 
