@@ -102,7 +102,7 @@ def one_file(fn) -> int:
             val = f(data).hexdigest()
         except Exception:
             suf = int(name[-3:])
-            val = f(data).hexdigest(suf // 8)
+            val = f(data).hexdigest(suf // 4 if "shake" in name else 8)
         print(f"{name:<17}: {val}")
         if "md5" in name:
             h = hashlib.new("ripemd160")
