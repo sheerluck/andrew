@@ -10,6 +10,7 @@ from portage.util.whirlpool import CWhirlpool
 from Crypto.Hash import MD4
 from Crypto.Hash import KangarooTwelve as K12
 import kerukuro_digestpp
+import verge
 
 
 def radix(val, base):
@@ -125,6 +126,16 @@ def one_file(fn) -> int:
             fun.append(pair)
     for name, f in fun:
         print(f"{name:<17}: {f(fn)}")
+
+    uncanny = ["bmw", "cubehash", "fugue", "keccak",
+               "luffa", "shabal", "shavite", "simd"]
+    fun = []
+    for f in uncanny:
+        for q in ["256", "512"]:
+            pair = f"{f}{q}", eval(f"verge.{f}{q}")
+            fun.append(pair)
+    for name, f in fun:
+        print(f"{name:<17}: {f(data)}")
 
     return 0
 
